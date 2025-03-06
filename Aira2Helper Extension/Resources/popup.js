@@ -132,7 +132,7 @@ function createAddTaskDialog() {
 	cancelBtn.innerText = "Cancel";
 	confirmBtn.innerText = "Confirm";
 	selectFileBtn.innerText = "Select Torrent File";
-	textarea.placeholder = "Enter URL or drop torrent file here...";
+	textarea.placeholder = "Enter URL or magnet link here...";
 
 	const confirmBtnEvent = (e) => {
 		e.stopPropagation();
@@ -140,7 +140,7 @@ function createAddTaskDialog() {
 		confirmBtn.disabled = true;
 		setTimeout(() => (confirmBtn.disabled = false), 1000);
 		if (!connectionStatus) return showNotification("Can't add task when aria2 is offline", 3000, "error", true);
-		if (!textarea.value || textarea.value.trim() === "") return showNotification("Please enter a URL or drop a torrent file", 3000, "error", true);
+		if (!textarea.value || textarea.value.trim() === "") return showNotification("Please enter a URL or magnet link.", 3000, "error", true);
 		let url = textarea.value.trim();
 		let addTaskType = validateUrlAndPath(url);
 
