@@ -18,7 +18,7 @@ const initSettings = {
 	showBadge: false, // show badge
 	showNotification: true, // show notifications
 	listenDownloads: false, // listen downloads
-	extensionsValue: "exe,zip,rar,tar,gz,7z,dmg,pkg,apk,iso,img,pdf,doc,docx,xls,xlsx,ppt,pptx,mp3,mp4,avi,mkv,jpg,png,gif",
+	extensionsValue: "exe,zip,rar,tar,gz,7z,dmg,pkg,apk,iso,img,sig,zst,bz2,xz,pdf,doc,docx,xls,xlsx,ppt,pptx,mp3,mp4,avi,mkv,jpg,png,gif",
 	extensions: [
 		".exe",
 		".zip",
@@ -31,6 +31,10 @@ const initSettings = {
 		".apk",
 		".iso",
 		".img",
+		".sig",
+		".zst",
+		".bz2",
+		".xz",
 		".pdf",
 		".doc",
 		".docx",
@@ -272,7 +276,7 @@ function setupEventListeners() {
 		settings.showBadge = e.target.checked;
 		saveSettings();
 	});
-	
+
 	document.getElementById("show-notification").addEventListener("click", (e) => {
 		settings.showNotification = e.target.checked;
 		saveSettings();
