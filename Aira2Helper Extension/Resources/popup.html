@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="popup.css">
-    <script type="module" src="popup.js"></script>
-</head>
-<body>
-    <strong>Hello World!</strong>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="popup.css" />
+		<script type="module" src="popup.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="title">Aria2Helper</div>
+			<div class="header-right"></div>
+			<div class="header-left"></div>
+		</div>
+		<div class="navbar">
+			<div class="navbar-left"></div>
+			<div class="navbar-right"></div>
+		</div>
+		<div id="notification" class="notification"></div>
+		<div id="dialogue" class="dialogue"></div>
+		<div id="downloadList" class="downloadList"></div>
+		<div id="noTask" class="no-task">
+			<div id="noTaskIcon" class="no-task-icon"></div>
+			<div id="noTaskText" class="no-task-text">Initializing...</div>
+		</div>
+	</body>
 </html>

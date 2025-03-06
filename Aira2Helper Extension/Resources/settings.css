@@ -1,0 +1,270 @@
+/* Normal */
+:root {
+	color-scheme: light dark;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--theme-color: rgba(98, 187, 68, 1);
+	--theme-color-dark: rgba(98, 187, 68, 1);
+	--bg-primary: #eee;
+	--bg-primary-dark: #333;
+	--bg-secondary: #f5f5f5;
+	--bg-secondary-dark: #222;
+	--bg-tertiary: #e5e5e5;
+	--bg-tertiary-dark: #333;
+	--text-primary: #333;
+	--text-primary-dark: #fff;
+	--text-secondary: #666;
+	--text-secondary-dark: #aaa;
+	--text-tertiary: #999;
+	--text-tertiary-dark: #666;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--theme-color: var(--theme-color-dark);
+		--bg-primary: var(--bg-primary-dark);
+		--bg-secondary: var(--bg-secondary-dark);
+		--bg-tertiary: var(--bg-tertiary-dark);
+		--text-primary: var(--text-primary-dark);
+		--text-secondary: var(--text-secondary-dark);
+		--text-tertiary: var(--text-tertiary-dark);
+	}
+}
+
+body {
+	font-family: system-ui;
+	line-height: 1.6;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 40px;
+}
+
+h2 {
+	font-size: 2rem;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+/* not work ? */
+input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
+	visibility: hidden;
+	display: none !important;
+	pointer-events: none;
+	height: 0;
+	width: 0;
+	margin: 0;
+}
+
+/* container */
+.settings-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 20px;
+	max-width: 800px;
+	width: 100%;
+	margin: 0 auto;
+	background: var(--bg-primary);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* tabs */
+.profile-tabs {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.tab {
+	position: relative;
+	padding: 10px 20px;
+	font-size: 15px;
+	border: 1px solid var(--text-tertiary);
+	border-radius: 4px;
+	cursor: pointer;
+	background-color: var(--bg-secondary);
+	transition: all 0.2s ease;
+}
+
+.tab:hover {
+	background-color: var(--bg-tertiary);
+}
+
+.tab.active {
+	color: white;
+	background-color: var(--theme-color);
+	border-color: var(--theme-color);
+}
+
+.tab.default::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background-color: var(--theme-color);
+	border-radius: 2px;
+	transition: all 0.2s ease;
+	/* border: 2px solid #2ecc71;
+	font-weight: bold; */
+}
+
+/* form */
+.form-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.settings-form {
+	width: 100%;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+	border-color: #3498db;
+	outline: none;
+}
+
+.password-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.password-wrapper input[type="password"] {
+	flex: 1;
+}
+
+.header-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	gap: 10px;
+}
+
+/* 按钮样式 */
+.btn {
+	display: inline-block;
+	padding: 10px 20px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+	background-color: #3498db;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	text-wrap: nowrap;
+}
+
+.btn:hover {
+	background-color: #2980b9;
+}
+
+.btn.red {
+	background-color: #e74c3c;
+}
+
+.btn.red:hover {
+	background-color: #c0392b;
+}
+.btn.blue {
+	background-color: #3498db;
+}
+.btn.blue:hover {
+	background-color: #2980b9;
+}
+
+.btn:active {
+	background-color: #2980b9;
+}
+
+.btn:disabled {
+	background-color: #ddd;
+	cursor: not-allowed;
+}
+
+.btn:hover {
+	background-color: #1a5276;
+}
+
+.btn-secondary {
+	background-color: #95a5a6;
+}
+
+.btn-secondary:hover {
+	background-color: #7f8c8d;
+}
+.btn:disabled {
+	background-color: var(--bg-primary);
+	cursor: not-allowed;
+}
+
+/* Tab */
+@media (prefers-color-scheme: dark) {
+	/* Dark Mode styles go here. */
+	body {
+		background-color: transparent;
+	}
+	.container {
+		background: #333;
+	}
+	h1 {
+		color: #ddd;
+	}
+	label {
+		color: #ddd;
+	}
+
+	.btn {
+		background-color: #566171;
+	}
+	.btn:active {
+		background-color: #768495;
+	}
+}
