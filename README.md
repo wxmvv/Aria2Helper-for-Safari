@@ -1,7 +1,5 @@
 # Aria2Helper-for-Safari
 
-![<img src="https://raw.githubusercontent.com/wxmvv/Aira2Helper-for-Safari/refs/heads/main/Aira2Helper%20Extension/safari_icon.png" width="48" alt="Safari" valign="middle">](https://apps.apple.com/us/app/aria2helper/id6742623503#?platform=mac)
-
 Aria2Helper is a Safari extension that enhances your browsing and download experience by integrating with the aria2 service.
 
 Features:
