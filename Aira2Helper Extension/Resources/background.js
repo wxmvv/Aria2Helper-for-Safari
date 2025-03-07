@@ -381,7 +381,6 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 		// request
 		const res = await sendAria2Request("aria2.addUri", [`token:${Aria2Info.rpcSecret}`, [downloadUrl]]);
 		// "application.id"  is not necessary in Safari
-		console.log(res);
 		if (res.ok) {
 			console.log("AddUri Success", res);
 			updateBadge();

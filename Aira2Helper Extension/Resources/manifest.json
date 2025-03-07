@@ -36,7 +36,7 @@
 
 	"web_accessible_resources": ["background.js", "content.js", "images/*", "popup.html", "settings.html"],
 
-	"permissions": ["nativeMessaging", "devtools", "fileSystem", "storage", "contextMenus", "activeTab", "notifications", "alert", "webRequest"],
+	"permissions": ["nativeMessaging", "storage", "contextMenus", "activeTab", "notifications", "alert"],
 	"host_permissions": ["<all_urls>"],
 	"optional_permissions": ["<all_urls>"],
 

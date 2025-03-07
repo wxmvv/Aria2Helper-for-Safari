@@ -37,10 +37,13 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
         // MARK sendNativeMessage API
         let messageDict = message as? [String: String]
         
+        // BUG some bug here
+// https://stackoverflow.com/questions/58370550/unusernotificationcenter-notifications-are-not-allowed-for-this-application
+        // https://developer.apple.com/forums/thread/764852
         if messageDict?["message"] == "open-notification" {
-            UNUserNotificationCenter.current().requestAuthorization(options: [
-                .alert, .sound, .badge, .provisional,
-            ]) { success, error in
+            var result : Any?
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert,.sound, .badge,.provisional]) { success, error in
                 if success == true {
                     let content = UNMutableNotificationContent()
                     content.title = messageDict?["title"] ?? "no title"
@@ -51,9 +54,18 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
                     let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
                     let request = UNNotificationRequest(
                         identifier: UUID().uuidString, content: content, trigger: trigger)
-                    UNUserNotificationCenter.current().add(request) { error in
+                    center.add(request) { error in
+                        print("ok")
+                        result = error
                     }
+                } else {
+                    print("no")
                 }
+            }
+            if #available(iOS 15.0, macOS 11.0, *) {
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": result] ]
+            } else {
+                response.userInfo = [ "message": [ "echo": message, "result": result ] ]
             }
         }
         
@@ -180,6 +192,32 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
     }
     
 }
+
+
+//func openNotification(title:String = "title",subtitle:String = "subtitle",body:String = "body") async{
+//    let center = UNUserNotificationCenter.current()
+//    
+//    do {
+//        if try await center.requestAuthorization(options: [.alert, .sound, .badge]) == true {
+//            let content = UNMutableNotificationContent()
+//            content.title = title//messageDict?["title"] ?? "no title"
+//            content.subtitle = subtitle//messageDict?["subtitle"] ?? "no subtitle"
+//            content.sound = UNNotificationSound.default
+//            content.body = body//messageDict?["body"] ?? "no body"
+//            // show this notification one seconds from now
+//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+//            let request = UNNotificationRequest(
+//                identifier: UUID().uuidString, content: content, trigger: trigger)
+//            try await UNUserNotificationCenter.current().add(request)
+//        } else {
+//            print("fail")
+//        }
+//        
+//    } catch {
+//        print("Error")
+//    }
+//    
+//}
 
 
 //func createURL(from string: String) -> URL? {
