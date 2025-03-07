@@ -22,4 +22,4 @@ addressed yet, [please open a new issue](https://github.com/wxmvv/Aira2Helper-fo
 
 ## License
 
-[MIT License](https://github.com/wxmvv/Aira2Helper-for-Safari/main/LICENSE).
+[MIT License](https://github.com/wxmvv/Aira2Helper-for-Safari/blob/main/LICENSE.txt).
