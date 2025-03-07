@@ -2,6 +2,9 @@
 // [Doc] https://aria2.document.top/zh/aria2c.html#aria2.addUri
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	let result = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
+	if (!result.defaultProfileId) return await sendResponse({ error: "no default profile", code: 1 });
+	if (!result.currentProfileId) return await sendResponse({ error: "no currentProfileId profile", code: 2 });
+	if (!result.profiles) return await sendResponse({ error: "no profiles", code: 3 });
 	let Aria2Info = result.profiles[result.defaultProfileId]; // ["rpcHost", "rpcPort", "rpcSecret"]
 
 	// MARK browser API
@@ -61,6 +64,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		const res = await sendAria2Request(method, params);
 		if (res === "error") await sendResponse("error"), console.log("failed to add download");
 	}
+
 	// remove
 	if (message.api === "aria2_remove" && message.gid) {
 		const res = await sendAria2Request("aria2.remove", [`token:${Aria2Info.rpcSecret}`, message.gid]);
@@ -406,6 +410,10 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 // MARK Badge
 function updateBadge() {
 	browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]).then((result) => {
+		if (result.error) return browser.action.setBadgeText({ text: "" });
+		if (!result.defaultProfileId) return browser.action.setBadgeText({ text: "" });
+		if (!result.currentProfileId) return browser.action.setBadgeText({ text: "" });
+		if (!result.profiles) return browser.action.setBadgeText({ text: "" });
 		let Aria2Info = result.profiles[result.defaultProfileId];
 		let showBadge = result.settings.showBadge || false;
 		if (showBadge) {

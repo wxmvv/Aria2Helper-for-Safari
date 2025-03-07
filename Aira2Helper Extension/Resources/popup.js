@@ -22,22 +22,32 @@ function initProfile() {
 		// check connection status
 		let leftEl = document.querySelector(".navbar-left");
 
-		// connect indicator
-		let connectIndicatorEl = document.createElement("div");
-		connectIndicatorEl.className = "connect-indicator";
-		let selectProfileEl = document.createElement("div");
-		selectProfileEl.className = "select-profile";
-
 		// select btn
-		if (!result || !result.profiles) {
-			let initProfileBtn = document.createElement("button");
-			initProfileBtn.className = "btn";
-			initProfileBtn.innerText = "Add Aria2 connection";
-			initProfileBtn.addEventListener("click", () => browser.runtime.openOptionsPage());
-
-			leftEl.appendChild(initProfileBtn);
+		if (result.error && result.code == 1) console.log("[init profile error] ", result.error);
+		if (!result || !result.profiles || result.error) {
+			if (document.getElementById("init-profile-btn")) return; // already init
+			else {
+				let initProfileBtn = document.createElement("button");
+				initProfileBtn.className = "btn";
+				initProfileBtn.id = "init-profile-btn";
+				initProfileBtn.innerText = "Add Aria2 connection";
+				initProfileBtn.addEventListener("click", () => browser.runtime.openOptionsPage());
+				leftEl.innerHTML = "";
+				leftEl.appendChild(initProfileBtn);
+				// arrow
+				arrow.show();
+			}
 		} else {
+			// connect indicator
+			let connectIndicatorEl;
+			let selectProfileEl;
+			connectIndicatorEl = document.createElement("div");
+			connectIndicatorEl.className = "connect-indicator";
+			selectProfileEl = document.createElement("div");
+			selectProfileEl.className = "select-profile";
+
 			let selectEl = document.createElement("select");
+			selectEl.id = "select-profile";
 			for (let profileId of Object.keys(result.profiles)) {
 				let profileName = result.profiles[profileId].alias;
 				let optionEl = document.createElement("option");
@@ -61,6 +71,7 @@ function initProfile() {
 
 			selectProfileEl.appendChild(symbolEl);
 			selectProfileEl.appendChild(selectEl);
+			leftEl.innerHTML = "";
 			leftEl.appendChild(selectProfileEl);
 			leftEl.appendChild(connectIndicatorEl);
 		}
@@ -483,9 +494,10 @@ function updateDownloadItemElement(el, i) {
 }
 
 function updateList(response) {
-	// if error return
-	console.log("test2", response);
-	if (response === "error" || !response) showNoTaskElement("Unable to connect to Aria2 service...");
+	// init error
+	if (response.error && response.code === 1) return showNoTaskElement("Please add Aria2 service first.");
+	else arrow.hide();
+	if (response === "error" || !response) return showNoTaskElement("Unable to connect to Aria2 service...");
 
 	// get list from response && concat two result
 	let tellActiveList = response.result[0][0] || [];
@@ -559,6 +571,98 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // MARK components
+
+const arrow = createIndicatorArrow({
+	container: document.body,
+	left: "20%",
+	top: "76px",
+});
+function createIndicatorArrow(options = {}) {
+	const container = options.container || document.body;
+	let left = options.left || "50%"; // 默认居中
+	let top = options.top || "20px"; // 默认顶部20px
+	let element = null;
+	let isActive = false;
+
+	// 创建箭头元素的内部函数
+	function createElement() {
+		element = document.createElement("div");
+		element.style.cssText = `
+            position: absolute;
+            width: 12px;
+            height: 20px;
+            left: ${left};
+            top: ${top};
+            transform: translateX(-50%);
+            z-index: 1000;
+            animation: slide 1.5s infinite ease-in-out;
+            /* 箭头样式 */
+            background: linear-gradient(180deg,rgb(139, 56, 56) 0%, #ff3333 100%);
+            clip-path: polygon(50% 0%, 0% 70%, 25% 70%, 25% 100%, 75% 100%, 75% 70%, 100% 70%);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        `;
+
+		// 添加弹跳动画的 keyframes
+		const styleSheet = document.createElement("style");
+		styleSheet.textContent = `
+            @keyframes slide {
+                0% {
+                    transform: translateX(-50%) translateY(0);
+                }
+                50% {
+                    transform: translateX(-50%) translateY(-8px);
+                }
+                100% {
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+        `;
+		document.head.appendChild(styleSheet);
+
+		container.appendChild(element);
+	}
+
+	// 返回控制对象
+	return {
+		show: function () {
+			if (!element) {
+				createElement();
+			}
+			element.style.display = "block";
+			isActive = true;
+		},
+
+		hide: function () {
+			if (element) {
+				element.style.display = "none";
+			}
+			isActive = false;
+		},
+
+		updatePosition: function (newLeft, newTop) {
+			left = newLeft || left;
+			top = newTop || top;
+			if (element) {
+				element.style.left = left;
+				element.style.top = top;
+			}
+		},
+
+		destroy: function () {
+			if (element) {
+				element.remove();
+				element = null;
+				isActive = false;
+			}
+		},
+
+		isActive: function () {
+			return isActive;
+		},
+	};
+}
+
 // notification
 let notificationTimeout = null; // save notification timeout
 let textareaTimeout = null;
