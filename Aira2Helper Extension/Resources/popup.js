@@ -2,7 +2,7 @@
 let connectionStatus = false;
 function updatedConnectionStatus() {
 	browser.runtime.sendMessage({ api: "aria2_getVersion" }, (response) => {
-		if (response === "error") {
+		if (response === "error" || !response) {
 			document.documentElement.style.setProperty("--connection-status-color", "var(--disconnect-color)");
 			document.querySelector(".connect-indicator").style.animation = "none";
 			connectionStatus = false;
@@ -201,6 +201,7 @@ function createAddTaskDialog() {
 				if (result.result === "canceled") return showNotification("cancel select file", 3000, "info");
 				if (result && result.result && result.result !== "") {
 					textarea.value = result.path;
+					textareaInfo.innerText = validateUrlAndPath(textarea.value.trim());
 					// textarea.disabled = true;
 				}
 			}
@@ -483,6 +484,7 @@ function updateDownloadItemElement(el, i) {
 
 function updateList(response) {
 	// if error return
+	console.log("test2", response);
 	if (response === "error" || !response) showNoTaskElement("Unable to connect to Aria2 service...");
 
 	// get list from response && concat two result
@@ -548,7 +550,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const refreshInterval = setInterval(() => {
 		updatedConnectionStatus();
 		fetchDownloadList();
-	}, 1000);
+	}, 1500);
 
 	// clear interval on page close
 	window.addEventListener("beforeunload", () => {
