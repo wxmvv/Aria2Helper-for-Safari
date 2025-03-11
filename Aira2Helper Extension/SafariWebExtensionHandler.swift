@@ -80,6 +80,8 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
             }
         }
         
+        
+        
         if messageDict?["message"] == "select-torrent" {
             NSApplication.shared.setActivationPolicy(.accessory)
             let openPanel = NSOpenPanel()

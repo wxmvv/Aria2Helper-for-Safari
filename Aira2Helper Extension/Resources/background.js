@@ -463,6 +463,13 @@ async function sendAria2Request(method, params, isHttps) {
 	}
 }
 
+async function websocketSendAria2Request(method, params, isHttps) {
+	let settings = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
+	let Aria2Info = settings.profiles[settings.defaultProfileId];
+	if (!isHttps) isHttps = Aria2Info.rpcIshttps;
+	if (!isHttps) isHttps = false;
+}
+
 // MARK Util
 function validateBase64(str) {
 	// check if str is a string and not empty
@@ -504,6 +511,13 @@ function getFileParts(filename) {
 		nameWithoutExtension: filename.slice(0, lastDotIndex),
 	};
 }
+
+
+
+
+
+
+
 // Scrap
 
 // listen to download start event

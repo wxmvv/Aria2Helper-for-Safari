@@ -1,6 +1,3 @@
-// MARK
-
-let listener;
 let skipNextClick = false; // 新增标志位，用于跳过下一次点击处理
 
 browser.storage.local.get(["settings"]).then((result) => {
@@ -8,7 +5,7 @@ browser.storage.local.get(["settings"]).then((result) => {
 	if (settings && settings.listenDownloads) {
 		console.log("[Aria2HelpFer] start to listen downloads");
 		// listener = document.addEventListener("click", function (event) {
-		listener = (event) => {
+		let listener = (event) => {
 			// 如果标志位为 true，则跳过处理，让浏览器执行默认行为
 			if (skipNextClick) {
 				console.log("[Aria2HelpFer] skipping this click due to Aria2 failure");
