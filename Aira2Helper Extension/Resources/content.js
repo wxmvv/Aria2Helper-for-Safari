@@ -1,34 +1,31 @@
-let skipNextClick = false; // 新增标志位，用于跳过下一次点击处理
+let skipNextClick = false;
 
 browser.storage.local.get(["settings"]).then((result) => {
 	let settings = result.settings;
 	if (settings && settings.listenDownloads) {
 		console.log("[Aria2HelpFer] start to listen downloads");
-		// listener = document.addEventListener("click", function (event) {
+
 		let listener = (event) => {
-			// 如果标志位为 true，则跳过处理，让浏览器执行默认行为
 			if (skipNextClick) {
-				console.log("[Aria2HelpFer] skipping this click due to Aria2 failure");
-				skipNextClick = false; // 重置标志位
+				skipNextClick = false;
 				return;
 			}
 			let target = event.target;
 			while (target && target.nodeName !== "A") target = target.parentElement;
 			if (target && target.nodeName === "A") {
-				// console.log("[Aria2HelpFer] is link", target, target.href, settings.extensions, isDownloadLink(target.href, settings.extensions));
 				if (isDownloadLink(target.href, settings.extensions)) {
-					// MARK block default
+					// block default
 					event.preventDefault();
 					const fileparts = getFileParts(target.href);
 
-					// MARK post to aria2 server
+					// post to aria2 server
 					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
 						if (response === "error") {
-							// MARK error
+							// error
 							console.log("[aria2HelpFer] error to connect aria2 server");
-							// 设置标志位并触发默认行为
+							// Set flag and trigger default behavior
 							skipNextClick = true;
-							target.click(); // 直接调用原始元素的 click 方法
+							target.click(); // click the link again
 							if (settings.showNotification)
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
 						} else {
@@ -38,12 +35,12 @@ browser.storage.local.get(["settings"]).then((result) => {
 					});
 				}
 			} else {
-				console.log("[Aria2HelpFer] not download link");
+				// not download link
 			}
 		};
 		document.addEventListener("click", listener);
 	} else {
-		console.log("[Aria2HelpFer] not listen downloads");
+		// not listen downloads
 	}
 });
 
