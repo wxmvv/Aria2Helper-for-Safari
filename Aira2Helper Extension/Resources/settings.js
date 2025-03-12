@@ -14,6 +14,7 @@ const initProfiles = {
 		isDefault: true,
 	},
 };
+
 const initSettings = {
 	showBadge: false, // show badge
 	showNotification: true, // show notifications
@@ -51,6 +52,7 @@ const initSettings = {
 		".gif",
 	],
 };
+
 const initCurrentProfileId = "init";
 const initDefaultProfileId = "init";
 let extensionsChangeFlag = false;

@@ -1,21 +1,11 @@
-/* Normal */
-:root {
-	color-scheme: light dark;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
 /* Setting */
 :root {
+	color-scheme: light dark;
 	/* theme color */
 	/* rgba(98, 187, 68, 1) #62bb44 */
 	/* rgba(0, 136, 255, 1) #0088ff */
-	--theme-color: rgba(98, 187, 68, 1);
-	--theme-color-dark: rgba(98, 187, 68, 1);
+	--theme-color: rgba(98, 187, 68, 0.8);
+	--theme-color-dark: rgba(98, 187, 68, 0.8);
 
 	/* text-color */
 	--text-color: #000000;
@@ -42,9 +32,6 @@
 	--status-active-color: rgba(0, 0, 0, 0.8);
 	--status-active-color-dark: rgba(255, 255, 255, 0.8);
 
-	/* progress width base, progress width = --progress-width-base * 100 */
-	--progress-width-base: 2.1px;
-
 	/* progress color */
 	--progress-color: var(--theme-color);
 	--progress-color-dark: var(--theme-color-dark);
@@ -52,15 +39,13 @@
 	--progress-bg-color: rgba(128, 128, 128, 0.2);
 	--progress-bg-color-dark: rgba(128, 128, 128, 0.2);
 
-	/* item actions */
-	/* --item-actions: rgba(147, 147, 147, 1); */
-	/* --item-actions-active: rgba(201, 201, 201, 1); */
-}
-:root {
+	/* connection status color */
+	--connection-status-color: 111, 111, 111;
+	--connect-color: 0, 196, 180; /* #00C4B4  rgba( 0, 196, 180, 1 ) */
+	--disconnect-color: 255, 107, 107; /* #FF6B6B  rgba( 255, 107, 107, 1 ) */
+
 	/* width */
-	/* 需配合equalizeWidths */
-	/* --downloadList-width: 100%; */
-	--downloadList-width: 480px;
+	--downloadList-width: 440px;
 	--item-width: 100%;
 	--item-info-width: calc(var(--item-width) - 108px);
 }
@@ -85,6 +70,12 @@
 }
 
 * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+* {
 	background-color: transparent;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -100,8 +91,6 @@ body {
 	align-items: center;
 	text-align: center;
 	width: var(--downloadList-width);
-	/* gap: 15px; */
-	/* padding: 10px; */
 }
 
 button {
@@ -109,13 +98,6 @@ button {
 	outline: none;
 	background-color: transparent;
 	cursor: pointer;
-}
-
-:root {
-	/* connection status color */
-	--connection-status-color: 111, 111, 111;
-	--connect-color: 0, 196, 180; /* #00C4B4  rgba( 0, 196, 180, 1 ) */
-	--disconnect-color: 255, 107, 107; /* #FF6B6B  rgba( 255, 107, 107, 1 ) */
 }
 
 @keyframes breathe {
@@ -161,16 +143,13 @@ select {
 	padding: 2px 16px 2px 6px;
 	font-size: 13px; /* small 13px */
 	font-weight: 500;
-	/* outline: none !important;  去掉选择框*/
-	transition: background-color 0.3s ease; /* 平滑颜色切换 */
-	/* 呼吸效果 */
+	/* outline: none !important;  remove default */
+	transition: background-color 0.3s ease; /* smooth */
 	/* animation: breathe 2s infinite ease-in-out;  */
 }
 .arrowdown-icon {
 	position: absolute;
 	right: 6px;
-	/* top: 50%; */
-	/* transform: translateY(-50%) */
 	background-color: var(--text-color);
 	-webkit-mask-image: url("images/symbol/arrowtriangle.down.fill.svg");
 	mask-image: url("images/symbol/arrowtriangle.down.fill.svg");
@@ -207,9 +186,7 @@ select {
 	align-items: center;
 	justify-content: flex-start;
 	padding: 12px 12px 2px 12px;
-	/* justify-content: center; */
 	width: 100%;
-	/* min-width: 328px; */
 	margin-bottom: 15px;
 }
 .header .title {
@@ -300,18 +277,14 @@ select {
 .dialogue {
 	padding: 0px 10px;
 	width: 100%;
-	/* height: 0; */
 	max-height: 0px;
 	overflow: hidden;
 	opacity: 0;
 	transition: all 0.3s ease-in-out;
 }
 .dialogue.show {
-	/* height: auto; */
 	max-height: 200px;
 	opacity: 1;
-	/* 当两侧padding为10 才会显示选中边框 */
-	/* padding: 8px 10px; */
 	margin-bottom: 15px;
 }
 .addtask-dialogue {
@@ -359,8 +332,7 @@ select {
 	border-radius: 8px;
 }
 textarea {
-	/* position: relative; */
-	resize: none; /* 无法调整宽度 */
+	resize: none; /* resize */
 	width: 100%;
 	height: 100px;
 	padding: 10px;
@@ -381,34 +353,20 @@ textarea {
 	border: 1px solid rgba(255, 255, 255, 0.4);
 	background: rgba(255, 255, 255, 0.3);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	/* backdrop-filter: blur(1px); 会变糊 */
-	/* -webkit-backdrop-filter: blur(10px); 会变糊*/
+	/* backdrop-filter: blur(1px);  error effect  */
+	/* -webkit-backdrop-filter: blur(10px); error effect*/
 	max-width: 85%;
-	max-height: 0; /* height: 0;  不使用height:0 解决消失动画问题*/
+	max-height: 0;
 	border-radius: 8px;
 	opacity: 0;
 	transition: all 0.3s ease-in-out;
-	/* animation: float 3s ease-in-out infinite; */
-	/* 超出用省略号 */
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-/* 漂浮动画 keyframes */
-/* @keyframes float {
-	0% {
-		transform: translateY(0);
-	}
-	50% {
-		transform: translateY(-10px);
-	}
-	100% {
-		transform: translateY(0);
-	}
-} */
 
 .notification.show {
-	max-height: 80px; /* 不使用height: auto; 解决消失动画问题 */
+	max-height: 80px;
 	opacity: 1;
 	padding: 8px 10px;
 	margin-bottom: 15px;
@@ -426,7 +384,6 @@ textarea {
 	max-width: 540px;
 	min-width: 348px;
 	width: var(--downloadList-width);
-	/* width: fit-content; */
 	overflow-y: scroll;
 	padding: 0 10px 10px 10px;
 }
@@ -538,10 +495,9 @@ textarea {
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	/* width = item - 32icon - 10+36:actions - 30:itempadding */
 	max-width: 412px;
 	margin-left: 10px;
-	width: var(--item-info-width);
+	width: var(--item-info-width); /* width = item - 32icon - 10+36:actions - 30:itempadding */
 	gap: 4px;
 	flex: 1;
 }
@@ -550,11 +506,8 @@ textarea {
 	flex-direction: row;
 	font-size: 14px;
 	font-weight: 400;
-	/* line-height: 18px; */
 	height: 18px;
 	text-align: left;
-	/* MARK */
-	/* width: calc(var(--progress-width-base) * 100); */
 	width: 100%;
 }
 .item-info-name-name {
@@ -571,10 +524,8 @@ textarea {
 .item-info-gid {
 	font-size: 14px;
 	font-weight: 400;
-	/* line-height: 18px; */
 	height: 18px;
 	text-align: left;
-	/* width: calc(var(--progress-width-base) * 100); */
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -583,7 +534,6 @@ textarea {
 	font-size: 12px;
 	font-weight: 400;
 	text-align: left;
-	/* width: calc(var(--progress-width-base) * 100); */
 	width: 100%;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -598,7 +548,6 @@ textarea {
 .item-info-progress-bg {
 	position: relative;
 	z-index: 1;
-	/* width: calc(var(--progress-width-base) * 100); */
 	width: 100%;
 	height: 4px;
 	background-color: var(--progress-bg-color);
@@ -619,7 +568,7 @@ textarea {
 }
 .item-info-progress.infinity {
 	width: 40% !important;
-	animation: 2s ease-in-out 0s infinite alternate progressmove; /* 动画效果 */
+	animation: 2s ease-in-out 0s infinite alternate progressmove;
 }
 
 .item.active .item-info-progress {
@@ -718,9 +667,4 @@ textarea {
 .item.active .item-actions .btn-stop-icon:active,
 .item.active .item-actions .btn-open-icon:active {
 	background-color: rgba(200, 200, 200, 0.6);
-}
-
-/*Dark*/
-@media (prefers-color-scheme: dark) {
-	/* Dark Mode styles go here. */
 }

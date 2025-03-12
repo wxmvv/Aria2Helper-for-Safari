@@ -178,15 +178,6 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	flex: 1;
 }
 
-.header-actions {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	gap: 10px;
-}
-
 /* 按钮样式 */
 .btn {
 	display: inline-block;

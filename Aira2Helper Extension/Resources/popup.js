@@ -1,3 +1,139 @@
+// MARK components
+
+// guide arrow
+const arrow = createIndicatorArrow({
+	container: document.body,
+	left: "20%",
+	top: "76px",
+});
+function createIndicatorArrow(options = {}) {
+	const container = options.container || document.body;
+	let left = options.left || "50%"; // default center
+	let top = options.top || "20px"; // defaut top
+	let element = null;
+	let isActive = false;
+
+	function createElement() {
+		element = document.createElement("div");
+		element.style.cssText = `
+            position: absolute;
+            width: 12px;
+            height: 20px;
+            left: ${left};
+            top: ${top};
+            transform: translateX(-50%);
+            z-index: 1000;
+            animation: slide 1.5s infinite ease-in-out;
+            /* 箭头样式 */
+            background: linear-gradient(180deg,rgb(139, 56, 56) 0%, #ff3333 100%);
+            clip-path: polygon(50% 0%, 0% 70%, 25% 70%, 25% 100%, 75% 100%, 75% 70%, 100% 70%);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        `;
+
+		const styleSheet = document.createElement("style");
+		styleSheet.textContent = `
+            @keyframes slide {
+                0% {
+                    transform: translateX(-50%) translateY(0);
+                }
+                50% {
+                    transform: translateX(-50%) translateY(-8px);
+                }
+                100% {
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+        `;
+		document.head.appendChild(styleSheet);
+
+		container.appendChild(element);
+	}
+
+	return {
+		show: function () {
+			if (!element) {
+				createElement();
+			}
+			element.style.display = "block";
+			isActive = true;
+		},
+
+		hide: function () {
+			if (element) {
+				element.style.display = "none";
+			}
+			isActive = false;
+		},
+
+		updatePosition: function (newLeft, newTop) {
+			left = newLeft || left;
+			top = newTop || top;
+			if (element) {
+				element.style.left = left;
+				element.style.top = top;
+			}
+		},
+
+		destroy: function () {
+			if (element) {
+				element.remove();
+				element = null;
+				isActive = false;
+			}
+		},
+
+		isActive: function () {
+			return isActive;
+		},
+	};
+}
+
+// notification
+let notificationTimeout = null; // save notification timeout
+let textareaTimeout = null;
+function showNotification(message, duration = 3000, type = "custom", withTextarea = false, backgroundColor = "rgba(255, 255, 255, .3)", textareaOutlineColor = "rgba(255, 255, 255, 0.8)") {
+	if (type === "custom") {
+	}
+	if (type === "success") (backgroundColor = "rgba(0, 255, 0, .3)"), (textareaOutlineColor = "rgba(0, 255, 0, 0.8)");
+	if (type === "error") (backgroundColor = "rgba(255, 0, 0, .3)"), (textareaOutlineColor = "rgba(255, 0, 0, 0.8)");
+	if (type === "warning") (backgroundColor = "rgba(255, 255, 0, .3)"), (textareaOutlineColor = "rgba(255, 255, 0, 0.8)");
+	if (type === "info") (backgroundColor = "rgba(0, 0, 255, .3)"), (textareaOutlineColor = "rgba(0, 0, 255, 0.8)");
+
+	const textarea = document.getElementById("addtask-textarea");
+	const notification = document.getElementById("notification");
+	notification.textContent = message;
+	notification.style.backgroundColor = backgroundColor;
+	notification.classList.add("show");
+
+	if (withTextarea) {
+		if (textarea) {
+			textarea.style.outline = `3px solid ${backgroundColor}`;
+			clearTimeout(textareaTimeout);
+			textareaTimeout = setTimeout(() => (textarea.style.outline = "revert"), 3000);
+		}
+	}
+
+	if (!duration || duration === 0) return; // if duration===0 then no auto hide
+	else {
+		if (notificationTimeout) clearTimeout(notificationTimeout); // clear previous timeout
+		notificationTimeout = setTimeout(() => notification.classList.remove("show"), duration); // auto hide
+	}
+}
+
+// noTask element
+const noTaskEl = document.getElementById("noTask");
+const noTaskTextEl = document.getElementById("noTaskText");
+function showNoTaskElement(text = "no task here") {
+	downloadListEl.style.display = "none";
+	noTaskEl.style.display = "flex";
+	noTaskTextEl.textContent = text;
+}
+function hideNoTaskElement() {
+	noTaskEl.style.display = "none";
+	downloadListEl.style.display = "flex";
+}
+
 // Connection Status
 let connectionStatus = false;
 function updatedConnectionStatus() {
@@ -6,17 +142,17 @@ function updatedConnectionStatus() {
 			document.documentElement.style.setProperty("--connection-status-color", "var(--disconnect-color)");
 			document.querySelector(".connect-indicator").style.animation = "none";
 			connectionStatus = false;
-			// console.log("%cdisconnected to server", "color: red", "error"); // connect failed
+			// console.log("%cdisconnected to server", "color: red", "error");
 		} else {
 			document.documentElement.style.setProperty("--connection-status-color", "var(--connect-color)");
 			document.querySelector(".connect-indicator").style.animation = "breathe 2s infinite ease-in-out";
 			connectionStatus = true;
-			// console.log("%cconnected to server", "color: green", response); // connect success
+			// console.log("%cconnected to server", "color: green", response);
 		}
 	});
 }
 
-// Profile
+// Profile Left
 function initProfile() {
 	browser.runtime.sendMessage({ api: "get-local-storage" }, (result) => {
 		// check connection status
@@ -78,7 +214,7 @@ function initProfile() {
 	});
 }
 
-// MARK addNavbarBtn
+// NavbarBtn Right
 function initNavbarBtn() {
 	let navbarRight = document.querySelector(".navbar-right");
 	let settingsBtn = document.createElement("div");
@@ -107,7 +243,6 @@ function initNavbarBtn() {
 }
 
 // Add task dialogue
-
 function createAddTaskDialog() {
 	let dialogueEl = document.createElement("div");
 	dialogueEl.className = "addtask-dialogue";
@@ -128,7 +263,7 @@ function createAddTaskDialog() {
 	textarea.id = "addtask-textarea";
 	textarea.addEventListener("input", () => {
 		if (!textarea.value) return (textareaInfo.innerText = "input url or filepath");
-		textareaInfo.innerText = validateUrlAndPath(textarea.value.trim());
+		textareaInfo.innerText = parseUrlOrPathType(textarea.value.trim());
 	});
 
 	let confirmBtn = document.createElement("button");
@@ -153,7 +288,7 @@ function createAddTaskDialog() {
 		if (!connectionStatus) return showNotification("Can't add task when aria2 is offline", 3000, "error", true);
 		if (!textarea.value || textarea.value.trim() === "") return showNotification("Please enter a URL or magnet link.", 3000, "error", true);
 		let url = textarea.value.trim();
-		let addTaskType = validateUrlAndPath(url);
+		let addTaskType = parseUrlOrPathType(url);
 
 		if (addTaskType === "magnet_link" || addTaskType === "url" || addTaskType === "unknown" || addTaskType === "metalink_url") {
 			browser.runtime.sendMessage({ api: "aria2_addUri", url: url }, (result) => {
@@ -212,7 +347,7 @@ function createAddTaskDialog() {
 				if (result.result === "canceled") return showNotification("cancel select file", 3000, "info");
 				if (result && result.result && result.result !== "") {
 					textarea.value = result.path;
-					textareaInfo.innerText = validateUrlAndPath(textarea.value.trim());
+					textareaInfo.innerText = parseUrlOrPathType(textarea.value.trim());
 					// textarea.disabled = true;
 				}
 			}
@@ -243,9 +378,7 @@ function hideAddTaskDialog() {
 	dialogue.classList.remove("show");
 }
 
-// context menu : At present, it cannot be realized by the native menu method. ~~browser.contextMenus~~
-
-// MARK createDownloadList
+// createDownloadList
 const downloadListEl = document.getElementById("downloadList");
 const downloadItems = new Map();
 const downloadItemsState = new Map();
@@ -254,6 +387,62 @@ function fetchDownloadList() {
 	browser.runtime.sendMessage({ api: "get-download-list" }, (response) => {
 		console.log("[fetchDownloadList]", response);
 		updateList(response);
+	});
+}
+
+function updateList(response) {
+	// init error
+	if (response.error && response.code === 1) return showNoTaskElement("Please add Aria2 service first.");
+	else arrow.hide();
+	if (response === "error" || !response) return showNoTaskElement("Unable to connect to Aria2 service...");
+
+	// get list from response && concat two result
+	let tellActiveList = response.result[0][0] || [];
+	let tellWaitingList = response.result[1][0] || [];
+	let tellStoppedList = response.result[2][0] || [];
+
+	// console.log("[active]", response.result[0][0]);
+	// console.log("[waiting]", response.result[1][0]);
+	// console.log("[stopped]", response.result[2][0]);
+
+	// show clear button
+	if (tellStoppedList.length > 0) document.getElementById("clear").style.display = "block";
+	else document.getElementById("clear").style.display = "none";
+
+	let list = tellActiveList.concat(tellWaitingList, tellStoppedList);
+
+	// console.log("[list]", list);
+
+	if (list.length === 0) showNoTaskElement("no task here~");
+	else hideNoTaskElement();
+	// generate gid set
+	const newGids = new Set(list.map((item) => item.gid));
+
+	// remove old items
+	for (const [gid, el] of downloadItems) {
+		if (!newGids.has(gid)) {
+			downloadListEl.removeChild(el);
+			downloadItems.delete(gid);
+		}
+	}
+	for (const [gid, status] of downloadItemsState) {
+		if (!newGids.has(gid)) {
+			downloadItemsState.delete(gid);
+		}
+	}
+
+	// add or update items
+	list.forEach((item) => {
+		let itemEl = downloadItems.get(item.gid);
+		if (!itemEl) {
+			downloadItemsState.set(item.gid, item.status);
+			itemEl = createDownloadItemElement(item); // create
+			downloadListEl.appendChild(itemEl);
+			downloadItems.set(item.gid, itemEl);
+		} else {
+			downloadItemsState.set(item.gid, item.status);
+			updateDownloadItemElement(itemEl, item); // update
+		}
 	});
 }
 
@@ -281,7 +470,7 @@ function createDownloadItemElement(item) {
 
 function updateDownloadItemElement(el, i) {
 	// info format
-	i.leftTime = leftTime(i.completedLength, i.totalLength, i.downloadSpeed); // number
+	i.leftTime = calculateRemainingTime(i.completedLength, i.totalLength, i.downloadSpeed); // number
 	if (i.totalLength === 0) i.progress = 0; // 解决 totalLength === 0 时 progress 为 Infinity 的问题
 	else {
 		i.progress = Math.floor((i.completedLength / i.totalLength) * 10000) / 100 || 0;
@@ -294,10 +483,11 @@ function updateDownloadItemElement(el, i) {
 			i.progresspercent = "infinity%";
 		}
 	}
-	i.totalLength = formatFileSize(i.totalLength); // string
-	i.completedLength = formatFileSize(i.completedLength); // string
-	i.downloadSpeed = formatSpeed(i.downloadSpeed); // string
-	i.uploadSpeed = formatSpeed(i.uploadSpeed); // string
+
+	i.totalLength = bytesToSize(i.totalLength); // string
+	i.completedLength = bytesToSize(i.completedLength); // string
+	i.downloadSpeed = bytesToSize(i.downloadSpeed, 2) + "/s"; // string
+	i.uploadSpeed = bytesToSize(i.uploadSpeed, 2) + "/s"; // string
 
 	if (i.bittorrent && i.bittorrent.info && i.bittorrent.info.name) {
 		i.taskName = i.bittorrent.info.name;
@@ -310,7 +500,7 @@ function updateDownloadItemElement(el, i) {
 		i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskPath;
 		if (i.files[0].uris && i.files[0].uris.length > 0) i.taskUri = i.files[0].uris[0].uri;
 		else i.taskUri = "";
-		i.fileparts = getFileParts(i.taskName);
+		i.fileparts = getPartsFromFilename(i.taskName);
 	}
 
 	let statusStr;
@@ -493,62 +683,6 @@ function updateDownloadItemElement(el, i) {
 	}
 }
 
-function updateList(response) {
-	// init error
-	if (response.error && response.code === 1) return showNoTaskElement("Please add Aria2 service first.");
-	else arrow.hide();
-	if (response === "error" || !response) return showNoTaskElement("Unable to connect to Aria2 service...");
-
-	// get list from response && concat two result
-	let tellActiveList = response.result[0][0] || [];
-	let tellWaitingList = response.result[1][0] || [];
-	let tellStoppedList = response.result[2][0] || [];
-
-	// console.log("[active]", response.result[0][0]);
-	// console.log("[waiting]", response.result[1][0]);
-	// console.log("[stopped]", response.result[2][0]);
-
-	// show clear button
-	if (tellStoppedList.length > 0) document.getElementById("clear").style.display = "block";
-	else document.getElementById("clear").style.display = "none";
-
-	let list = tellActiveList.concat(tellWaitingList, tellStoppedList);
-
-	// console.log("[list]", list);
-
-	if (list.length === 0) showNoTaskElement("no task here~");
-	else hideNoTaskElement();
-	// generate gid set
-	const newGids = new Set(list.map((item) => item.gid));
-
-	// remove old items
-	for (const [gid, el] of downloadItems) {
-		if (!newGids.has(gid)) {
-			downloadListEl.removeChild(el);
-			downloadItems.delete(gid);
-		}
-	}
-	for (const [gid, status] of downloadItemsState) {
-		if (!newGids.has(gid)) {
-			downloadItemsState.delete(gid);
-		}
-	}
-
-	// add or update items
-	list.forEach((item) => {
-		let itemEl = downloadItems.get(item.gid);
-		if (!itemEl) {
-			downloadItemsState.set(item.gid, item.status);
-			itemEl = createDownloadItemElement(item); // create
-			downloadListEl.appendChild(itemEl);
-			downloadItems.set(item.gid, itemEl);
-		} else {
-			downloadItemsState.set(item.gid, item.status);
-			updateDownloadItemElement(itemEl, item); // update
-		}
-	});
-}
-
 // MARK main
 document.addEventListener("DOMContentLoaded", function () {
 	// initializing
@@ -558,7 +692,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	updatedConnectionStatus();
 	fetchDownloadList();
 
-	// refresh every 2 seconds
+	// refresh every 1.5 seconds
 	const refreshInterval = setInterval(() => {
 		updatedConnectionStatus();
 		fetchDownloadList();
@@ -570,147 +704,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-// MARK components
-
-const arrow = createIndicatorArrow({
-	container: document.body,
-	left: "20%",
-	top: "76px",
-});
-function createIndicatorArrow(options = {}) {
-	const container = options.container || document.body;
-	let left = options.left || "50%"; // 默认居中
-	let top = options.top || "20px"; // 默认顶部20px
-	let element = null;
-	let isActive = false;
-
-	// 创建箭头元素的内部函数
-	function createElement() {
-		element = document.createElement("div");
-		element.style.cssText = `
-            position: absolute;
-            width: 12px;
-            height: 20px;
-            left: ${left};
-            top: ${top};
-            transform: translateX(-50%);
-            z-index: 1000;
-            animation: slide 1.5s infinite ease-in-out;
-            /* 箭头样式 */
-            background: linear-gradient(180deg,rgb(139, 56, 56) 0%, #ff3333 100%);
-            clip-path: polygon(50% 0%, 0% 70%, 25% 70%, 25% 100%, 75% 100%, 75% 70%, 100% 70%);
-            border-radius: 2px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        `;
-
-		// 添加弹跳动画的 keyframes
-		const styleSheet = document.createElement("style");
-		styleSheet.textContent = `
-            @keyframes slide {
-                0% {
-                    transform: translateX(-50%) translateY(0);
-                }
-                50% {
-                    transform: translateX(-50%) translateY(-8px);
-                }
-                100% {
-                    transform: translateX(-50%) translateY(0);
-                }
-            }
-        `;
-		document.head.appendChild(styleSheet);
-
-		container.appendChild(element);
-	}
-
-	// 返回控制对象
-	return {
-		show: function () {
-			if (!element) {
-				createElement();
-			}
-			element.style.display = "block";
-			isActive = true;
-		},
-
-		hide: function () {
-			if (element) {
-				element.style.display = "none";
-			}
-			isActive = false;
-		},
-
-		updatePosition: function (newLeft, newTop) {
-			left = newLeft || left;
-			top = newTop || top;
-			if (element) {
-				element.style.left = left;
-				element.style.top = top;
-			}
-		},
-
-		destroy: function () {
-			if (element) {
-				element.remove();
-				element = null;
-				isActive = false;
-			}
-		},
-
-		isActive: function () {
-			return isActive;
-		},
-	};
-}
-
-// notification
-let notificationTimeout = null; // save notification timeout
-let textareaTimeout = null;
-function showNotification(message, duration = 3000, type = "custom", withTextarea = false, backgroundColor = "rgba(255, 255, 255, .3)", textareaOutlineColor = "rgba(255, 255, 255, 0.8)") {
-	if (type === "custom") {
-	}
-	if (type === "success") (backgroundColor = "rgba(0, 255, 0, .3)"), (textareaOutlineColor = "rgba(0, 255, 0, 0.8)");
-	if (type === "error") (backgroundColor = "rgba(255, 0, 0, .3)"), (textareaOutlineColor = "rgba(255, 0, 0, 0.8)");
-	if (type === "warning") (backgroundColor = "rgba(255, 255, 0, .3)"), (textareaOutlineColor = "rgba(255, 255, 0, 0.8)");
-	if (type === "info") (backgroundColor = "rgba(0, 0, 255, .3)"), (textareaOutlineColor = "rgba(0, 0, 255, 0.8)");
-
-	const textarea = document.getElementById("addtask-textarea");
-	const notification = document.getElementById("notification");
-	notification.textContent = message;
-	notification.style.backgroundColor = backgroundColor;
-	notification.classList.add("show");
-
-	if (withTextarea) {
-		if (textarea) {
-			textarea.style.outline = `3px solid ${backgroundColor}`;
-			clearTimeout(textareaTimeout);
-			textareaTimeout = setTimeout(() => (textarea.style.outline = "revert"), 3000);
-		}
-	}
-
-	if (!duration || duration === 0) return; // if duration===0 then no auto hide
-	else {
-		if (notificationTimeout) clearTimeout(notificationTimeout); // clear previous timeout
-		notificationTimeout = setTimeout(() => notification.classList.remove("show"), duration); // auto hide
-	}
-}
-
-// no task element
-const noTaskEl = document.getElementById("noTask");
-const noTaskTextEl = document.getElementById("noTaskText");
-function showNoTaskElement(text = "no task here") {
-	downloadListEl.style.display = "none";
-	noTaskEl.style.display = "flex";
-	noTaskTextEl.textContent = text;
-}
-function hideNoTaskElement() {
-	noTaskEl.style.display = "none";
-	downloadListEl.style.display = "flex";
-}
-
 // MARK utils
 
-function getFileParts(filename) {
+function getPartsFromFilename(filename) {
 	if (typeof filename !== "string" || filename.trim() === "") {
 		return {
 			extension: "",
@@ -722,7 +718,7 @@ function getFileParts(filename) {
 	const lastDotIndex = filename.lastIndexOf(".");
 	if (
 		lastDotIndex === -1 || // no dot
-		lastDotIndex === 0 || // start with dot (.gitignore)
+		lastDotIndex === 0 || // start with dot (example : .gitignore)
 		lastDotIndex === filename.length - 1
 	) {
 		// end with dot (file.)
@@ -737,11 +733,9 @@ function getFileParts(filename) {
 		nameWithoutExtension: filename.slice(0, lastDotIndex),
 	};
 }
-function formatFileSize(size) {
-	return size < 1024 ? size + " B" : size < 1024 * 1024 ? (size / 1024).toFixed(2) + " KB" : (size / 1024 / 1024).toFixed(2) + " MB";
-}
-// Motrix way
+
 const bytesToSize = (bytes, precision = 1) => {
+	if (!bytes) return "0 KB";
 	const b = parseInt(bytes, 10);
 	const sizes = ["B", "KB", "MB", "GB", "TB"];
 	if (b === 0) return "0 KB";
@@ -752,10 +746,8 @@ const bytesToSize = (bytes, precision = 1) => {
 	}
 	return `${(b / 1024 ** i).toFixed(precision)} ${sizes[i]}`;
 };
-function formatSpeed(speed) {
-	return speed < 1024 ? speed + " B/s" : speed < 1024 * 1024 ? (speed / 1024).toFixed(2) + " KB/s" : (speed / 1024 / 1024).toFixed(2) + " MB/s";
-}
-function leftTime(completedLength, totalLength, downloadSpeed) {
+
+function calculateRemainingTime(completedLength, totalLength, downloadSpeed) {
 	if (!totalLength || !downloadSpeed) return "N/A";
 	if (downloadSpeed == 0) return "N/A";
 	if (totalLength == 0) return "N/A";
@@ -764,10 +756,10 @@ function leftTime(completedLength, totalLength, downloadSpeed) {
 	const speed = downloadSpeed;
 	// int
 	let sizeInt = parseInt(size / speed);
-	return formatTime(sizeInt);
+	return secondsToTime(sizeInt);
 }
-// pass seconds to format time string
-function formatTime(seconds) {
+
+function secondsToTime(seconds) {
 	const d = Math.floor(seconds / (3600 * 24));
 	const h = Math.floor((seconds % (3600 * 24)) / 3600);
 	const m = Math.floor((seconds % 3600) / 60);
@@ -785,8 +777,7 @@ function formatTime(seconds) {
 	}
 }
 
-// validate
-function validateUrlAndPath(value) {
+function parseUrlOrPathType(value) {
 	const patterns = [
 		{
 			type: "url",
