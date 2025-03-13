@@ -147,6 +147,26 @@ select {
 	transition: background-color 0.3s ease; /* smooth */
 	/* animation: breathe 2s infinite ease-in-out;  */
 }
+
+.listen-icon {
+	background-color: var(--text-color) !important;
+	-webkit-mask-image: url("images/symbol/headphones.svg");
+	mask-image: url("images/symbol/headphones.svg");
+	opacity: 1;
+	cursor: default;
+	width: 18px;
+	height: 18px;
+}
+.notlisten-icon {
+	background-color: var(--text-color) !important;
+	-webkit-mask-image: url("images/symbol/headphones.slash.svg");
+	mask-image: url("images/symbol/headphones.slash.svg");
+	opacity: 0.4;
+	cursor: default;
+	width: 18px;
+	height: 18px;
+}
+
 .arrowdown-icon {
 	position: absolute;
 	right: 6px;

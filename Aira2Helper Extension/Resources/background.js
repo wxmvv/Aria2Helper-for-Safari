@@ -6,6 +6,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	if (!result.currentProfileId) return await sendResponse({ error: "no currentProfileId profile", code: 2 });
 	if (!result.profiles) return await sendResponse({ error: "no profiles", code: 3 });
 	let Aria2Info = result.profiles[result.defaultProfileId]; // ["rpcHost", "rpcPort", "rpcSecret"]
+	let isLocal = Aria2Info.rpcHost.toLocaleLowerCase() === "localhost" || Aria2Info.rpcHost.toLocaleLowerCase() === "127.0.0.1";
 
 	// MARK browser API
 	if (message.api === "get-local-storage") {
@@ -175,6 +176,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	}
 	// others
 	if (message.api === "aria2_getVersion") {
+		// 根据Aria2Info.rpcHost判断是否是本地请求
 		const res = await sendAria2Request("aria2.getVersion", [`token:${Aria2Info.rpcSecret}`]);
 		if (res === "error") {
 			await sendResponse("error");
@@ -206,9 +208,16 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	}
 
 	// MARK Helper API
-	if (message.api === "set-default-profile") {
+	if (message.api === "set-default-profile" && message.profileId) {
 		await browser.storage.local.set({ defaultProfileId: message.profileId });
 		await sendResponse("success");
+	}
+	if (message.api === "toggle-listen-status") {
+		let settings = result.settings;
+		const initalListenDownloads = settings.listenDownloads;
+		settings.listenDownloads = !initalListenDownloads;
+		await browser.storage.local.set({ settings: settings });
+		await sendResponse({ result: !initalListenDownloads, listenDownloads: !initalListenDownloads });
 	}
 	// get Aria2 download list
 	if (message.api === "get-download-list") {
@@ -255,10 +264,10 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 				});
 			});
 			console.log("Native message response:", response);
-			sendResponse(response); // 返回原生消息的响应
+			sendResponse({ isLocal, ...response }); // 返回原生消息的响应
 		} catch (error) {
 			console.error("Native message error:", error);
-			sendResponse({ status: "error", message: error.message }); // 返回错误信息
+			sendResponse({ isLocal, status: "error", message: error.message }); // 返回错误信息
 		}
 	}
 	if (message.api === "native-read-file" && message.filepath) {
@@ -511,12 +520,6 @@ function getFileParts(filename) {
 		nameWithoutExtension: filename.slice(0, lastDotIndex),
 	};
 }
-
-
-
-
-
-
 
 // Scrap
 

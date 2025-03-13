@@ -175,13 +175,36 @@ function initProfile() {
 			}
 		} else {
 			// connect indicator
-			let connectIndicatorEl;
 			let selectProfileEl;
+			let connectIndicatorEl;
+			let listenChangeBtnEl;
 			connectIndicatorEl = document.createElement("div");
 			connectIndicatorEl.className = "connect-indicator";
 			selectProfileEl = document.createElement("div");
 			selectProfileEl.className = "select-profile";
+			listenChangeBtnEl = document.createElement("button");
+			listenChangeBtnEl.className = "btn";
 
+			// listen btn
+			if (result.settings.listenDownloads) {
+				listenChangeBtnEl.classList.add("listen-icon"), listenChangeBtnEl.classList.remove("notlisten-icon");
+			} else {
+				listenChangeBtnEl.classList.add("notlisten-icon"), listenChangeBtnEl.classList.remove("listen-icon");
+			}
+			listenChangeBtnEl.addEventListener("click", () => {
+				browser.runtime.sendMessage({ api: "toggle-listen-status" }, (response) => {
+					console.log("[change & set-listen-status]", response);
+					if (response.result) {
+						listenChangeBtnEl.classList.add("listen-icon"), listenChangeBtnEl.classList.remove("notlisten-icon");
+						showNotification("Start listening downloads", 3000, "success", true);
+					} else {
+						listenChangeBtnEl.classList.add("notlisten-icon"), listenChangeBtnEl.classList.remove("listen-icon");
+						showNotification("Stop listening downloads", 3000, "info", true);
+					}
+				});
+			});
+
+			// select btn
 			let selectEl = document.createElement("select");
 			selectEl.id = "select-profile";
 			for (let profileId of Object.keys(result.profiles)) {
@@ -199,7 +222,6 @@ function initProfile() {
 					fetchDownloadList();
 				});
 			});
-
 			// Add a dropdown arrow to "select"
 			let symbolEl = document.createElement("div");
 			symbolEl.className = "arrowdown-icon";
@@ -211,6 +233,7 @@ function initProfile() {
 			leftEl.innerHTML = "";
 			leftEl.appendChild(selectProfileEl);
 			leftEl.appendChild(connectIndicatorEl);
+			leftEl.appendChild(listenChangeBtnEl);
 		}
 	});
 }
@@ -462,7 +485,15 @@ function createDownloadItemElement(item) {
 		e.stopPropagation();
 		e.preventDefault();
 		browser.runtime.sendMessage({ api: "native-select-file", url: item.taskPath }).then((response) => {
-			if (!response.result) console.log("[sendMessage] native-select-file [res]", response), showNotification("Failed to open file", 3000, "error");
+			if (!response.result) {
+				if (response.isLocal) {
+					showNotification("File not found", 3000, "error");
+				} else if (!response.isLocal) {
+					showNotification("Unable to open non-local file", 3000, "error");
+				} else {
+					showNotification("File not found", 3000, "error");
+				}
+			}
 		});
 	});
 
@@ -638,7 +669,15 @@ function updateDownloadItemElement(el, i) {
 			e.stopPropagation();
 			e.preventDefault();
 			browser.runtime.sendMessage({ api: "native-select-file", url: i.taskPath }).then((response) => {
-				if (!response.result) console.log("[sendMessage] native-select-file [res]", response), showNotification("Failed to open file", 3000, "error");
+				if (!response.result) {
+					if (response.isLocal) {
+						showNotification("File not found", 3000, "error");
+					} else if (!response.isLocal) {
+						showNotification("Unable to open non-local file", 3000, "error");
+					} else {
+						showNotification("File not found", 3000, "error");
+					}
+				}
 			});
 		});
 	} else if (childCount === 3) {
