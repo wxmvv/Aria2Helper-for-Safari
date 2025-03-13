@@ -68,6 +68,7 @@ async function getLocalStorage() {
 			return "init";
 		}
 		// init
+		console.log("result", result);
 		if (JSON.stringify(result["profiles"]) === "{}" || !result["profiles"]) {
 			profiles = initProfiles;
 		} else profiles = result["profiles"];
@@ -143,19 +144,17 @@ function updateDefaultCss() {
 }
 
 function updateSaveExtensionsBtnCss() {
-	// 如果 extensionsChangeFlag 为 true，则可以点击按钮，否则disabled按钮
-	document.getElementById("save-extensions").disabled = !extensionsChangeFlag;
+	// disable btn if no change
+	document.getElementById("saveExtensions").disabled = !extensionsChangeFlag;
 }
 
 function updateSetDefaultCss() {
 	if (defaultProfileId === currentProfileId) {
-		// set-default button 关闭点击 并且改变内部文本
-		document.getElementById("set-default").textContent = "It's Default";
-		document.getElementById("set-default").disabled = true;
+		document.getElementById("setDefault").textContent = browser.i18n.getMessage("default");
+		document.getElementById("setDefault").disabled = true;
 	} else {
-		// set-default button 开启点击 并且改变内部文本
-		document.getElementById("set-default").textContent = "Set Default";
-		document.getElementById("set-default").disabled = false;
+		document.getElementById("setDefault").textContent = browser.i18n.getMessage("set_default");
+		document.getElementById("setDefault").disabled = false;
 	}
 }
 
@@ -218,7 +217,7 @@ function setupEventListeners() {
 		profiles[profileId] = profile;
 		renderTabs(profiles);
 		saveLocalStorage();
-		alert(`Profile saved: ${profile.alias}`);
+		alert(browser.i18n.getMessage("save_profile_alert") + profile.alias);
 	});
 
 	// add
@@ -227,8 +226,7 @@ function setupEventListeners() {
 	// });
 
 	// remove
-	document.getElementById("remove-profile").addEventListener("click", () => {
-		// 提示框
+	document.getElementById("removeProfile").addEventListener("click", () => {
 		if (confirm(`Are you sure to remove profile ${profiles[currentProfileId].alias}?`)) {
 			delete profiles[currentProfileId];
 			if (Object.keys(profiles).length === 0)
@@ -252,9 +250,9 @@ function setupEventListeners() {
 	});
 
 	// set default
-	document.getElementById("set-default").addEventListener("click", () => {
+	document.getElementById("setDefault").addEventListener("click", () => {
 		defaultProfileId = currentProfileId;
-		alert(`Default profile set to ${profiles[defaultProfileId].alias}`);
+		alert(browser.i18n.getMessage("set_default_profile_alert") + profiles[defaultProfileId].alias);
 		updateDefaultCss();
 		updateSetDefaultCss();
 		saveLocalStorage();
@@ -266,10 +264,10 @@ function setupEventListeners() {
 		const toggleButton = document.getElementById("toggle-password");
 		if (passwordInput.type === "password") {
 			passwordInput.type = "text";
-			toggleButton.textContent = "hide";
+			toggleButton.textContent = browser.i18n.getMessage("hide_password");
 		} else {
 			passwordInput.type = "password";
-			toggleButton.textContent = "show";
+			toggleButton.textContent = browser.i18n.getMessage("show_password");
 		}
 	});
 
@@ -284,9 +282,8 @@ function setupEventListeners() {
 		saveSettings();
 	});
 
-	document.getElementById("save-extensions").addEventListener("click", (e) => {
+	document.getElementById("saveExtensions").addEventListener("click", (e) => {
 		settings.extensionsValue = document.getElementById("listen-downloads-extensions").value;
-		// 用,分割每一项，然后去掉前后空格，并在前加.,放入列表
 		settings.extensions = settings.extensionsValue.split(",").map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
 		saveSettings();
 		extensionsChangeFlag = false;
@@ -304,7 +301,27 @@ function setupEventListeners() {
 	});
 }
 
+// MARK main
 document.addEventListener("DOMContentLoaded", function () {
+	// i18n
+	document.getElementById("settingsTitle").textContent = browser.i18n.getMessage("extension_name");
+	document.getElementById("titleAlias").textContent = browser.i18n.getMessage("alias");
+	document.getElementById("titleRpcHost").textContent = browser.i18n.getMessage("rpc_host");
+	document.getElementById("titleRpcIsHttps").textContent = browser.i18n.getMessage("rpc_is_https");
+	document.getElementById("titleRpcPort").textContent = browser.i18n.getMessage("rpc_port");
+	document.getElementById("titleRpcSecret").textContent = browser.i18n.getMessage("rpc_secret");
+	document.getElementById("titleRpcParameters").textContent = browser.i18n.getMessage("rpc_parameters");
+	document.getElementById("toggle-password").textContent = browser.i18n.getMessage("show_password");
+	document.getElementById("saveBtn").textContent = browser.i18n.getMessage("save");
+	document.getElementById("setDefault").textContent = browser.i18n.getMessage("set_default");
+	document.getElementById("removeProfile").textContent = browser.i18n.getMessage("remove_profile");
+	document.getElementById("otherSettingsTitle").textContent = browser.i18n.getMessage("other_settings");
+	document.getElementById("labelShowBadge").textContent = browser.i18n.getMessage("show_badge");
+	document.getElementById("labelShowNotification").textContent = browser.i18n.getMessage("show_notification");
+	document.getElementById("labelListenDownloads").textContent = browser.i18n.getMessage("listen_downloads");
+	document.getElementById("labelListenDownloadsExtensions").textContent = browser.i18n.getMessage("listen_downloads_extensions");
+	document.getElementById("saveExtensions").textContent = browser.i18n.getMessage("save_extensions");
+
 	getLocalStorage().then(() => {
 		renderTabs(profiles);
 		loadProfile(currentProfileId);

@@ -114,5 +114,66 @@
 	},
 	"connecting": {
 		"message": "Connecting..."
+	},
+
+	"alias": {
+		"message": "Alias"
+	},
+	"rpc_host": {
+		"message": "RPC Host"
+	},
+	"rpc_is_https": {
+		"message": "Https"
+	},
+	"rpc_port": {
+		"message": "RPC Port"
+	},
+	"rpc_secret": {
+		"message": "RPC Secret"
+	},
+	"rpc_parameters": {
+		"message": "RPC Parameters"
+	},
+	"show_password": {
+		"message": "show"
+	},
+	"hide_password": {
+		"message": "hide"
+	},
+	"save": {
+		"message": "Save"
+	},
+	"default": {
+		"message": "It's default"
+	},
+	"set_default": {
+		"message": "Set Default"
+	},
+	"remove_profile": {
+		"message": "Remove Profile"
+	},
+	"other_settings": {
+		"message": "Other Settings"
+	},
+	"show_badge": {
+		"message": "Show Badge"
+	},
+	"show_notification": {
+		"message": "Show Notification"
+	},
+	"listen_downloads": {
+		"message": "Listen Downloads"
+	},
+	"listen_downloads_extensions": {
+		"message": "Listen Downloads Extensions"
+	},
+	"save_extensions": {
+		"message": "Save Extensions"
+	},
+	"set_default_profile_alert": {
+		"message": "Default profile set to "
+	},
+	"save_profile_alert": {
+		"message": "Profile saved:"
 	}
 }

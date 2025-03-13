@@ -114,5 +114,66 @@
 	},
 	"connecting": {
 		"message": "连接中..."
+	},
+
+	"alias": {
+		"message": "别名"
+	},
+	"rpc_host": {
+		"message": "RPC 地址"
+	},
+	"rpc_is_https": {
+		"message": "Https"
+	},
+	"rpc_port": {
+		"message": "RPC 端口"
+	},
+	"rpc_secret": {
+		"message": "RPC 密钥"
+	},
+	"rpc_parameters": {
+		"message": "RPC 参数"
+	},
+	"show_password": {
+		"message": "显示密钥"
+	},
+	"hide_password": {
+		"message": "隐藏密钥"
+	},
+	"save": {
+		"message": "保存"
+	},
+	"default": {
+		"message": "默认"
+	},
+	"set_default": {
+		"message": "设为默认"
+	},
+	"remove_profile": {
+		"message": "移除当前配置"
+	},
+	"other_settings": {
+		"message": "其他设置"
+	},
+	"show_badge": {
+		"message": "显示工具栏角标"
+	},
+	"show_notification": {
+		"message": "显示通知"
+	},
+	"listen_downloads": {
+		"message": "监听系统下载请求(根据输入的文件扩展名拦截请求)"
+	},
+	"listen_downloads_extensions": {
+		"message": "这里填写需要监听的后缀，用\",\"分割"
+	},
+	"save_extensions": {
+		"message": "保存文件类型"
+	},
+	"set_default_profile_alert": {
+		"message": "设置为默认:"
+	},
+	"save_profile_alert": {
+		"message": "配置保存成功"
 	}
 }
