@@ -1,10 +1,118 @@
 {
 	"extension_name": {
-		"message": "Aira2Helper Extension",
+		"message": "Aira2Helper",
 		"description": "The display name for the extension."
 	},
 	"extension_description": {
 		"message": "This is Aira2Helper Extension. A safari extension for the Aria2 Download Manager.",
 		"description": "Description of what the extension does."
+	},
+	"active": {
+		"message": "active"
+	},
+	"waiting": {
+		"message": "waiting"
+	},
+	"paused": {
+		"message": "paused"
+	},
+	"error": {
+		"message": "error"
+	},
+	"complete": {
+		"message": "complete"
+	},
+	"removed": {
+		"message": "removed"
+	},
+	"unknown": {
+		"message": "unknown"
+	},
+	"listen_activate": {
+		"message": "listen activate"
+	},
+	"listen_deactivated": {
+		"message": "listen deactivated"
+	},
+	"Start listening downloads": {
+		"message": "Start listening downloads"
+	},
+	"Stop listening downloads": {
+		"message": "Stop listening downloads"
+	},
+	"disconnect": {
+		"message": "disconnect"
+	},
+	"connect": {
+		"message": "connect"
+	},
+	"add_task": {
+		"message": "add task"
+	},
+	"open_settings": {
+		"message": "open settings page"
+	},
+	"clear": {
+		"message": "clear"
+	},
+	"clear_download_list": {
+		"message": "clear download list"
+	},
+	"cancel": {
+		"message": "Cancel"
+	},
+	"confirm": {
+		"message": "Confirm"
+	},
+	"select_torrent_file": {
+		"message": "Select Torrent File"
+	},
+	"Enter_URL_or_magnet_link_here": {
+		"message": "Enter URL or magnet link here..."
+	},
+	"unpause": {
+		"message": "unpause"
+	},
+	"pause": {
+		"message": "pause"
+	},
+	"restart": {
+		"message": "restart"
+	},
+	"remove": {
+		"message": "remove"
+	},
+	"open_file": {
+		"message": "open file"
+	},
+	"please_connect_first": {
+		"message": "Please connect to aria2 first."
+	},
+	"please_input_url_or_filepath": {
+		"message": "Please input url or filepath."
+	},
+	"Task_added_successfully": {
+		"message": "Task added successfully."
+	},
+	"invalid_input": {
+		"message": "Invalid input."
+	},
+	"file_not_found": {
+		"message": "File not found."
+	},
+	"unable_open_remote_file": {
+		"message": "Unable to open remote file."
+	},
+	"unable_to_connect_to_server": {
+		"message": "Unable to connect to server."
+	},
+	"no_task_here": {
+		"message": "No task here~"
+	},
+	"initializing": {
+		"message": "Initializing..."
+	},
+	"connecting": {
+		"message": "Connecting..."
 	}
 }

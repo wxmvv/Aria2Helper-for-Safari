@@ -3,7 +3,7 @@ let skipNextClick = false;
 browser.storage.local.get(["settings"]).then((result) => {
 	let settings = result.settings;
 	if (settings && settings.listenDownloads) {
-		console.log("[Aria2HelpFer] start to listen downloads");
+		console.log("[Aria2Helper] start to listen downloads");
 
 		let listener = (event) => {
 			if (skipNextClick) {
@@ -22,7 +22,7 @@ browser.storage.local.get(["settings"]).then((result) => {
 					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
 						if (response === "error") {
 							// error
-							console.log("[aria2HelpFer] error to connect aria2 server");
+							console.log("[aria2Helper] error to connect aria2 server");
 							// Set flag and trigger default behavior
 							skipNextClick = true;
 							target.click(); // click the link again

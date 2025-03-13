@@ -141,11 +141,13 @@ function updatedConnectionStatus() {
 		if (response === "error" || !response) {
 			document.documentElement.style.setProperty("--connection-status-color", "var(--disconnect-color)");
 			document.querySelector(".connect-indicator").style.animation = "none";
+			document.querySelector(".connect-indicator").title = browser.i18n.getMessage("disconnect");
 			connectionStatus = false;
 			// console.log("%cdisconnected to server", "color: red", "error");
 		} else {
 			document.documentElement.style.setProperty("--connection-status-color", "var(--connect-color)");
 			document.querySelector(".connect-indicator").style.animation = "breathe 2s infinite ease-in-out";
+			document.querySelector(".connect-indicator").title = browser.i18n.getMessage("connect");
 			connectionStatus = true;
 			// console.log("%cconnected to server", "color: green", response);
 		}
@@ -188,18 +190,22 @@ function initProfile() {
 			// listen btn
 			if (result.settings.listenDownloads) {
 				listenChangeBtnEl.classList.add("listen-icon"), listenChangeBtnEl.classList.remove("notlisten-icon");
+				listenChangeBtnEl.title = browser.i18n.getMessage("listen_activate");
 			} else {
 				listenChangeBtnEl.classList.add("notlisten-icon"), listenChangeBtnEl.classList.remove("listen-icon");
+				listenChangeBtnEl.title = browser.i18n.getMessage("listen_deactivated");
 			}
 			listenChangeBtnEl.addEventListener("click", () => {
 				browser.runtime.sendMessage({ api: "toggle-listen-status" }, (response) => {
 					console.log("[change & set-listen-status]", response);
 					if (response.result) {
 						listenChangeBtnEl.classList.add("listen-icon"), listenChangeBtnEl.classList.remove("notlisten-icon");
-						showNotification("Start listening downloads", 3000, "success", true);
+						listenChangeBtnEl.title = browser.i18n.getMessage("listen_activate");
+						showNotification(browser.i18n.getMessage("Start_listening_downloads"), 3000, "success", true);
 					} else {
 						listenChangeBtnEl.classList.add("notlisten-icon"), listenChangeBtnEl.classList.remove("listen-icon");
-						showNotification("Stop listening downloads", 3000, "info", true);
+						listenChangeBtnEl.title = browser.i18n.getMessage("listen_deactivated");
+						showNotification(browser.i18n.getMessage("Stop_listening_downloads"), 3000, "info", true);
 					}
 				});
 			});
@@ -216,7 +222,7 @@ function initProfile() {
 				selectEl.appendChild(optionEl);
 			}
 			selectEl.addEventListener("change", () => {
-				showNoTaskElement("loading...");
+				showNoTaskElement(browser.i18n.getMessage("connecting"));
 				browser.runtime.sendMessage({ api: "set-default-profile", profileId: selectEl.value }, (response) => {
 					console.log("[change & set default profile] profile:", selectEl.value, response);
 					fetchDownloadList();
@@ -244,9 +250,11 @@ function initNavbarBtn() {
 	let settingsBtn = document.createElement("div");
 	settingsBtn.className = "btn settings-icon";
 	settingsBtn.id = "settings";
+	settingsBtn.title = browser.i18n.getMessage("open_settings");
 	let addtaskBtn = document.createElement("div");
 	addtaskBtn.className = "btn addtask-icon";
 	addtaskBtn.id = "addtask";
+	addtaskBtn.title = browser.i18n.getMessage("add_task");
 	navbarRight.appendChild(addtaskBtn);
 	navbarRight.appendChild(settingsBtn);
 
@@ -256,7 +264,8 @@ function initNavbarBtn() {
 	let clearBtn = document.createElement("div");
 	clearBtn.className = "btn";
 	clearBtn.id = "clear";
-	clearBtn.innerText = "clear";
+	clearBtn.innerText = browser.i18n.getMessage("clear");
+	clearBtn.title = browser.i18n.getMessage("clear_download_list");
 	clearBtn.style.display = "none";
 	navbarRight.prepend(clearBtn);
 	clearBtn.addEventListener("click", () => {
@@ -280,7 +289,7 @@ function createAddTaskDialog() {
 
 	let textareaInfo = document.createElement("div");
 	textareaInfo.className = "textareaInfo";
-	textareaInfo.innerText = "input url or filepath";
+	textareaInfo.innerText = "none";
 
 	let textarea = document.createElement("textarea");
 	textarea.className = "textarea";
@@ -299,18 +308,18 @@ function createAddTaskDialog() {
 
 	title.innerText = "Add Download Task";
 	title.style.display = "none";
-	cancelBtn.innerText = "Cancel";
-	confirmBtn.innerText = "Confirm";
-	selectFileBtn.innerText = "Select Torrent File";
-	textarea.placeholder = "Enter URL or magnet link here...";
+	cancelBtn.innerText = browser.i18n.getMessage("cancel");
+	confirmBtn.innerText = browser.i18n.getMessage("confirm");
+	selectFileBtn.innerText = browser.i18n.getMessage("select_torrent_file");
+	textarea.placeholder = browser.i18n.getMessage("Enter_URL_or_magnet_link_here");
 
 	const confirmBtnEvent = (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		confirmBtn.disabled = true;
 		setTimeout(() => (confirmBtn.disabled = false), 1000);
-		if (!connectionStatus) return showNotification("Can't add task when aria2 is offline", 3000, "error", true);
-		if (!textarea.value || textarea.value.trim() === "") return showNotification("Please enter a URL or magnet link.", 3000, "error", true);
+		if (!connectionStatus) return showNotification(browser.i18n.getMessage("please_connect_first"), 3000, "error", true);
+		if (!textarea.value || textarea.value.trim() === "") return showNotification(browser.i18n.getMessage("please_input_url_or_filepath"), 3000, "error", true);
 		let url = textarea.value.trim();
 		let addTaskType = parseUrlOrPathType(url);
 
@@ -320,7 +329,7 @@ function createAddTaskDialog() {
 					console.log(`%cerror code: ${result.error.code} message: ${result.error.message}`, "color: red");
 					return showNotification(result.error.message, 3000, "error", true);
 				}
-				showNotification("Task added successfully", 3000, "success", true);
+				showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
 				hideAddTaskDialog();
 				console.log("[Add task] success result: ", result);
 			});
@@ -334,7 +343,7 @@ function createAddTaskDialog() {
 						console.log("[Add task] success result: ", result);
 						textarea.value = "";
 						// textarea.disabled = false;
-						showNotification("Task added successfully", 3000, "success", true);
+						showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
 						hideAddTaskDialog();
 					});
 				}
@@ -350,13 +359,13 @@ function createAddTaskDialog() {
 						console.log("[Add task] success result: ", result);
 						textarea.value = "";
 						// textarea.disabled = false;
-						showNotification("Task added successfully", 3000, "success", true);
+						showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
 						hideAddTaskDialog();
 					});
 				}
 			});
 		} else {
-			showNotification("Invalid input", 3000, "error", true);
+			showNotification(browser.i18n.getMessage("invalid_input"), 3000, "error", true);
 		}
 	};
 	confirmBtn.addEventListener("click", (e) => confirmBtnEvent(e));
@@ -368,7 +377,7 @@ function createAddTaskDialog() {
 			if (browser.runtime.lastError) {
 				console.error("Error:", browser.runtime.lastError.message);
 			} else {
-				if (result.result === "canceled") return showNotification("cancel select file", 3000, "info");
+				if (result.result === "canceled") return showNotification(browser.i18n.getMessage("canel"), 3000, "info");
 				if (result && result.result && result.result !== "") {
 					textarea.value = result.path;
 					textareaInfo.innerText = parseUrlOrPathType(textarea.value.trim());
@@ -409,16 +418,16 @@ const downloadItemsState = new Map();
 
 function fetchDownloadList() {
 	browser.runtime.sendMessage({ api: "get-download-list" }, (response) => {
-		// console.log("[fetchDownloadList]", response);
+		console.log("[fetchDownloadList]", response);
 		updateList(response);
 	});
 }
 
 function updateList(response) {
 	// init error
-	if (response.error && response.code === 1) return showNoTaskElement("Please add Aria2 service first.");
+	if (response.error && response.code === 1) return showNoTaskElement(browser.i18n.getMessage("please_connect_first"));
 	else arrow.hide();
-	if (response === "error" || !response) return showNoTaskElement("Unable to connect to Aria2 service...");
+	if (response === "error" || !response) return showNoTaskElement(browser.i18n.getMessage("unable_to_connect_to_server"));
 
 	// get list from response && concat two result
 	let tellActiveList = response.result[0][0] || [];
@@ -437,7 +446,7 @@ function updateList(response) {
 
 	// console.log("[list]", list);
 
-	if (list.length === 0) showNoTaskElement("no task here~");
+	if (list.length === 0) showNoTaskElement(browser.i18n.getMessage("no_task_here"));
 	else hideNoTaskElement();
 	// generate gid set
 	const newGids = new Set(list.map((item) => item.gid));
@@ -487,11 +496,11 @@ function createDownloadItemElement(item) {
 		browser.runtime.sendMessage({ api: "native-select-file", url: item.taskPath }).then((response) => {
 			if (!response.result) {
 				if (response.isLocal) {
-					showNotification("File not found", 3000, "error");
+					showNotification(browser.i18n.getMessage("file_not_found"), 3000, "error");
 				} else if (!response.isLocal) {
-					showNotification("Unable to open non-local file", 3000, "error");
+					showNotification(browser.i18n.getMessage("unable_open_remote_file"), 3000, "error");
 				} else {
-					showNotification("File not found", 3000, "error");
+					showNotification(browser.i18n.getMessage("file_not_found"), 3000, "error");
 				}
 			}
 		});
@@ -537,12 +546,12 @@ function updateDownloadItemElement(el, i) {
 
 	let statusStr;
 	// All status  ${i.status} ${i.progress}% left:${i.leftTime} ${i.completedLength}/${i.totalLength} ${i.status === "active" ? i.downloadSpeed : ""}
-	if (i.status === "active") statusStr = `${i.status} ${i.progresspercent} ${i.completedLength}/${i.totalLength} ${i.downloadSpeed}`;
-	else if (i.status === "waiting") statusStr = `${i.status} ${i.progresspercent} ${i.completedLength}/${i.totalLength}`;
-	else if (i.status === "paused") statusStr = `${i.status} ${i.progresspercent} ${i.completedLength}/${i.totalLength}`;
-	else if (i.status === "error") statusStr = `${i.status}`; // download error
-	else if (i.status === "complete") statusStr = `${i.status} ${i.totalLength}`; // download complete
-	else if (i.status === "removed") statusStr = `${i.status}`;
+	if (i.status === "active") statusStr = `${browser.i18n.getMessage(i.status)} ${i.progresspercent} ${i.completedLength}/${i.totalLength} ${i.downloadSpeed}`;
+	else if (i.status === "waiting") statusStr = `${browser.i18n.getMessage(i.status)} ${i.progresspercent} ${i.completedLength}/${i.totalLength}`;
+	else if (i.status === "paused") statusStr = `${browser.i18n.getMessage(i.status)} ${i.progresspercent} ${i.completedLength}/${i.totalLength}`;
+	else if (i.status === "error") statusStr = `${browser.i18n.getMessage(i.status)}`; // download error
+	else if (i.status === "complete") statusStr = `${browser.i18n.getMessage(i.status)} ${i.totalLength}`; // download complete
+	else if (i.status === "removed") statusStr = `${browser.i18n.getMessage(i.status)}`;
 	else statusStr = `${i.status} ${i.progresspercent} ${i.completedLength}/${i.totalLength}`;
 
 	// DOM
@@ -588,6 +597,7 @@ function updateDownloadItemElement(el, i) {
 		deleteBtn.className = "btn-delete-icon";
 		openBtn = document.createElement("button");
 		openBtn.className = "btn-open-icon";
+		openBtn.title = browser.i18n.getMessage("open_file");
 		infoEl.appendChild(gidEl);
 		infoEl.appendChild(nameEl);
 		nameEl.appendChild(nameNameEl);
@@ -614,6 +624,7 @@ function updateDownloadItemElement(el, i) {
 						console.log("[sendMessage] aria2_forcePause [gid]", i.gid, "[res]", response);
 						iconEl.classList.remove("pause-icon");
 						iconEl.classList.add("play-icon");
+						iconEl.title = browser.i18n.getMessage("unpause");
 					}
 					fetchDownloadList();
 				});
@@ -624,8 +635,9 @@ function updateDownloadItemElement(el, i) {
 						return showNotification(response.error.message, 3000, "error");
 					} else {
 						console.log("[sendMessage] aria2_unpause [gid]", i.gid, "[res]", response);
+						iconEl.classList.remove("play-icon");
 						iconEl.classList.add("pause-icon");
-						iconEl.classList.remove("pause-icon");
+						iconEl.title = browser.i18n.getMessage("pause");
 					}
 					fetchDownloadList();
 				});
@@ -646,6 +658,7 @@ function updateDownloadItemElement(el, i) {
 						console.log("[delete task] gid:", i.gid, "[Received response] ", response);
 						deleteBtn.classList.remove("btn-restart-icon");
 						deleteBtn.classList.add("btn-delete-icon");
+						deleteBtn.title = browser.i18n.getMessage("remove");
 						fetchDownloadList();
 					});
 					console.log("[delete task] gid:", i.gid, "[Received response] ", response);
@@ -660,6 +673,7 @@ function updateDownloadItemElement(el, i) {
 					console.log("[delete task] gid:", i.gid, "[Received response] ", response);
 					deleteBtn.classList.remove("btn-delete-icon");
 					deleteBtn.classList.add("btn-restart-icon");
+					deleteBtn.title = browser.i18n.getMessage("restart");
 					fetchDownloadList();
 				});
 			}
@@ -708,25 +722,32 @@ function updateDownloadItemElement(el, i) {
 	if (i.status === "paused") {
 		iconEl.classList.remove("pause-icon");
 		iconEl.classList.add("play-icon");
+		iconEl.title = browser.i18n.getMessage("unpause");
 	} else if (i.status === "waiting" || i.status === "active") {
 		iconEl.classList.remove("play-icon");
 		iconEl.classList.add("pause-icon");
+		iconEl.title = browser.i18n.getMessage("pause");
 	} else {
 		iconEl.classList.remove("play-icon", "pause-icon");
+		iconEl.title = "";
 	}
+
 	if ((i.status === "complete" || i.status === "removed" || i.status === "error") && !i.bittorrent) {
 		deleteBtn.classList.remove("btn-delete-icon");
 		deleteBtn.classList.add("btn-restart-icon");
+		deleteBtn.title = browser.i18n.getMessage("restart");
 	} else {
 		deleteBtn.classList.remove("btn-restart-icon");
 		deleteBtn.classList.add("btn-delete-icon");
+		deleteBtn.title = browser.i18n.getMessage("remove");
 	}
 }
 
 // MARK main
 document.addEventListener("DOMContentLoaded", function () {
 	// initializing
-	showNoTaskElement("initializing...");
+	document.getElementById("appTitle").innerHTML = browser.i18n.getMessage("extension_name") || "Aria2Helper";
+	showNoTaskElement(browser.i18n.getMessage("initializing"));
 	initProfile();
 	initNavbarBtn();
 	updatedConnectionStatus();

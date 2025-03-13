@@ -1,0 +1,118 @@
+{
+	"extension_name": {
+		"message": "Aira2助手",
+		"description": "The display name for the extension."
+	},
+	"extension_description": {
+		"message": "专为Safari开发的Aria2下载助手。",
+		"description": "Description of what the extension does."
+	},
+	"active": {
+		"message": "下载中"
+	},
+	"waiting": {
+		"message": "排队中"
+	},
+	"paused": {
+		"message": "已暂停"
+	},
+	"error": {
+		"message": "错误"
+	},
+	"complete": {
+		"message": "已完成"
+	},
+	"removed": {
+		"message": "已移除"
+	},
+	"unknown": {
+		"message": "未知"
+	},
+	"listen_activate": {
+		"message": "正在监听页面下载"
+	},
+	"listen_deactivated": {
+		"message": "已停止监听页面下载"
+	},
+	"Start_listening_downloads": {
+		"message": "开始监听页面下载"
+	},
+	"Stop_listening_downloads": {
+		"message": "停止监听页面下载"
+	},
+	"disconnect": {
+		"message": "未连接"
+	},
+	"connect": {
+		"message": "连接成功"
+	},
+	"add_task": {
+		"message": "添加任务"
+	},
+	"open_settings": {
+		"message": "打开设置页面"
+	},
+	"clear": {
+		"message": "清除"
+	},
+	"clear_download_list": {
+		"message": "清除下载列表"
+	},
+	"cancel": {
+		"message": "取消"
+	},
+	"confirm": {
+		"message": "确定"
+	},
+	"select_torrent_file": {
+		"message": "选择torrent文件"
+	},
+	"Enter_URL_or_magnet_link_here": {
+		"message": "输入URL或磁力链接..."
+	},
+	"unpause": {
+		"message": "继续任务"
+	},
+	"pause": {
+		"message": "暂停任务"
+	},
+	"restart": {
+		"message": "重新开始"
+	},
+	"remove": {
+		"message": "移除"
+	},
+	"open_file": {
+		"message": "打开文件"
+	},
+	"please_connect_first": {
+		"message": "请先连接到Aira2"
+	},
+	"please_input_url_or_filepath": {
+		"message": "请输入URL或文件路径"
+	},
+	"Task_added_successfully": {
+		"message": "任务添加成功"
+	},
+	"invalid_input": {
+		"message": "无效的输入"
+	},
+	"file_not_found": {
+		"message": "文件未找到"
+	},
+	"unable_open_remote_file": {
+		"message": "无法打开远程文件"
+	},
+	"unable_to_connect_to_server": {
+		"message": "无法连接到服务器"
+	},
+	"no_task_here": {
+		"message": "没有任务~"
+	},
+	"initializing": {
+		"message": "初始化中..."
+	},
+	"connecting": {
+		"message": "连接中..."
+	}
+}
