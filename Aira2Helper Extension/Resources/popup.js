@@ -193,8 +193,9 @@ function initProfile() {
 				selectEl.appendChild(optionEl);
 			}
 			selectEl.addEventListener("change", () => {
+				showNoTaskElement("loading...");
 				browser.runtime.sendMessage({ api: "set-default-profile", profileId: selectEl.value }, (response) => {
-					console.log("[change & set default profile] profile:", selectEl.value, " [res] ", response);
+					console.log("[change & set default profile] profile:", selectEl.value, response);
 					fetchDownloadList();
 				});
 			});
@@ -385,7 +386,7 @@ const downloadItemsState = new Map();
 
 function fetchDownloadList() {
 	browser.runtime.sendMessage({ api: "get-download-list" }, (response) => {
-		console.log("[fetchDownloadList]", response);
+		// console.log("[fetchDownloadList]", response);
 		updateList(response);
 	});
 }
