@@ -164,7 +164,7 @@
 		"message": "监听系统下载请求(根据输入的文件扩展名拦截请求)"
 	},
 	"listen_downloads_extensions": {
-		"message": "这里填写需要监听的后缀，用\",\"分割，优先级: 白名单>黑名单>默认"
+		"message": "这里填写需要监听后缀，用\",\"分割，优先级: 白名单>黑名单>默认"
 	},
 	"label_default_extensions": {
 		"message": "这里是默认会监听的文件类型。"

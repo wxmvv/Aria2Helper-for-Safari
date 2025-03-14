@@ -73,14 +73,15 @@
 					<input type="checkbox" style="width: 20px; height: 20px" id="listen-downloads" autocomplete="off" placeholder="" />
 					<label style="margin-bottom: 0" for="listen-downloads" id="labelListenDownloads">Listen for system download requests (intercept requests based on file extensions entered)</label>
 				</div>
-				<label style="margin-bottom: 0" id="labelListenDownloadsExtensions">Here are the suffixes to be listened to, separated by ",".</label>
-				<label style="margin-bottom: 0" for="extensionsBlackList" id="labelExtensionsBlackList">BlackList</label>
-				<div class="form-group" style="display: flex; width: 100%">
-					<textarea type="text" id="extensionsBlackList" style="width: 100%; height: 100px" autocomplete="off"></textarea>
-				</div>
+				<label style="margin-bottom: 16px" id="labelListenDownloadsExtensions">Here are the suffixes to be listened to, separated by ",".</label>
+
 				<label style="margin-bottom: 0" for="extensionsWhiteList" id="labelExtensionsWhiteList">WhiteList</label>
 				<div class="form-group" style="display: flex; width: 100%">
 					<textarea type="text" id="extensionsWhiteList" style="width: 100%; height: 100px" autocomplete="off"></textarea>
+				</div>
+				<label style="margin-bottom: 0" for="extensionsBlackList" id="labelExtensionsBlackList">BlackList</label>
+				<div class="form-group" style="display: flex; width: 100%">
+					<textarea type="text" id="extensionsBlackList" style="width: 100%; height: 100px" autocomplete="off"></textarea>
 				</div>
 				<button class="btn blue" disabled id="saveExtensions">Save</button>
 			</div>

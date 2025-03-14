@@ -164,7 +164,7 @@
 		"message": "Listen Downloads"
 	},
 	"listen_downloads_extensions": {
-		"message": "Here are the suffixes to be listened to, separated by \",\" ,such as: mp4,mp3,torrent,Priority:whitelist > blacklist > default"
+		"message": "Here, you can fill in the suffix to be monitored, separated by \",\" , Priority:whitelist > blacklist > default"
 	},
 	"label_default_extensions": {
 		"message": "Here are the default extensions listened to."
