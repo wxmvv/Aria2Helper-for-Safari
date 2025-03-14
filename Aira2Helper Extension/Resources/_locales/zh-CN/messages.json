@@ -35,10 +35,10 @@
 		"message": "已停止监听页面下载"
 	},
 	"Start_listening_downloads": {
-		"message": "开始监听页面下载"
+		"message": "开始监听页面下载,刷新页面后应用设置"
 	},
 	"Stop_listening_downloads": {
-		"message": "停止监听页面下载"
+		"message": "停止监听页面下载,刷新页面后应用设置"
 	},
 	"disconnect": {
 		"message": "未连接"
@@ -115,7 +115,6 @@
 	"connecting": {
 		"message": "连接中..."
 	},
-
 	"alias": {
 		"message": "别名"
 	},
@@ -165,7 +164,16 @@
 		"message": "监听系统下载请求(根据输入的文件扩展名拦截请求)"
 	},
 	"listen_downloads_extensions": {
-		"message": "这里填写需要监听的后缀，用\",\"分割"
+		"message": "这里填写需要监听的后缀，用\",\"分割，优先级: 白名单>黑名单>默认"
+	},
+	"label_default_extensions": {
+		"message": "这里是默认会监听的文件类型。"
+	},
+	"label_extensions_whitelist": {
+		"message": "监听文件类型白名单"
+	},
+	"label_extensions_blacklist": {
+		"message": "监听黑名单，这里的文件类型都不会被监听"
 	},
 	"save_extensions": {
 		"message": "保存文件类型"

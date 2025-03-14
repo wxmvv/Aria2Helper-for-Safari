@@ -35,10 +35,10 @@
 		"message": "listen deactivated"
 	},
 	"Start listening downloads": {
-		"message": "Start listening downloads"
+		"message": "Start listening downloads,refresh the page and apply settings."
 	},
 	"Stop listening downloads": {
-		"message": "Stop listening downloads"
+		"message": "Stop listening downloads,refresh the page and apply settings."
 	},
 	"disconnect": {
 		"message": "disconnect"
@@ -115,7 +115,6 @@
 	"connecting": {
 		"message": "Connecting..."
 	},
-
 	"alias": {
 		"message": "Alias"
 	},
@@ -165,7 +164,16 @@
 		"message": "Listen Downloads"
 	},
 	"listen_downloads_extensions": {
-		"message": "Listen Downloads Extensions"
+		"message": "Here are the suffixes to be listened to, separated by \",\" ,such as: mp4,mp3,torrent,Priority:whitelist > blacklist > default"
+	},
+	"label_default_extensions": {
+		"message": "Here are the default extensions listened to."
+	},
+	"label_extensions_whitelist": {
+		"message": "Whitelist"
+	},
+	"label_extensions_blacklist": {
+		"message": "Blacklist"
 	},
 	"save_extensions": {
 		"message": "Save Extensions"

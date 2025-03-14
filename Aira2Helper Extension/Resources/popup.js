@@ -685,11 +685,11 @@ function updateDownloadItemElement(el, i) {
 			browser.runtime.sendMessage({ api: "native-select-file", url: i.taskPath }).then((response) => {
 				if (!response.result) {
 					if (response.isLocal) {
-						showNotification("File not found", 3000, "error");
+						showNotification(browser.i18n.getMessage("file_not_found"), 3000, "error");
 					} else if (!response.isLocal) {
-						showNotification("Unable to open non-local file", 3000, "error");
+						showNotification(browser.i18n.getMessage("unable_open_remote_file"), 3000, "error");
 					} else {
-						showNotification("File not found", 3000, "error");
+						showNotification(browser.i18n.getMessage("file_not_found"), 3000, "error");
 					}
 				}
 			});

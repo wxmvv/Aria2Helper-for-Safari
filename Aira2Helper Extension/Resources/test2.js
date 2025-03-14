@@ -1,4 +1,3 @@
-//
 const extensions = {
 	video: {
 		name: "Videos",
@@ -195,18 +194,18 @@ const extensions = {
 	},
 	others: {
 		name: "Others",
-		extensions: [".bin", ".db", ".torrent", ".sig", ".eaglepack"],
+		extensions: [".bin", ".db", ".torrent"],
 	},
 };
 
-let filterLists = {
+const filterLists = {
 	blacklist: {
 		name: "Blacklist",
-		extensions: [],
+		extensions: [".exe", ".bat", ".dll", ".com"],
 	},
 	whitelist: {
 		name: "Whitelist",
-		extensions: [],
+		extensions: [".mp4", ".pdf", ".jpg", ".png"],
 	},
 };
 
@@ -265,97 +264,5 @@ function matchExtensionWithFilters(url, extensions, filterLists) {
 	// default extensions
 	return matchDefaultExtensions(url, extensions);
 }
-// test
-// console.log(matchExtensionWithFilters("example.mp4", extensions, filterLists));
 
-// MARK
-let skipNextClick = false;
-
-browser.storage.local.get(["settings"]).then((result) => {
-	let settings = result.settings;
-	if (settings && settings.listenDownloads) {
-		console.log("[Aria2Helper] start to listen downloads");
-
-		let listener = (event) => {
-			// console.log(event);
-			// TODO 设置拦截网址白名单 黑名单
-			// let url = window.location.href; // 获取当前页面网址
-			// console.log(url);
-
-			if (skipNextClick) {
-				skipNextClick = false;
-				return;
-			}
-			let target = event.target;
-			while (target && target.nodeName !== "A") target = target.parentElement;
-			if (target && target.nodeName === "A") {
-				if (settings.filterLists) filterLists = settings.filterLists;
-				// console.log(filterLists);
-				if (matchExtensionWithFilters(target.href, extensions, filterLists)) {
-					// block default
-					event.preventDefault();
-					const fileparts = getFileParts(target.href);
-
-					// post to aria2 server
-					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
-						if (response === "error") {
-							console.log("[aria2Helper] error to connect aria2 server");
-							skipNextClick = true; // Set flag and trigger default behavior
-							target.click(); // click the link again
-							if (settings.showNotification)
-								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
-						} else {
-							if (settings.showNotification)
-								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
-						}
-					});
-				}
-			} else {
-				// not download link
-			}
-		};
-		document.addEventListener("click", listener);
-	} else {
-		// not listen downloads
-	}
-});
-
-function getFileParts(filename) {
-	if (typeof filename !== "string" || filename.trim() === "") {
-		return {
-			extension: "",
-			nameWithoutExtension: "",
-		};
-	}
-
-	filename = filename.trim();
-
-	filename = decodeURIComponent(filename.substring(filename.lastIndexOf("/") + 1));
-	const lastDotIndex = filename.lastIndexOf(".");
-	if (
-		lastDotIndex === -1 || // no dot
-		lastDotIndex === 0 || // start with dot (.gitignore)
-		lastDotIndex === filename.length - 1
-	) {
-		// end with dot (file.)
-		return {
-			extension: "",
-			nameWithoutExtension: filename,
-		};
-	}
-	const ext = filename.slice(lastDotIndex + 1);
-	return {
-		filename: filename,
-		extension: ext ? `.${ext}` : "", // add dot if ext is not empty
-		nameWithoutExtension: filename.slice(0, lastDotIndex),
-	};
-}
-
-function getRequestHeaders() {
-	const headers = {};
-
-	headers["User-Agent"] = navigator.userAgent;
-	headers["Accept-Language"] = navigator.language;
-
-	return headers;
-}
+console.log(matchExtensionWithFilters("example.mp4", extensions, filterLists));

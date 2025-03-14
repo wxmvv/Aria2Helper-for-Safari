@@ -178,6 +178,25 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	flex: 1;
 }
 
+/* fold extensions */
+.category {
+	margin: 10px 0;
+	cursor: pointer;
+}
+.category-header {
+	background-color: transparent;
+	padding: 10px;
+	border-radius: 4px;
+}
+.extensions-list {
+	display: none;
+	padding-left: 20px;
+	margin: 5px 0;
+}
+.extensions-list.show {
+	display: block;
+}
+
 /* 按钮样式 */
 .btn {
 	display: inline-block;

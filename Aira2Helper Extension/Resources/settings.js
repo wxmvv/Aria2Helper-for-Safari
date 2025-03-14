@@ -1,3 +1,203 @@
+const extensions = {
+	video: {
+		name: "Videos",
+		extensions: [
+			".3g2",
+			".3gp",
+			".3gp2",
+			".3gpp",
+			".asf",
+			".asx",
+			".avi",
+			".dat",
+			".divx",
+			".flv",
+			".m1v",
+			".m2ts",
+			".m2v",
+			".m4v",
+			".mkv",
+			".mov",
+			".mp4",
+			".mpe",
+			".mpeg",
+			".mpg",
+			".mts",
+			".ogv",
+			".qt",
+			".ram",
+			".rm",
+			".rmvb",
+			".ts",
+			".vob",
+			".wmv",
+		],
+	},
+	audio: {
+		name: "Audios",
+		extensions: [
+			".aac",
+			".ac3",
+			".adts",
+			".amr",
+			".ape",
+			".eac3",
+			".flac",
+			".m1a",
+			".m2a",
+			".m4a",
+			".mid",
+			".mka",
+			".mp2",
+			".mp3",
+			".mpa",
+			".mpc",
+			".ogg",
+			".ra",
+			".tak",
+			".vqf",
+			".wm",
+			".wav",
+			".wma",
+			".wv",
+		],
+	},
+	picture: {
+		name: "Pictures",
+		extensions: [
+			".abr",
+			".bmp",
+			".emf",
+			".gif",
+			".j2c",
+			".j2k",
+			".jfif",
+			".jif",
+			".jp2",
+			".jpc",
+			".jpe",
+			".jpeg",
+			".jpf",
+			".jpg",
+			".jpk",
+			".jpx",
+			".pcx",
+			".pct",
+			".pic",
+			".pict",
+			".png",
+			".pns",
+			".psd",
+			".psdx",
+			".raw",
+			".svg",
+			".svgz",
+			".tga",
+			".tif",
+			".tiff",
+			".wbm",
+			".wbmp",
+			".webp",
+			".wmf",
+			".xif",
+		],
+	},
+	document: {
+		name: "Documents",
+		extensions: [
+			".csv",
+			".doc",
+			".docm",
+			".docx",
+			".dot",
+			".dotm",
+			".dotx",
+			".key",
+			".mpp",
+			".numbers",
+			".odp",
+			".ods",
+			".odt",
+			".pages",
+			".pdf",
+			".pot",
+			".potm",
+			".potx",
+			".pps",
+			".ppsm",
+			".ppsx",
+			".ppt",
+			".pptm",
+			".pptx",
+			".rtf",
+			".txt",
+			".vsd",
+			".vsdx",
+			".wk1",
+			".wk2",
+			".wk3",
+			".wk4",
+			".wks",
+			".wpd",
+			".wps",
+			".xla",
+			".xlam",
+			".xll",
+			".xlm",
+			".xls",
+			".xlsb",
+			".xlsm",
+			".xlsx",
+			".xlt",
+			".xltx",
+			".xlw",
+			".xps",
+		],
+	},
+	application: {
+		name: "Applications",
+		extensions: [".apk", ".bat", ".com", ".deb", ".dll", ".dmg", ".exe", ".ipa", ".jar", ".msi", ".rpm", ".sh"],
+	},
+	archive: {
+		name: "Archives",
+		extensions: [
+			".001",
+			".7z",
+			".ace",
+			".arj",
+			".bz2",
+			".cab",
+			".cbr",
+			".cbz",
+			".gz",
+			".img",
+			".iso",
+			".lzh",
+			".qcow2",
+			".r",
+			".rar",
+			".sef",
+			".tar",
+			".taz",
+			".tbz",
+			".tbz2",
+			".uue",
+			".vdi",
+			".vhd",
+			".vmdk",
+			".wim",
+			".xar",
+			".xz",
+			".z",
+			".zip",
+		],
+	},
+	others: {
+		name: "Others",
+		extensions: [".bin", ".db", ".torrent", ".sig", ".eaglepack"],
+	},
+};
+
 let currentProfileId;
 let defaultProfileId;
 let profiles;
@@ -19,39 +219,16 @@ const initSettings = {
 	showBadge: false, // show badge
 	showNotification: true, // show notifications
 	listenDownloads: false, // listen downloads
-	extensionsValue: "exe,zip,rar,tar,gz,7z,dmg,pkg,apk,iso,img,sig,zst,bz2,xz,pdf,doc,docx,xls,xlsx,ppt,pptx,mp3,mp4,avi,mkv,jpg,png,gif,torrent",
-	extensions: [
-		".exe",
-		".zip",
-		".rar",
-		".tar",
-		".gz",
-		".7z",
-		".dmg",
-		".pkg",
-		".apk",
-		".iso",
-		".img",
-		".sig",
-		".zst",
-		".bz2",
-		".xz",
-		".pdf",
-		".doc",
-		".docx",
-		".xls",
-		".xlsx",
-		".ppt",
-		".pptx",
-		".mp3",
-		".mp4",
-		".avi",
-		".mkv",
-		".jpg",
-		".png",
-		".gif",
-		".torrent",
-	],
+	filterLists: {
+		blacklist: {
+			name: "Blacklist",
+			extensions: [],
+		},
+		whitelist: {
+			name: "Whitelist",
+			extensions: [],
+		},
+	},
 };
 
 const initCurrentProfileId = "init";
@@ -95,9 +272,14 @@ function saveLocalStorage() {
 }
 
 function saveSettings() {
-	browser.storage.local.set({
-		settings: settings,
-	});
+	browser.storage.local
+		.set({
+			settings: settings,
+		})
+		.then((res) => {
+			console.log("saveSettings", res);
+			console.log(settings);
+		});
 }
 
 function renderTabs(profiles) {
@@ -145,8 +327,7 @@ function updateDefaultCss() {
 }
 
 function updateSaveExtensionsBtnCss() {
-	// disable btn if no change
-	document.getElementById("saveExtensions").disabled = !extensionsChangeFlag;
+	document.getElementById("saveExtensions").disabled = !extensionsChangeFlag; // disable btn if no change
 }
 
 function updateSetDefaultCss() {
@@ -181,7 +362,14 @@ function loadSettings(settings) {
 	document.getElementById("listen-downloads").checked = settings.listenDownloads || false;
 	document.getElementById("show-badge").checked = settings.showBadge || false;
 	document.getElementById("show-notification").checked = settings.showNotification || true;
-	document.getElementById("listen-downloads-extensions").value = settings.extensionsValue || initSettings.extensionsValue;
+	// Blacklist Whitelist
+	if (settings.filterLists) {
+		document.getElementById("extensionsBlackList").value = settings.filterLists.blacklist.extensions.toString();
+		document.getElementById("extensionsWhiteList").value = settings.filterLists.whitelist.extensions.toString();
+	} else {
+		document.getElementById("extensionsBlackList").value = initSettings.filterLists.blacklist.extensions.toString();
+		document.getElementById("extensionsWhiteList").value = initSettings.filterLists.whitelist.extensions.toString();
+	}
 }
 
 function addProfile() {
@@ -199,6 +387,37 @@ function addProfile() {
 	renderTabs(profiles);
 	loadProfile(profileId);
 	saveLocalStorage();
+}
+
+// 生成折叠列表
+function renderExtensions() {
+	const container = document.getElementById("listen-downloads-extensions");
+
+	Object.entries(extensions).forEach(([category, data]) => {
+		// 创建分类容器
+		const categoryDiv = document.createElement("div");
+		categoryDiv.className = "category";
+
+		// 创建头部
+		const header = document.createElement("div");
+		header.className = "category-header";
+		header.textContent = `${data.name} (${data.extensions.length})`;
+
+		// 创建扩展名列表
+		const extList = document.createElement("div");
+		extList.className = "extensions-list";
+		extList.innerHTML = data.extensions.map((ext) => `<span>${ext}</span>`).join(", ");
+
+		// 点击事件 - 切换显示/隐藏
+		header.addEventListener("click", () => {
+			extList.classList.toggle("show");
+		});
+
+		// 添加到 DOM
+		categoryDiv.appendChild(header);
+		categoryDiv.appendChild(extList);
+		container.appendChild(categoryDiv);
+	});
 }
 
 function setupEventListeners() {
@@ -283,22 +502,44 @@ function setupEventListeners() {
 		saveSettings();
 	});
 
+	document.getElementById("listen-downloads").addEventListener("click", (e) => {
+		settings.listenDownloads = e.target.checked;
+		saveSettings();
+	});
+	// Blacklist Whitelist
 	document.getElementById("saveExtensions").addEventListener("click", (e) => {
-		settings.extensionsValue = document.getElementById("listen-downloads-extensions").value;
-		settings.extensions = settings.extensionsValue.split(",").map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+		let whitelist = document.getElementById("extensionsWhiteList").value;
+		let blacklist = document.getElementById("extensionsBlackList").value; // TODO 检查当前是否合规 1. 是否有全角符号 2. 是否带.
+
+		whitelist = whitelist.trim();
+		blacklist = blacklist.trim();
+
+		let whitelistExtensions;
+		let blacklistExtensions;
+
+		if (whitelist === "") whitelistExtensions = [];
+		else whitelistExtensions = whitelist.split(",").map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+
+		if (blacklist === "") blacklistExtensions = [];
+		else blacklistExtensions = blacklist.split(",").map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+
+		settings.filterLists = {
+			blacklist: { name: "Blacklist", extensions: blacklistExtensions },
+			whitelist: { name: "Whitelist", extensions: whitelistExtensions },
+		};
+
 		saveSettings();
 		extensionsChangeFlag = false;
 		updateSaveExtensionsBtnCss();
 	});
 
-	document.getElementById("listen-downloads-extensions").addEventListener("input", (e) => {
+	document.getElementById("extensionsBlackList").addEventListener("input", (e) => {
 		extensionsChangeFlag = true;
 		updateSaveExtensionsBtnCss();
 	});
-
-	document.getElementById("listen-downloads").addEventListener("click", (e) => {
-		settings.listenDownloads = e.target.checked;
-		saveSettings();
+	document.getElementById("extensionsWhiteList").addEventListener("input", (e) => {
+		extensionsChangeFlag = true;
+		updateSaveExtensionsBtnCss();
 	});
 }
 
@@ -322,6 +563,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("labelShowNotification").textContent = browser.i18n.getMessage("show_notification");
 	document.getElementById("labelListenDownloads").textContent = browser.i18n.getMessage("listen_downloads");
 	document.getElementById("labelListenDownloadsExtensions").textContent = browser.i18n.getMessage("listen_downloads_extensions");
+	document.getElementById("labelDefaultExtensions").textContent = browser.i18n.getMessage("label_default_extensions");
+	document.getElementById("labelExtensionsWhiteList").textContent = browser.i18n.getMessage("label_extensions_whitelist");
+	document.getElementById("labelExtensionsBlackList").textContent = browser.i18n.getMessage("label_extensions_blacklist");
 	document.getElementById("saveExtensions").textContent = browser.i18n.getMessage("save_extensions");
 	// placeholder
 	document.getElementById("alias").placeholder = browser.i18n.getMessage("input_alias");
@@ -334,6 +578,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		renderTabs(profiles);
 		loadProfile(currentProfileId);
 		loadSettings(settings);
+		renderExtensions();
 		setupEventListeners();
 	});
 });
