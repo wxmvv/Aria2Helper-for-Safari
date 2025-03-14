@@ -20,12 +20,6 @@ Elevate your workflow with Aria2Helper and enjoy a streamlined download experien
 Have a bug or a feature request? Please first search for existing and closed issues. If your problem or idea is not
 addressed yet, [please open a new issue](https://github.com/wxmvv/Aira2Helper-for-Safari/issues/new).
 
-## TODO
-
--   [ ] i18n
--   [ ] use websockt instead of http
--   [ ] add more config options
-
 ## License
 
 [MIT License](https://github.com/wxmvv/Aira2Helper-for-Safari/blob/main/LICENSE).

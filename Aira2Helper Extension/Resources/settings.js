@@ -19,7 +19,7 @@ const initSettings = {
 	showBadge: false, // show badge
 	showNotification: true, // show notifications
 	listenDownloads: false, // listen downloads
-	extensionsValue: "exe,zip,rar,tar,gz,7z,dmg,pkg,apk,iso,img,sig,zst,bz2,xz,pdf,doc,docx,xls,xlsx,ppt,pptx,mp3,mp4,avi,mkv,jpg,png,gif",
+	extensionsValue: "exe,zip,rar,tar,gz,7z,dmg,pkg,apk,iso,img,sig,zst,bz2,xz,pdf,doc,docx,xls,xlsx,ppt,pptx,mp3,mp4,avi,mkv,jpg,png,gif,torrent",
 	extensions: [
 		".exe",
 		".zip",
@@ -50,6 +50,7 @@ const initSettings = {
 		".jpg",
 		".png",
 		".gif",
+		".torrent",
 	],
 };
 
@@ -304,6 +305,7 @@ function setupEventListeners() {
 // MARK main
 document.addEventListener("DOMContentLoaded", function () {
 	// i18n
+	// label
 	document.getElementById("settingsTitle").textContent = browser.i18n.getMessage("extension_name");
 	document.getElementById("titleAlias").textContent = browser.i18n.getMessage("alias");
 	document.getElementById("titleRpcHost").textContent = browser.i18n.getMessage("rpc_host");
@@ -321,6 +323,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("labelListenDownloads").textContent = browser.i18n.getMessage("listen_downloads");
 	document.getElementById("labelListenDownloadsExtensions").textContent = browser.i18n.getMessage("listen_downloads_extensions");
 	document.getElementById("saveExtensions").textContent = browser.i18n.getMessage("save_extensions");
+	// placeholder
+	document.getElementById("alias").placeholder = browser.i18n.getMessage("input_alias");
+	document.getElementById("rpc-host").placeholder = browser.i18n.getMessage("host_example");
+	document.getElementById("rpc-port").placeholder = browser.i18n.getMessage("port_example");
+	document.getElementById("rpc-secret").placeholder = browser.i18n.getMessage("input_secret");
+	document.getElementById("rpc-parameters").placeholder = browser.i18n.getMessage("parameters_example");
 
 	getLocalStorage().then(() => {
 		renderTabs(profiles);

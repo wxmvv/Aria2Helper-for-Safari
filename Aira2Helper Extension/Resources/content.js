@@ -76,6 +76,7 @@ function isDownloadLink(url, extensions) {
 		".jpg",
 		".png",
 		".gif",
+		".torrent",
 	];
 	if (extensions) {
 		return extensions.some((ext) => url.endsWith(ext));

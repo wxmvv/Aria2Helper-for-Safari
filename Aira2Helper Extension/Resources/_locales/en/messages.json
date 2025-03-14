@@ -175,5 +175,20 @@
 	},
 	"save_profile_alert": {
 		"message": "Profile saved:"
+	},
+	"input_alias": {
+		"message": "Input alias"
+	},
+	"host_example": {
+		"message": "Example: localhost"
+	},
+	"port_example": {
+		"message": "Example: 6800"
+	},
+	"input_secret": {
+		"message": "Input secret."
+	},
+	"parameters_example": {
+		"message": "Example: \"dir=/path/to/download,parameter2=value2\""
 	}
 }

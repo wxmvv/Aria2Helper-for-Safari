@@ -400,7 +400,7 @@ textarea {
 	align-items: center;
 	background-color: transparent;
 	border-radius: 6px;
-	max-height: 350px;
+	max-height: 396px;
 	max-width: 540px;
 	min-width: 348px;
 	width: var(--downloadList-width);
@@ -449,6 +449,23 @@ textarea {
 	padding: 10px 10px 10px 20px;
 	border-radius: 8px;
 }
+/* divider */
+.item::after {
+	content: "";
+	position: absolute;
+	left: 62px;
+	bottom: 0;
+	width: 348px;
+	height: 1px;
+	border-radius: 8px;
+	opacity: 0.1;
+	background-color: var(--text-color);
+}
+
+.item:last-child::after {
+	opacity: 0;
+}
+
 .item.active {
 	background-color: var(--theme-color);
 }

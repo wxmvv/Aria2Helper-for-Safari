@@ -175,5 +175,20 @@
 	},
 	"save_profile_alert": {
 		"message": "配置保存成功"
+	},
+	"input_alias": {
+		"message": "输入别名"
+	},
+	"host_example": {
+		"message": "示例: localhost"
+	},
+	"port_example": {
+		"message": "示例: 6800"
+	},
+	"input_secret": {
+		"message": "输入密钥"
+	},
+	"parameters_example": {
+		"message": "示例: --all-proxy=http://127.0.0.1:1080"
 	}
 }
