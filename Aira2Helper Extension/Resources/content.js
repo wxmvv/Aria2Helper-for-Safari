@@ -289,19 +289,19 @@ browser.storage.local.get(["settings"]).then((result) => {
 			let target = event.target;
 			while (target && target.nodeName !== "A") target = target.parentElement;
 			if (target && target.nodeName === "A") {
+				// block default
+				event.preventDefault();
 				if (settings.filterLists) filterLists = settings.filterLists;
-				// console.log(filterLists);
 				if (matchExtensionWithFilters(target.href, extensions, filterLists)) {
-					// block default
-					event.preventDefault();
 					const fileparts = getFileParts(target.href);
-
 					// post to aria2 server
 					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
+						console.log(response, target);
 						if (response === "error") {
 							console.log("[aria2Helper] error to connect aria2 server");
 							skipNextClick = true; // Set flag and trigger default behavior
 							target.click(); // click the link again
+							console.log("[aria2Helper] download with safari native");
 							if (settings.showNotification)
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
 						} else {
@@ -309,6 +309,10 @@ browser.storage.local.get(["settings"]).then((result) => {
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
 						}
 					});
+				} else {
+					// not download extensions
+					skipNextClick = true; // Set flag and trigger default behavior
+					target.click(); // click the link again
 				}
 			} else {
 				// not download link
