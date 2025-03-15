@@ -7,6 +7,25 @@
 		"message": "专为Safari开发的Aria2下载助手。",
 		"description": "Description of what the extension does."
 	},
+	"Download_with_Aria2": {
+		"message": "使用Aria2下载"
+	},
+	"Download_link_with_Aria2": {
+		"message": "使用Aira2下载链接"
+	},
+	"Download_selection_with_Aria2": {
+		"message": "使用Aira2下载选中内容"
+	},
+	"Download_image_with_Aria2": {
+		"message": "使用Aria2下载图片"
+	},
+	"Download_video_with_Aria2": {
+		"message": "使用Aira2下载视频"
+	},
+	"Download_audio_with_Aria2": {
+		"message": "使用Aira2下载音频"
+	},
+
 	"active": {
 		"message": "下载中"
 	},

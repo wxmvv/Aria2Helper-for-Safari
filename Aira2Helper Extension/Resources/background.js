@@ -325,34 +325,41 @@ browser.contextMenus.removeAll(() => {
 	 TODO argetUrlPatterns
 	 */
 
+	// browser.contextMenus.create({
+	// 	id: "Aria2HelperWebDownloadLink",
+	// 	title: browser.i18n.getMessage("Download_with_Aria2"),
+	// 	contexts: ["link", "selection", "image", "video", "audio"],
+	// 	targetUrlPatterns: ["*://*/*"],
+	// });
+
 	browser.contextMenus.create({
 		id: "Aria2HelperWebDownloadLink",
-		title: "Download link with Aria2",
+		title: browser.i18n.getMessage("Download_link_with_Aria2"),
 		contexts: ["link"],
 		targetUrlPatterns: ["*://*/*"],
 	});
 
 	browser.contextMenus.create({
 		id: "Aria2HelperWebDownloadSelection",
-		title: "Download selection with Aria2",
+		title: browser.i18n.getMessage("Download_selection_with_Aria2"),
 		contexts: ["selection"],
 	});
 
 	browser.contextMenus.create({
 		id: "Aria2HelperWebDownloadImage",
-		title: "Download image with Aria2",
+		title: browser.i18n.getMessage("Download_image_with_Aria2"),
 		contexts: ["image"],
 	});
 
 	browser.contextMenus.create({
 		id: "Aria2HelperWebDownloadVideo",
-		title: "Download video with Aria2",
+		title: browser.i18n.getMessage("Download_video_with_Aria2"),
 		contexts: ["video"],
 	});
 
 	browser.contextMenus.create({
 		id: "Aria2HelperWebDownloadAudio",
-		title: "Download audio with Aria2",
+		title: browser.i18n.getMessage("Download_audio_with_Aria2"),
 		contexts: ["audio"],
 	});
 });

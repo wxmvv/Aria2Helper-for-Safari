@@ -7,6 +7,25 @@
 		"message": "This is Aira2Helper Extension. A safari extension for the Aria2 Download Manager.",
 		"description": "Description of what the extension does."
 	},
+	"Download_with_Aria2": {
+		"message": "Download with Aria2"
+	},
+	"Download_link_with_Aria2": {
+		"message": "Download link with Aria2"
+	},
+	"Download_selection_with_Aria2": {
+		"message": "Download selection with Aria2"
+	},
+	"Download_image_with_Aria2": {
+		"message": "Download image with Aria2"
+	},
+	"Download_video_with_Aria2": {
+		"message": "Download video with Aria2"
+	},
+	"Download_audio_with_Aria2": {
+		"message": "Download audio with Aria2"
+	},
+
 	"active": {
 		"message": "active"
 	},
