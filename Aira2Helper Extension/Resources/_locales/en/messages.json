@@ -34,10 +34,10 @@
 	"listen_deactivated": {
 		"message": "listen deactivated"
 	},
-	"Start listening downloads": {
+	"Start_listening_downloads": {
 		"message": "Start listening downloads,refresh the page and apply settings."
 	},
-	"Stop listening downloads": {
+	"Stop_listening_downloads": {
 		"message": "Stop listening downloads,refresh the page and apply settings."
 	},
 	"disconnect": {
