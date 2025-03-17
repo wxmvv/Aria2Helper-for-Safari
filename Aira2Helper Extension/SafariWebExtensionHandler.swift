@@ -155,7 +155,7 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
             var ok: Bool
             do {
                 let fileData = try Data(contentsOf: url)
-                let maxSizeInBytes = 10 * 1024 * 1024 // 10MB 限制
+                let maxSizeInBytes = 20 * 1024 * 1024 // 20MB 限制
                 if fileData.count > maxSizeInBytes {
                     result = "error_file_too_large"
                 } else {

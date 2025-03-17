@@ -135,23 +135,33 @@ function hideNoTaskElement() {
 }
 
 // Connection Status
+let selectDefaultProfileFlag = new Date();
 let connectionStatus = false;
-function updatedConnectionStatus() {
+
+function checkConnectionStatus() {
 	browser.runtime.sendMessage({ api: "aria2_getVersion" }, (response) => {
 		if (response === "error" || !response) {
-			document.documentElement.style.setProperty("--connection-status-color", "var(--disconnect-color)");
-			document.querySelector(".connect-indicator").style.animation = "none";
-			document.querySelector(".connect-indicator").title = browser.i18n.getMessage("disconnect");
-			connectionStatus = false;
-			// console.log("%cdisconnected to server", "color: red", "error");
+			updatedConnectionStatus(false);
 		} else {
-			document.documentElement.style.setProperty("--connection-status-color", "var(--connect-color)");
-			document.querySelector(".connect-indicator").style.animation = "breathe 2s infinite ease-in-out";
-			document.querySelector(".connect-indicator").title = browser.i18n.getMessage("connect");
-			connectionStatus = true;
-			// console.log("%cconnected to server", "color: green", response);
+			updatedConnectionStatus(true);
 		}
 	});
+}
+
+function updatedConnectionStatus(isConnect) {
+	if (isConnect) {
+		document.documentElement.style.setProperty("--connection-status-color", "var(--connect-color)");
+		document.querySelector(".connect-indicator").style.animation = "breathe 2s infinite ease-in-out";
+		document.querySelector(".connect-indicator").title = browser.i18n.getMessage("connect");
+		connectionStatus = true;
+		// console.log("%cconnected to server", "color: green", response);
+	} else {
+		document.documentElement.style.setProperty("--connection-status-color", "var(--disconnect-color)");
+		document.querySelector(".connect-indicator").style.animation = "none";
+		document.querySelector(".connect-indicator").title = browser.i18n.getMessage("disconnect");
+		connectionStatus = false;
+		// console.log("%cdisconnected to server", "color: red", "error");
+	}
 }
 
 // Profile Left
@@ -223,6 +233,7 @@ function initProfile() {
 			}
 			selectEl.addEventListener("change", () => {
 				showNoTaskElement(browser.i18n.getMessage("connecting"));
+				selectDefaultProfileFlag = new Date();
 				browser.runtime.sendMessage({ api: "set-default-profile", profileId: selectEl.value }, (response) => {
 					console.log("[change & set default profile] profile:", selectEl.value, response);
 					fetchDownloadList();
@@ -334,6 +345,7 @@ function createAddTaskDialog() {
 				console.log("[Add task] success result: ", result);
 			});
 		} else if (addTaskType === "torrent" || addTaskType === "file_path" || addTaskType === "path" || addTaskType === "windows_path") {
+			// TODO 目前在添加大的torrent文件到远程服务器会有问题，以及传输种子文件并没有提示进度
 			browser.runtime.sendMessage({ api: "native-read-file", filepath: url }, (result) => {
 				console.log("result", result);
 				if (!result.ok) {
@@ -417,17 +429,20 @@ const downloadItems = new Map();
 const downloadItemsState = new Map();
 
 function fetchDownloadList() {
+	const funcDate = new Date();
 	browser.runtime.sendMessage({ api: "get-download-list" }, (response) => {
 		console.log("[fetchDownloadList]", response);
+		if (funcDate < selectDefaultProfileFlag) return;
 		updateList(response);
 	});
 }
 
 function updateList(response) {
 	// init error
-	if (response.error && response.code === 1) return showNoTaskElement(browser.i18n.getMessage("please_connect_first"));
+	if (response.error && response.code === 1) return showNoTaskElement(browser.i18n.getMessage("please_connect_first")), updatedConnectionStatus(false);
 	else arrow.hide();
-	if (response === "error" || !response) return showNoTaskElement(browser.i18n.getMessage("unable_to_connect_to_server"));
+	if (response === "error" || !response) return showNoTaskElement(browser.i18n.getMessage("unable_to_connect_to_server")), updatedConnectionStatus(false);
+	else updatedConnectionStatus(true);
 
 	// get list from response && concat two result
 	let tellActiveList = response.result[0][0] || [];
@@ -750,12 +765,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	showNoTaskElement(browser.i18n.getMessage("initializing"));
 	initProfile();
 	initNavbarBtn();
-	updatedConnectionStatus();
+	checkConnectionStatus();
 	fetchDownloadList();
 
+	// TODO 每隔1s就fetch一次的函数，有的时候会出现前面的还没执行完，下一次先执行完 导致结果闪烁 这个一般出现在远程服务器 切换到本地服务器的时候
 	// refresh every 1.5 seconds
 	const refreshInterval = setInterval(() => {
-		updatedConnectionStatus();
 		fetchDownloadList();
 	}, 1500);
 
