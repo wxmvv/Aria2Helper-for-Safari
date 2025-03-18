@@ -1,5 +1,44 @@
 // MARK components
 
+// function createLoading() {
+// 	const loadingDiv = document.createElement("div");
+// 	loadingDiv.id = "custom-loading";
+// 	loadingDiv.style.cssText = `
+//         position: fixed;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//         background: rgba(0, 0, 0, 0.5);
+//         display: none;
+//         justify-content: center;
+//         align-items: center;
+//         z-index: 9999;
+//     `;
+
+// 	const loadingText = document.createElement("span");
+// 	loadingText.textContent = "Loading...";
+// 	loadingText.style.cssText = `
+//         color: white;
+//         font-size: 24px;
+//         font-family: Arial, sans-serif;
+//     `;
+
+// 	loadingDiv.appendChild(loadingText);
+// 	document.body.appendChild(loadingDiv);
+
+// 	return {
+// 		show: function () {
+// 			loadingDiv.style.display = "flex";
+// 		},
+// 		hide: function () {
+// 			loadingDiv.style.display = "none";
+// 		},
+// 	};
+// }
+
+// const loading = createLoading();
+
 // guide arrow
 const arrow = createIndicatorArrow({
 	container: document.body,
@@ -136,6 +175,7 @@ function hideNoTaskElement() {
 
 // Connection Status
 let selectDefaultProfileFlag = new Date();
+let fetchActivateFlag = true;
 let connectionStatus = false;
 
 function checkConnectionStatus() {
@@ -234,6 +274,7 @@ function initProfile() {
 			selectEl.addEventListener("change", () => {
 				showNoTaskElement(browser.i18n.getMessage("connecting"));
 				selectDefaultProfileFlag = new Date();
+				console.log("change profile, block old fetchDownloadList before:", selectDefaultProfileFlag);
 				browser.runtime.sendMessage({ api: "set-default-profile", profileId: selectEl.value }, (response) => {
 					console.log("[change & set default profile] profile:", selectEl.value, response);
 					fetchDownloadList();
@@ -345,24 +386,27 @@ function createAddTaskDialog() {
 				console.log("[Add task] success result: ", result);
 			});
 		} else if (addTaskType === "torrent" || addTaskType === "file_path" || addTaskType === "path" || addTaskType === "windows_path") {
-			// TODO 目前在添加大的torrent文件到远程服务器会有问题，以及传输种子文件并没有提示进度
+			// BUG 目前aria2不支持http发送过大的torrent文件
+			// TODO 尝试js解析torrent 然后分片发送
+			fetchActivateFlag = false;
 			browser.runtime.sendMessage({ api: "native-read-file", filepath: url }, (result) => {
 				console.log("result", result);
 				if (!result.ok) {
 					showNotification(result.result, 3000, "error", true);
+					fetchActivateFlag = true;
 				} else {
 					browser.runtime.sendMessage({ api: "aria2_addTorrent", torrent: result.result }, (result) => {
 						console.log("[Add task] success result: ", result);
+						if (result === "error" || !result) showNotification(browser.i18n.getMessage("Task_added_failed"), 3000, "error", true);
+						else showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
 						textarea.value = "";
-						// textarea.disabled = false;
-						showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
 						hideAddTaskDialog();
+						fetchActivateFlag = true;
 					});
 				}
 			});
 		} else if (addTaskType === "metalink_file") {
 			browser.runtime.sendMessage({ api: "native-read-file", filepath: url }, (result) => {
-				// TEST metalink
 				console.log("result", result);
 				if (!result.ok) {
 					showNotification(result.result, 3000, "error", true);
@@ -431,7 +475,9 @@ const downloadItemsState = new Map();
 function fetchDownloadList() {
 	const funcDate = new Date();
 	browser.runtime.sendMessage({ api: "get-download-list" }, (response) => {
+		// console.log("[fetchDownloadList]", response, "[fetch time]", funcDate);
 		console.log("[fetchDownloadList]", response);
+
 		if (funcDate < selectDefaultProfileFlag) return;
 		updateList(response);
 	});
@@ -684,7 +730,7 @@ function updateDownloadItemElement(el, i) {
 					fetchDownloadList();
 				});
 			} else {
-				browser.runtime.sendMessage({ api: "aria2_remove", gid: i.gid }).then((response) => {
+				browser.runtime.sendMessage({ api: "aria2_forceRemove", gid: i.gid }).then((response) => {
 					console.log("[delete task] gid:", i.gid, "[Received response] ", response);
 					deleteBtn.classList.remove("btn-delete-icon");
 					deleteBtn.classList.add("btn-restart-icon");
@@ -768,9 +814,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	checkConnectionStatus();
 	fetchDownloadList();
 
-	// TODO 每隔1s就fetch一次的函数，有的时候会出现前面的还没执行完，下一次先执行完 导致结果闪烁 这个一般出现在远程服务器 切换到本地服务器的时候
 	// refresh every 1.5 seconds
 	const refreshInterval = setInterval(() => {
+		if (!fetchActivateFlag) return;
 		fetchDownloadList();
 	}, 1500);
 

@@ -34,11 +34,11 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
             message = request?.userInfo?["message"]
         }
         
-        // MARK sendNativeMessage API
+        // sendNativeMessage API
         let messageDict = message as? [String: String]
         
-        // BUG some bug here
-// https://stackoverflow.com/questions/58370550/unusernotificationcenter-notifications-are-not-allowed-for-this-application
+        // BUG some bug here notification
+        // https://stackoverflow.com/questions/58370550/unusernotificationcenter-notifications-are-not-allowed-for-this-application
         // https://developer.apple.com/forums/thread/764852
         if messageDict?["message"] == "open-notification" {
             var result : Any?
@@ -100,33 +100,6 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
                     response.userInfo = [ "message": [ "echo": message, "result": url ,"path":url ] ]
                 }
             }
-            //
-            //            var result: Any?
-            //            if openPanel.runModal() == .OK {
-            //                // result = openPanel.url?.absoluteString
-            //                if let url = openPanel.url {
-            //                    do {
-            //                        let fileData = try Data(contentsOf: url) // 获取文件数据
-            //                        let maxSizeInBytes = 10 * 1024 * 1024 // 设置最大文件大小限制（10MB）
-            //                        // 检查文件大小
-            //                        if fileData.count > maxSizeInBytes {
-            //                            result = "error_file_too_large"
-            //                        } else {
-            //                            let base64String = fileData.base64EncodedString() // 转换为base64字符串
-            //                            result = base64String
-            //                        }
-            //                    } catch {
-            //                        result = "error_reading_file"
-            //                    }
-            //                }
-            //            } else {
-            //                result = "canceled" // User canceled selection
-            //            }
-            //            if #available(iOS 15.0, macOS 11.0, *) {
-            //                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": result,"pathBase64":result,"path":openPanel.url?.absoluteString] ]
-            //            } else {
-            //                response.userInfo = [ "message": [ "echo": message, "result": result ,"pathBase64":result,"path":openPanel.url?.absoluteString ] ]
-            //            }
         }
         
         if messageDict?["message"] == "read-file" {
@@ -159,6 +132,7 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
                 if fileData.count > maxSizeInBytes {
                     result = "error_file_too_large"
                 } else {
+//                    result = fileData.base64EncodedString()
                     result = fileData.base64EncodedString()
                 }
                 ok = true
@@ -196,114 +170,56 @@ class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling 
 }
 
 
-//func openNotification(title:String = "title",subtitle:String = "subtitle",body:String = "body") async{
-//    let center = UNUserNotificationCenter.current()
-//    
-//    do {
-//        if try await center.requestAuthorization(options: [.alert, .sound, .badge]) == true {
-//            let content = UNMutableNotificationContent()
-//            content.title = title//messageDict?["title"] ?? "no title"
-//            content.subtitle = subtitle//messageDict?["subtitle"] ?? "no subtitle"
-//            content.sound = UNNotificationSound.default
-//            content.body = body//messageDict?["body"] ?? "no body"
-//            // show this notification one seconds from now
-//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-//            let request = UNNotificationRequest(
-//                identifier: UUID().uuidString, content: content, trigger: trigger)
-//            try await UNUserNotificationCenter.current().add(request)
-//        } else {
-//            print("fail")
-//        }
-//        
-//    } catch {
-//        print("Error")
-//    }
-//    
-//}
-
-
-//func createURL(from string: String) -> URL? {
-//    // If the string is empty, return nil directly.
-//    guard !string.isEmpty else {
-//        print("none string,unable create URL")
-//        return nil
-//    }
-//
-//    // Attempt to parse string as URL
-//    if let url = URL(string: string) {
-//        // Check if it's a file URL or a valid URL.
-//        if url.isFileURL || FileManager.default.fileExists(atPath: url.path) {
-//            return url
-//        }
-//    }
-//
-//    // If the URL is not valid, assume it's a local file path and add the `file://` prefix.
-//    let filePath = string.hasPrefix("/") ? string : "/" + string
-//    if let fileURL = URL(string: "file://" + filePath) {
-//
-//        if FileManager.default.fileExists(atPath: fileURL.path) {
-//            return fileURL
-//        } else {
-//            print("file not exist: \(fileURL.path)")
-//            return nil
-//        }
-//    }
-//
-//    print("Invalid URL: \(string)")
-//    return nil
-//}
-
-
 func createURL(from string: String) -> URL? {
-    // 如果字符串为空，直接返回 nil
+    // If the string is empty, return nil.
     guard !string.isEmpty else {
         print("empty string, unable to create URL")
         return nil
     }
     
-    // 去掉首尾的空白字符
+    // Remove leading and trailing whitespace.
     let trimmedString = string.trimmingCharacters(in: .whitespaces)
     
-    // 如果已经是有效的 URL
+    // If the URL is already valid.
     if let url = URL(string: trimmedString) {
         if url.isFileURL {
-            // 如果已经是 file:// 格式且文件存在
+            // If the file is already existing and the file exists.
             if FileManager.default.fileExists(atPath: url.path) {
                 return url
             }
-            // 如果是 file:// 格式但文件不存在
+            // If the file is in the format file:// but the file doesn’t exist.
             print("file does not exist: \(url.path)")
             return nil
         }
     }
     
-    // 处理各种路径格式
+    // Handle various path formats
     var path = trimmedString
     
-    // 移除开头的 file:// 前缀（如果有的话）
+    // Remove the leading file:// prefix.
     if path.hasPrefix("file://") {
         path = String(path.dropFirst(7))
     }
     
-    // 处理 ~ 开头的路径
+    // Path starting with '~'
     if path.hasPrefix("~") {
         path = (path as NSString).expandingTildeInPath
     }
     
-    // 如果不是绝对路径（不以 / 开头），转换为绝对路径
+    // If it’s not a guaranteed path (doesn’t start with /), convert it to a guaranteed path.
     if !path.hasPrefix("/") {
-        // 获取当前工作目录
+        // Get the current working directory
         let currentDir = FileManager.default.currentDirectoryPath
         path = (currentDir as NSString).appendingPathComponent(path)
     }
     
-    // 规范化路径（处理 .. 和 .）
+    // Normalization path (handling .. and .)
     let normalizedPath = (path as NSString).standardizingPath
     
-    // 创建 file:// URL
+    // create file:// URL
     let fileURL = URL(fileURLWithPath: normalizedPath)
     
-    // 检查文件是否存在
+    // Check if a file exists.
     if FileManager.default.fileExists(atPath: fileURL.path) {
         return fileURL
     } else {

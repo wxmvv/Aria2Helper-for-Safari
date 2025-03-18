@@ -113,6 +113,9 @@
 	"Task_added_successfully": {
 		"message": "任务添加成功"
 	},
+	"Task_added_failed": {
+		"message": "任务添加失败"
+	},
 	"invalid_input": {
 		"message": "无效的输入"
 	},

@@ -113,6 +113,9 @@
 	"Task_added_successfully": {
 		"message": "Task added successfully."
 	},
+	"Task_added_failed": {
+		"message": "Task added failed."
+	},
 	"invalid_input": {
 		"message": "Invalid input."
 	},
