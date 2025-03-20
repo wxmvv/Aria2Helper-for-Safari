@@ -56,7 +56,7 @@ typealias PlatformViewController = NSViewController
 //}
 
 
-class SafariWebExtensionHandler: NSExtensionContext, NSExtensionRequestHandling {
+class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     
     func beginRequest(with context: NSExtensionContext) {
         let request = context.inputItems.first as? NSExtensionItem
