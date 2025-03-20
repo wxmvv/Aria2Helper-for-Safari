@@ -7,27 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C41F41A02D716D12007C3049 /* Aira2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C41F419F2D716D12007C3049 /* Aira2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C473A53B2D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C473A5452D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C41F41A12D716D12007C3049 /* PBXContainerItemProxy */ = {
+		C473A53C2D8C36140035F78D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C41F417B2D716D11007C3049 /* Project object */;
+			containerPortal = C473A5002D8C36130035F78D /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C41F419E2D716D12007C3049;
-			remoteInfo = "Aira2Helper Extension";
+			remoteGlobalIDString = C473A5392D8C36140035F78D;
+			remoteInfo = "Aira2Helper Extension (iOS)";
+		};
+		C473A5462D8C36140035F78D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C473A5002D8C36130035F78D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C473A5432D8C36140035F78D;
+			remoteInfo = "Aira2Helper Extension (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C41F41BF2D716D12007C3049 /* Embed Foundation Extensions */ = {
+		C473A56E2D8C36140035F78D /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C41F41A02D716D12007C3049 /* Aira2Helper Extension.appex in Embed Foundation Extensions */,
+				C473A53B2D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5782D8C36140035F78D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C473A5452D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,50 +54,177 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C41F41832D716D11007C3049 /* Aira2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aira2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C41F419F2D716D12007C3049 /* Aira2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aira2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A51C2D8C36140035F78D /* Aira2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aira2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A52E2D8C36140035F78D /* Aira2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aira2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aira2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aira2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C41F41B92D716D12007C3049 /* Exceptions for "Aira2Helper Extension" folder in "Aira2Helper Extension" target */ = {
+		C473A5692D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (iOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Resources/Main.html",
+				Assets.xcassets,
+				Resources/Icon.png,
+				Resources/Script.js,
+				Resources/Style.css,
+				ViewController.swift,
+			);
+			target = C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */;
+		};
+		C473A56D2D8C36140035F78D /* Exceptions for "iOS (Extension)" folder in "Aira2Helper Extension (iOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */;
+		};
+		C473A5722D8C36140035F78D /* Exceptions for "iOS (App)" folder in "Aira2Helper (iOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */;
+		};
+		C473A5732D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (macOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Resources/Main.html",
+				Assets.xcassets,
+				Resources/Icon.png,
+				Resources/Script.js,
+				Resources/Style.css,
+				ViewController.swift,
+			);
+			target = C473A52D2D8C36140035F78D /* Aira2Helper (macOS) */;
+		};
+		C473A5772D8C36140035F78D /* Exceptions for "macOS (Extension)" folder in "Aira2Helper Extension (macOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */;
+		};
+		C473A57C2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg",
-				Info.plist,
+				Resources/_locales,
+				Resources/background.js,
+				Resources/content.js,
+				Resources/images,
+				Resources/manifest.json,
+				Resources/popup.css,
+				Resources/popup.html,
+				Resources/popup.js,
+				Resources/settings.css,
+				Resources/settings.html,
+				Resources/settings.js,
+				safari_icon.png,
+				SafariWebExtensionHandler.swift,
 			);
-			target = C41F419E2D716D12007C3049 /* Aira2Helper Extension */;
+			target = C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */;
+		};
+		C473A57D2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (macOS)" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg",
+				Resources/_locales,
+				Resources/background.js,
+				Resources/content.js,
+				Resources/images,
+				Resources/manifest.json,
+				Resources/popup.css,
+				Resources/popup.html,
+				Resources/popup.js,
+				Resources/settings.css,
+				Resources/settings.html,
+				Resources/settings.js,
+				safari_icon.png,
+				SafariWebExtensionHandler.swift,
+			);
+			target = C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C41F41852D716D11007C3049 /* Aira2Helper */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Aira2Helper;
-			sourceTree = "<group>";
-		};
-		C41F41A32D716D12007C3049 /* Aira2Helper Extension */ = {
+		C473A5042D8C36130035F78D /* Shared (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C41F41B92D716D12007C3049 /* Exceptions for "Aira2Helper Extension" folder in "Aira2Helper Extension" target */,
+				C473A5692D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (iOS)" target */,
+				C473A5732D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (macOS)" target */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		C473A50D2D8C36140035F78D /* Shared (Extension) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C473A57C2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (iOS)" target */,
+				C473A57D2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (macOS)" target */,
 			);
 			explicitFolders = (
 				Resources/_locales,
 				Resources/images,
 			);
-			path = "Aira2Helper Extension";
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		C473A51E2D8C36140035F78D /* iOS (App) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C473A5722D8C36140035F78D /* Exceptions for "iOS (App)" folder in "Aira2Helper (iOS)" target */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		C473A52F2D8C36140035F78D /* macOS (App) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		C473A53E2D8C36140035F78D /* iOS (Extension) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C473A56D2D8C36140035F78D /* Exceptions for "iOS (Extension)" folder in "Aira2Helper Extension (iOS)" target */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		C473A5482D8C36140035F78D /* macOS (Extension) */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C473A5772D8C36140035F78D /* Exceptions for "macOS (Extension)" folder in "Aira2Helper Extension (macOS)" target */,
+			);
+			path = "macOS (Extension)";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C41F41802D716D11007C3049 /* Frameworks */ = {
+		C473A5192D8C36140035F78D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C41F419C2D716D12007C3049 /* Frameworks */ = {
+		C473A52B2D8C36140035F78D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5372D8C36140035F78D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5412D8C36140035F78D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -88,20 +234,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C41F417A2D716D11007C3049 = {
+		C473A4FF2D8C36130035F78D = {
 			isa = PBXGroup;
 			children = (
-				C41F41852D716D11007C3049 /* Aira2Helper */,
-				C41F41A32D716D12007C3049 /* Aira2Helper Extension */,
-				C41F41842D716D11007C3049 /* Products */,
+				C473A5042D8C36130035F78D /* Shared (App) */,
+				C473A50D2D8C36140035F78D /* Shared (Extension) */,
+				C473A51E2D8C36140035F78D /* iOS (App) */,
+				C473A52F2D8C36140035F78D /* macOS (App) */,
+				C473A53E2D8C36140035F78D /* iOS (Extension) */,
+				C473A5482D8C36140035F78D /* macOS (Extension) */,
+				C473A51D2D8C36140035F78D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		C41F41842D716D11007C3049 /* Products */ = {
+		C473A51D2D8C36140035F78D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C41F41832D716D11007C3049 /* Aira2Helper.app */,
-				C41F419F2D716D12007C3049 /* Aira2Helper Extension.appex */,
+				C473A51C2D8C36140035F78D /* Aira2Helper.app */,
+				C473A52E2D8C36140035F78D /* Aira2Helper.app */,
+				C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */,
+				C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,99 +261,167 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C41F41822D716D11007C3049 /* Aira2Helper */ = {
+		C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C41F41C02D716D12007C3049 /* Build configuration list for PBXNativeTarget "Aira2Helper" */;
+			buildConfigurationList = C473A56F2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (iOS)" */;
 			buildPhases = (
-				C41F417F2D716D11007C3049 /* Sources */,
-				C41F41802D716D11007C3049 /* Frameworks */,
-				C41F41812D716D11007C3049 /* Resources */,
-				C41F41BF2D716D12007C3049 /* Embed Foundation Extensions */,
+				C473A5182D8C36140035F78D /* Sources */,
+				C473A5192D8C36140035F78D /* Frameworks */,
+				C473A51A2D8C36140035F78D /* Resources */,
+				C473A56E2D8C36140035F78D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C41F41A22D716D12007C3049 /* PBXTargetDependency */,
+				C473A53D2D8C36140035F78D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				C41F41852D716D11007C3049 /* Aira2Helper */,
+				C473A51E2D8C36140035F78D /* iOS (App) */,
 			);
-			name = Aira2Helper;
+			name = "Aira2Helper (iOS)";
 			packageProductDependencies = (
 			);
-			productName = Aira2Helper;
-			productReference = C41F41832D716D11007C3049 /* Aira2Helper.app */;
+			productName = "Aira2Helper (iOS)";
+			productReference = C473A51C2D8C36140035F78D /* Aira2Helper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C41F419E2D716D12007C3049 /* Aira2Helper Extension */ = {
+		C473A52D2D8C36140035F78D /* Aira2Helper (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C41F41BA2D716D12007C3049 /* Build configuration list for PBXNativeTarget "Aira2Helper Extension" */;
+			buildConfigurationList = C473A5792D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (macOS)" */;
 			buildPhases = (
-				C41F419B2D716D12007C3049 /* Sources */,
-				C41F419C2D716D12007C3049 /* Frameworks */,
-				C41F419D2D716D12007C3049 /* Resources */,
+				C473A52A2D8C36140035F78D /* Sources */,
+				C473A52B2D8C36140035F78D /* Frameworks */,
+				C473A52C2D8C36140035F78D /* Resources */,
+				C473A5782D8C36140035F78D /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C473A5472D8C36140035F78D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C473A52F2D8C36140035F78D /* macOS (App) */,
+			);
+			name = "Aira2Helper (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "Aira2Helper (macOS)";
+			productReference = C473A52E2D8C36140035F78D /* Aira2Helper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C473A56A2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (iOS)" */;
+			buildPhases = (
+				C473A5362D8C36140035F78D /* Sources */,
+				C473A5372D8C36140035F78D /* Frameworks */,
+				C473A5382D8C36140035F78D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C41F41A32D716D12007C3049 /* Aira2Helper Extension */,
+				C473A53E2D8C36140035F78D /* iOS (Extension) */,
 			);
-			name = "Aira2Helper Extension";
+			name = "Aira2Helper Extension (iOS)";
 			packageProductDependencies = (
 			);
-			productName = "Aira2Helper Extension";
-			productReference = C41F419F2D716D12007C3049 /* Aira2Helper Extension.appex */;
+			productName = "Aira2Helper Extension (iOS)";
+			productReference = C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C473A5742D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (macOS)" */;
+			buildPhases = (
+				C473A5402D8C36140035F78D /* Sources */,
+				C473A5412D8C36140035F78D /* Frameworks */,
+				C473A5422D8C36140035F78D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C473A5482D8C36140035F78D /* macOS (Extension) */,
+			);
+			name = "Aira2Helper Extension (macOS)";
+			packageProductDependencies = (
+			);
+			productName = "Aira2Helper Extension (macOS)";
+			productReference = C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C41F417B2D716D11007C3049 /* Project object */ = {
+		C473A5002D8C36130035F78D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					C41F41822D716D11007C3049 = {
+					C473A51B2D8C36140035F78D = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					C41F419E2D716D12007C3049 = {
+					C473A52D2D8C36140035F78D = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					C473A5392D8C36140035F78D = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					C473A5432D8C36140035F78D = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
-			buildConfigurationList = C41F417E2D716D11007C3049 /* Build configuration list for PBXProject "Aira2Helper" */;
+			buildConfigurationList = C473A5032D8C36130035F78D /* Build configuration list for PBXProject "Aira2Helper" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = C41F417A2D716D11007C3049;
+			mainGroup = C473A4FF2D8C36130035F78D;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = C41F41842D716D11007C3049 /* Products */;
+			productRefGroup = C473A51D2D8C36140035F78D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C41F41822D716D11007C3049 /* Aira2Helper */,
-				C41F419E2D716D12007C3049 /* Aira2Helper Extension */,
+				C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */,
+				C473A52D2D8C36140035F78D /* Aira2Helper (macOS) */,
+				C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */,
+				C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C41F41812D716D11007C3049 /* Resources */ = {
+		C473A51A2D8C36140035F78D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C41F419D2D716D12007C3049 /* Resources */ = {
+		C473A52C2D8C36140035F78D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5382D8C36140035F78D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5422D8C36140035F78D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,14 +431,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C41F417F2D716D11007C3049 /* Sources */ = {
+		C473A5182D8C36140035F78D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C41F419B2D716D12007C3049 /* Sources */ = {
+		C473A52A2D8C36140035F78D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5362D8C36140035F78D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C473A5402D8C36140035F78D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -228,24 +462,179 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C41F41A22D716D12007C3049 /* PBXTargetDependency */ = {
+		C473A53D2D8C36140035F78D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C41F419E2D716D12007C3049 /* Aira2Helper Extension */;
-			targetProxy = C41F41A12D716D12007C3049 /* PBXContainerItemProxy */;
+			target = C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */;
+			targetProxy = C473A53C2D8C36140035F78D /* PBXContainerItemProxy */;
+		};
+		C473A5472D8C36140035F78D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */;
+			targetProxy = C473A5462D8C36140035F78D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		C41F41BB2D716D12007C3049 /* Debug */ = {
+		C473A56B2D8C36140035F78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Aira2Helper Extension/Aira2Helper_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DSHX4V92NH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
+				PRODUCT_NAME = "Aira2Helper Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C473A56C2D8C36140035F78D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DSHX4V92NH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
+				PRODUCT_NAME = "Aira2Helper Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C473A5702D8C36140035F78D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DSHX4V92NH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
+				PRODUCT_NAME = Aira2Helper;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C473A5712D8C36140035F78D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DSHX4V92NH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
+				PRODUCT_NAME = Aira2Helper;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C473A5752D8C36140035F78D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Aira2Helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = DSHX4V92NH;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Aira2Helper Extension/Info.plist";
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -254,29 +643,30 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Aira2Helper Extension";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		C41F41BC2D716D12007C3049 /* Release */ = {
+		C473A5762D8C36140035F78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Aira2Helper Extension/Aira2Helper_Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Aira2Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = DSHX4V92NH;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Aira2Helper Extension/Info.plist";
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -285,20 +675,89 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Aira2Helper Extension";
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		C41F41BD2D716D12007C3049 /* Debug */ = {
+		C473A57A2D8C36140035F78D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Aira2Helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 13;
+				DEVELOPMENT_TEAM = DSHX4V92NH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
+				PRODUCT_NAME = Aira2Helper;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C473A57B2D8C36140035F78D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Aira2Helper.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 13;
+				DEVELOPMENT_TEAM = DSHX4V92NH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.3;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
+				PRODUCT_NAME = Aira2Helper;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C473A57E2D8C36140035F78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -351,17 +810,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		C41F41BE2D716D12007C3049 /* Release */ = {
+		C473A57F2D8C36140035F78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -408,119 +865,61 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
-			};
-			name = Release;
-		};
-		C41F41C12D716D12007C3049 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Aira2Helper/Aira2Helper.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
-				DEVELOPMENT_TEAM = DSHX4V92NH;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.2;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		C41F41C22D716D12007C3049 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Aira2Helper/Aira2Helper.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 12;
-				DEVELOPMENT_TEAM = DSHX4V92NH;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.2;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SafariServices,
-					"-framework",
-					WebKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C41F417E2D716D11007C3049 /* Build configuration list for PBXProject "Aira2Helper" */ = {
+		C473A5032D8C36130035F78D /* Build configuration list for PBXProject "Aira2Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C41F41BD2D716D12007C3049 /* Debug */,
-				C41F41BE2D716D12007C3049 /* Release */,
+				C473A57E2D8C36140035F78D /* Debug */,
+				C473A57F2D8C36140035F78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C41F41BA2D716D12007C3049 /* Build configuration list for PBXNativeTarget "Aira2Helper Extension" */ = {
+		C473A56A2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C41F41BB2D716D12007C3049 /* Debug */,
-				C41F41BC2D716D12007C3049 /* Release */,
+				C473A56B2D8C36140035F78D /* Debug */,
+				C473A56C2D8C36140035F78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C41F41C02D716D12007C3049 /* Build configuration list for PBXNativeTarget "Aira2Helper" */ = {
+		C473A56F2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C41F41C12D716D12007C3049 /* Debug */,
-				C41F41C22D716D12007C3049 /* Release */,
+				C473A5702D8C36140035F78D /* Debug */,
+				C473A5712D8C36140035F78D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C473A5742D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C473A5752D8C36140035F78D /* Debug */,
+				C473A5762D8C36140035F78D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C473A5792D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C473A57A2D8C36140035F78D /* Debug */,
+				C473A57B2D8C36140035F78D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = C41F417B2D716D11007C3049 /* Project object */;
+	rootObject = C473A5002D8C36130035F78D /* Project object */;
 }

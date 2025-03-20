@@ -1,0 +1,224 @@
+{
+    "extension_name": {
+        "message": "Aira2Helper",
+        "description": "The display name for the extension."
+    },
+    "extension_description": {
+        "message": "This is Aira2Helper Extension. A safari extension for the Aria2 Download Manager.",
+        "description": "Description of what the extension does."
+    },
+    "Download_with_Aria2": {
+        "message": "Download with Aria2"
+    },
+    "Download_link_with_Aria2": {
+        "message": "Download link with Aria2"
+    },
+    "Download_selection_with_Aria2": {
+        "message": "Download selection with Aria2"
+    },
+    "Download_image_with_Aria2": {
+        "message": "Download image with Aria2"
+    },
+    "Download_video_with_Aria2": {
+        "message": "Download video with Aria2"
+    },
+    "Download_audio_with_Aria2": {
+        "message": "Download audio with Aria2"
+    },
+
+    "active": {
+        "message": "active"
+    },
+    "waiting": {
+        "message": "waiting"
+    },
+    "paused": {
+        "message": "paused"
+    },
+    "error": {
+        "message": "error"
+    },
+    "complete": {
+        "message": "complete"
+    },
+    "removed": {
+        "message": "removed"
+    },
+    "unknown": {
+        "message": "unknown"
+    },
+    "listen_activate": {
+        "message": "listen activate"
+    },
+    "listen_deactivated": {
+        "message": "listen deactivated"
+    },
+    "Start_listening_downloads": {
+        "message": "Start listening downloads,refresh the page and apply settings."
+    },
+    "Stop_listening_downloads": {
+        "message": "Stop listening downloads,refresh the page and apply settings."
+    },
+    "disconnect": {
+        "message": "disconnect"
+    },
+    "connect": {
+        "message": "connect"
+    },
+    "add_task": {
+        "message": "add task"
+    },
+    "open_settings": {
+        "message": "open settings page"
+    },
+    "clear": {
+        "message": "clear"
+    },
+    "clear_download_list": {
+        "message": "clear download list"
+    },
+    "cancel": {
+        "message": "Cancel"
+    },
+    "confirm": {
+        "message": "Confirm"
+    },
+    "select_torrent_file": {
+        "message": "Select Torrent File"
+    },
+    "Enter_URL_or_magnet_link_here": {
+        "message": "Enter URL or magnet link here..."
+    },
+    "unpause": {
+        "message": "unpause"
+    },
+    "pause": {
+        "message": "pause"
+    },
+    "restart": {
+        "message": "restart"
+    },
+    "remove": {
+        "message": "remove"
+    },
+    "open_file": {
+        "message": "open file"
+    },
+    "please_connect_first": {
+        "message": "Please connect to aria2 first."
+    },
+    "please_input_url_or_filepath": {
+        "message": "Please input url or filepath."
+    },
+    "Task_added_successfully": {
+        "message": "Task added successfully."
+    },
+    "Task_added_failed": {
+        "message": "Task added failed."
+    },
+    "invalid_input": {
+        "message": "Invalid input."
+    },
+    "file_not_found": {
+        "message": "File not found."
+    },
+    "unable_open_remote_file": {
+        "message": "Unable to open remote file."
+    },
+    "unable_to_connect_to_server": {
+        "message": "Unable to connect to server."
+    },
+    "no_task_here": {
+        "message": "No task here~"
+    },
+    "initializing": {
+        "message": "Initializing..."
+    },
+    "connecting": {
+        "message": "Connecting..."
+    },
+    "alias": {
+        "message": "Alias"
+    },
+    "rpc_host": {
+        "message": "RPC Host"
+    },
+    "rpc_is_https": {
+        "message": "Https"
+    },
+    "rpc_port": {
+        "message": "RPC Port"
+    },
+    "rpc_secret": {
+        "message": "RPC Secret"
+    },
+    "rpc_parameters": {
+        "message": "RPC Parameters"
+    },
+    "show_password": {
+        "message": "show"
+    },
+    "hide_password": {
+        "message": "hide"
+    },
+    "save": {
+        "message": "Save"
+    },
+    "default": {
+        "message": "It's default"
+    },
+    "set_default": {
+        "message": "Set Default"
+    },
+    "remove_profile": {
+        "message": "Remove Profile"
+    },
+    "other_settings": {
+        "message": "Other Settings"
+    },
+    "show_badge": {
+        "message": "Show Badge"
+    },
+    "show_notification": {
+        "message": "Show Notification"
+    },
+    "listen_downloads": {
+        "message": "Listen Downloads"
+    },
+    "listen_downloads_extensions": {
+        "message": "Here, you can fill in the suffix to be monitored, separated by \",\" , Priority:whitelist > blacklist > default"
+    },
+    "label_default_extensions": {
+        "message": "Here are the default extensions listened to."
+    },
+    "label_extensions_whitelist": {
+        "message": "Whitelist"
+    },
+    "label_extensions_blacklist": {
+        "message": "Blacklist"
+    },
+    "save_extensions": {
+        "message": "Save Extensions"
+    },
+    "set_default_profile_alert": {
+        "message": "Default profile set to "
+    },
+    "save_profile_alert": {
+        "message": "Profile saved:"
+    },
+    "input_alias": {
+        "message": "Input alias"
+    },
+    "host_example": {
+        "message": "Example: localhost"
+    },
+    "port_example": {
+        "message": "Example: 6800"
+    },
+    "input_secret": {
+        "message": "Input secret."
+    },
+    "parameters_example": {
+        "message": "Example: \"dir=/path/to/download,parameter2=value2\""
+    }
+}
