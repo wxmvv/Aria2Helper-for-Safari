@@ -365,6 +365,29 @@ select {
 	padding: 2px 6px;
 	border-radius: 8px;
 }
+.clear-inputFile-Btn {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	width: 18px;
+	height: 18px;
+	display: none;
+	background: var(--text-color);
+	-webkit-mask-image: url("images/symbol/xmark.circle.fill.svg");
+	mask-image: url("images/symbol/xmark.circle.fill.svg");
+	cursor: default;
+
+	/* display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	background: rgba(255, 255, 255, 0.2);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	border-radius: 50%; */
+}
+
 textarea {
 	resize: none; /* resize */
 	width: 100%;
@@ -479,6 +502,7 @@ textarea {
 
 .item.active {
 	background-color: var(--theme-color);
+	background-color: -apple-system-control-accent;
 }
 
 /* item icon */
@@ -614,6 +638,7 @@ textarea {
 	width: 0;
 	height: 4px;
 	background-color: var(--theme-color);
+	background-color: -apple-system-control-accent;
 	border-radius: 4px;
 }
 .item-info-progress.infinity {

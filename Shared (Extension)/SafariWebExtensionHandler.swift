@@ -12,48 +12,13 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-typealias PlatformViewController = UIViewController
+import UniformTypeIdentifiers // 用于文件类型
+
 #elseif os(macOS)
 import AppKit
-import Cocoa
-import SafariServices
-typealias PlatformViewController = NSViewController
+
 #endif
 
-
-
-//class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
-//
-//    func beginRequest(with context: NSExtensionContext) {
-//        let request = context.inputItems.first as? NSExtensionItem
-//
-//        let profile: UUID?
-//        if #available(iOS 17.0, macOS 14.0, *) {
-//            profile = request?.userInfo?[SFExtensionProfileKey] as? UUID
-//        } else {
-//            profile = request?.userInfo?["profile"] as? UUID
-//        }
-//
-//        let message: Any?
-//        if #available(iOS 15.0, macOS 11.0, *) {
-//            message = request?.userInfo?[SFExtensionMessageKey]
-//        } else {
-//            message = request?.userInfo?["message"]
-//        }
-//
-//        os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
-//
-//        let response = NSExtensionItem()
-//        if #available(iOS 15.0, macOS 11.0, *) {
-//            response.userInfo = [ SFExtensionMessageKey: [ "echo": message ] ]
-//        } else {
-//            response.userInfo = [ "message": [ "echo": message ] ]
-//        }
-//
-//        context.completeRequest(returningItems: [ response ], completionHandler: nil)
-//    }
-//
-//}
 
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
@@ -113,113 +78,46 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 response.userInfo = [ "message": [ "echo": message, "result": result ] ]
             }
         }
-#if os(macOS)
-        if messageDict?["message"] == "select-file" {
-            let filePath = messageDict?["url"] ?? ""
-            // activateFileViewerSelecting(_:) This also works, but it doesn't return any value
-            let result = NSWorkspace.shared.selectFile(filePath as String?, inFileViewerRootedAtPath: filePath)
+        
+#if os(iOS)
+        if messageDict?["message"] == "get-color" {
+            // 在 iOS 中使用 UIColor 的 dynamic system colors
+            let accentColor = UIColor.tintColor // 或其他系统颜色如 .systemBlue
+            var red: CGFloat = 0
+            var green: CGFloat = 0
+            var blue: CGFloat = 0
+            var alpha: CGFloat = 0
+            
+            accentColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+            
+            let rgba = UIColorToRGBA(rgbColor: accentColor)
             if #available(iOS 15.0, macOS 11.0, *) {
-                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": result] ]
+                response.userInfo = [ SFExtensionMessageKey: [
+                    "echo": message,
+                    "result": ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a,"device":"ios"]
+                ]]
             } else {
-                response.userInfo = [ "message": [ "echo": message, "result": result ] ]
+                response.userInfo = [ "message": [
+                    "echo": message,
+                    "result": ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a,"device":"ios"]
+                ]]
             }
         }
-
         
-        
-        
-        if messageDict?["message"] == "select-torrent" {
-            NSApplication.shared.setActivationPolicy(.accessory)
-            let openPanel = NSOpenPanel()
-            openPanel.title = "Choose one .torrent file"
-            openPanel.allowedFileTypes = ["torrent","metalink","meta4"] // Restrict file types to .torrent
-            openPanel.allowsMultipleSelection = false
-            openPanel.canChooseDirectories = false
-            openPanel.canChooseFiles = true
-            
-            
-            if openPanel.runModal() == .OK{
-                let url = openPanel.url?.absoluteString
-                if #available(iOS 15.0, macOS 11.0, *) {
-                    response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": url,"path":url] ]
-                } else {
-                    response.userInfo = [ "message": [ "echo": message, "result": url ,"path":url ] ]
-                }
-            }
-        }
+#elseif os(macOS)
         
         if messageDict?["message"] == "get-color" {
             let accentColor = NSColor.controlAccentColor
-            let highlightColor = NSColor.controlAccentColor
-            let hrgb = highlightColor.usingColorSpace(.sRGB)
-            let r = NSColorToRGBA(rgbColor: hrgb!)
-            
+            let accentRgb = accentColor.usingColorSpace(.sRGB)
+            let rgba = NSColorToRGBA(rgbColor: accentRgb ?? NSColor(red: 98, green: 187, blue: 68, alpha: 0.8) )
             if #available(iOS 15.0, macOS 11.0, *) {
-                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": ["r":r.r , "g":r.g , "b":r.b , "a":r.a]] ]
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": ["r":rgba.r , "g":rgba.g , "b":rgba.b , "a":rgba.a, "device" : "macos"]] ]
             } else {
-                response.userInfo = [ "message": [ "echo": message, "result": ["r":r.r , "g":r.g , "b":r.b , "a":r.a] ] ]
+                response.userInfo = [ "message": [ "echo": message, "result": ["r":rgba.r , "g":rgba.g , "b":rgba.b , "a":rgba.a, "device" : "macos"] ] ]
             }
         }
-#endif
         
-        if messageDict?["message"] == "read-file" {
-            guard let filepath = messageDict?["filepath"] as? String else {
-                
-                let errorResult = "error_invalid_filepath"
-                if #available(iOS 15.0, macOS 11.0, *) {
-                    response.userInfo = [SFExtensionMessageKey: ["echo": message, "result": errorResult, "path": nil]]
-                } else {
-                    response.userInfo = ["message": ["echo": message, "result": errorResult, "path": nil]]
-                }
-                return
-            }
-            // createURL
-            guard let url = createURL(from: filepath) else {
-                let errorResult = "error_invalid_url"
-                if #available(iOS 15.0, macOS 11.0, *) {
-                    response.userInfo = [SFExtensionMessageKey: ["echo": message, "result": errorResult, "path": filepath]]
-                } else {
-                    response.userInfo = ["message": ["echo": message, "result": errorResult, "path": filepath]]
-                }
-                return
-            }
-            
-            var result: String
-            var ok: Bool
-            do {
-                let fileData = try Data(contentsOf: url)
-                let maxSizeInBytes = 20 * 1024 * 1024 // 20MB 限制
-                if fileData.count > maxSizeInBytes {
-                    result = "error_file_too_large"
-                } else {
-//                    result = fileData.base64EncodedString()
-                    result = fileData.base64EncodedString()
-                }
-                ok = true
-                
-            } catch {
-                switch error {
-                case let nsError as NSError where nsError.code == NSFileReadNoSuchFileError:
-                    result = "File not found."
-                case let nsError as NSError where nsError.code == NSFileReadNoPermissionError:
-                    result = "No permission.You need use \"Select File\" button."
-                default:
-                    result = "reading file: \(error.localizedDescription)"
-                }
-                ok = false
-            }
-            
-            // 设置响应
-            if #available(iOS 15.0, macOS 11.0, *) {
-                response.userInfo = [
-                    SFExtensionMessageKey: ["echo": message,"result": result,"path": url.absoluteString,"ok":ok ]
-                ]
-            } else {
-                response.userInfo = [
-                    "message": ["echo": message,"result": result,"path": url.absoluteString , "ok":ok ]
-                ]
-            }
-        }
+#endif
         
         // log
         os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@ (profile: %@)", String(describing: message), profile?.uuidString ?? "none")
@@ -230,67 +128,28 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 }
 
 
-func createURL(from string: String) -> URL? {
-    // If the string is empty, return nil.
-    guard !string.isEmpty else {
-        print("empty string, unable to create URL")
-        return nil
-    }
+
+#if os(iOS)
+
+func UIColorToRGBA(rgbColor: UIColor) -> (r: Int, g: Int, b: Int, a: Int) {
+    var red: CGFloat = 0
+    var green: CGFloat = 0
+    var blue: CGFloat = 0
+    var alpha: CGFloat = 0
     
-    // Remove leading and trailing whitespace.
-    let trimmedString = string.trimmingCharacters(in: .whitespaces)
+    rgbColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
     
-    // If the URL is already valid.
-    if let url = URL(string: trimmedString) {
-        if url.isFileURL {
-            // If the file is already existing and the file exists.
-            if FileManager.default.fileExists(atPath: url.path) {
-                return url
-            }
-            // If the file is in the format file:// but the file doesn’t exist.
-            print("file does not exist: \(url.path)")
-            return nil
-        }
-    }
+    let red255 = Int(red * 255)
+    let green255 = Int(green * 255)
+    let blue255 = Int(blue * 255)
+    let alpha255 = Int(alpha * 255)
     
-    // Handle various path formats
-    var path = trimmedString
-    
-    // Remove the leading file:// prefix.
-    if path.hasPrefix("file://") {
-        path = String(path.dropFirst(7))
-    }
-    
-    // Path starting with '~'
-    if path.hasPrefix("~") {
-        path = (path as NSString).expandingTildeInPath
-    }
-    
-    // If it’s not a guaranteed path (doesn’t start with /), convert it to a guaranteed path.
-    if !path.hasPrefix("/") {
-        // Get the current working directory
-        let currentDir = FileManager.default.currentDirectoryPath
-        path = (currentDir as NSString).appendingPathComponent(path)
-    }
-    
-    // Normalization path (handling .. and .)
-    let normalizedPath = (path as NSString).standardizingPath
-    
-    // create file:// URL
-    let fileURL = URL(fileURLWithPath: normalizedPath)
-    
-    // Check if a file exists.
-    if FileManager.default.fileExists(atPath: fileURL.path) {
-        return fileURL
-    } else {
-        print("file does not exist: \(fileURL.path)")
-        return nil
-    }
+    return (red255, green255, blue255, alpha255)
 }
 
-#if os(macOS)
+
+#elseif os(macOS)
 func NSColorToRGBA(rgbColor: NSColor) -> (r: Int, g: Int, b: Int, a: Int) {
-    
     // 提取RGB分量
     let red = rgbColor.redComponent
     let green = rgbColor.greenComponent

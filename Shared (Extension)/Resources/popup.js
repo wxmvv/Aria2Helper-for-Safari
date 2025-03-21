@@ -47,9 +47,9 @@ function detectDevice() {
 	const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
 	if (/iPad|iPhone|iPod/.test(userAgent) || (isTouchDevice && /Mobile/.test(userAgent))) {
-		return "iOS";
+		return "ios";
 	} else if (/Macintosh/.test(userAgent) && !isTouchDevice) {
-		return "macOS";
+		return "macos";
 	} else {
 		return "未知设备";
 	}
@@ -191,7 +191,6 @@ function hideNoTaskElement() {
 
 // Connection Status
 let selectDefaultProfileFlag = new Date();
-let fetchActivateFlag = true;
 let connectionStatus = false;
 
 function checkConnectionStatus() {
@@ -223,10 +222,7 @@ function updatedConnectionStatus(isConnect) {
 // Profile Left
 function initProfile() {
 	browser.runtime.sendMessage({ api: "get-local-storage" }, (result) => {
-		// init themeColor
-		console.log("[init profile]", result);
-		if (result.themeColor) document.documentElement.style.setProperty("--theme-color", result.themeColor);
-		if (result.themeColor) document.documentElement.style.setProperty("--theme-color-dark", result.themeColor);
+		console.log("[init profile] get-local-storage ", result);
 
 		// check connection status
 		let leftEl = document.querySelector(".navbar-left");
@@ -355,126 +351,172 @@ function createAddTaskDialog() {
 	dialogueEl.id = "addtask-dialogue";
 	let title = document.createElement("div");
 	title.className = "dialogue-title";
+	title.textContent = "Add Download Task";
+	title.style.display = "none";
 	let content = document.createElement("div");
 	content.className = "dialogue-content";
 	let actions = document.createElement("div");
 	actions.className = "dialogue-actions";
-
 	let textareaInfo = document.createElement("div");
 	textareaInfo.className = "textareaInfo";
-	textareaInfo.innerText = "none";
-
+	textareaInfo.textContent = "none";
 	let textarea = document.createElement("textarea");
 	textarea.className = "textarea";
 	textarea.id = "addtask-textarea";
+	textarea.placeholder = browser.i18n.getMessage("Enter_URL_or_magnet_link_here");
 	textarea.addEventListener("input", () => {
-		if (!textarea.value) return (textareaInfo.innerText = "input url or filepath");
-		textareaInfo.innerText = parseUrlOrPathType(textarea.value.trim());
+		if (!textarea.value) return (textareaInfo.textContent = "input url or filepath");
+		textareaInfo.textContent = parseUrlOrPathType(textarea.value.trim());
 	});
-
 	let confirmBtn = document.createElement("button");
 	confirmBtn.className = "btn";
+	confirmBtn.textContent = browser.i18n.getMessage("confirm");
 	let cancelBtn = document.createElement("button");
 	cancelBtn.className = "btn";
-	let selectFileBtn = document.createElement("button");
+	cancelBtn.textContent = browser.i18n.getMessage("cancel");
+	let selectFileBtn = document.createElement("label");
+	selectFileBtn.setAttribute("for", "inputFile");
 	selectFileBtn.className = "btn";
-
-	title.innerText = "Add Download Task";
-	title.style.display = "none";
-	cancelBtn.innerText = browser.i18n.getMessage("cancel");
-	confirmBtn.innerText = browser.i18n.getMessage("confirm");
-	selectFileBtn.innerText = browser.i18n.getMessage("select_torrent_file");
-	textarea.placeholder = browser.i18n.getMessage("Enter_URL_or_magnet_link_here");
+	selectFileBtn.textContent = browser.i18n.getMessage("select_torrent_file");
+	let clearInputFileBtn = document.createElement("div");
+	clearInputFileBtn.className = "clear-inputFile-Btn";
+	clearInputFileBtn.style.display = "none";
+	let inputFile = document.createElement("input");
+	inputFile.id = "inputFile";
+	inputFile.style.display = "none";
+	inputFile.type = "file";
+	inputFile.accept = ".torrent,.metalink,.meta4";
+	let testBtn = document.createElement("button");
+	testBtn.className = "btn";
+	testBtn.textContent = "test";
+	testBtn.addEventListener("click", () => {
+		let curfiles = inputFile.files;
+		console.log(curfiles);
+	});
 
 	const confirmBtnEvent = (e) => {
 		e.stopPropagation();
 		e.preventDefault();
 		confirmBtn.disabled = true;
-		setTimeout(() => (confirmBtn.disabled = false), 1000);
-		if (!connectionStatus) return showNotification(browser.i18n.getMessage("please_connect_first"), 3000, "error", true);
-		if (!textarea.value || textarea.value.trim() === "") return showNotification(browser.i18n.getMessage("please_input_url_or_filepath"), 3000, "error", true);
-		let url = textarea.value.trim();
-		let addTaskType = parseUrlOrPathType(url);
+		// setTimeout(() => (confirmBtn.disabled = false), 1000);
+		if (!connectionStatus) return showNotification(browser.i18n.getMessage("please_connect_first"), 3000, "error", true), (confirmBtn.disabled = false);
+		// if torrent or metalink
+		// BUG 目前aria2不支持http发送过大的torrent文件
+		// TODO 尝试js解析torrent 然后分片发送
+		// TODO 尝试用使用 fetchActivateFlag 先暂停fetch 在上传
+		let curfiles = inputFile.files;
+		if (curfiles.length === 1) {
+			let file = curfiles[0];
+			let fileApi;
+			if (file.name.lastIndexOf(".torrent") !== -1) fileApi = "aria2_addTorrent";
+			else if (file.name.lastIndexOf(".metalink") !== -1 || file.name.lastIndexOf(".meta4") !== -1) fileApi = "aria2_addMetalink";
+			else return showNotification(browser.i18n.getMessage("invalid_file"), 3000, "error", true), (confirmBtn.disabled = false);
 
-		if (addTaskType === "magnet_link" || addTaskType === "url" || addTaskType === "unknown" || addTaskType === "metalink_url") {
+			return encodeFileToBase64(curfiles[0]).then((result) => {
+				browser.runtime.sendMessage({ api: fileApi, file: result }, (result) => {
+					console.log("[Add torrent] success result: ", result);
+					if (result === "error" || !result) {
+						showNotification(browser.i18n.getMessage("Task_added_failed"), 3000, "error", true);
+					} else {
+						showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
+					}
+					clearInputFile();
+					hideAddTaskDialog();
+					confirmBtn.disabled = false;
+				});
+			});
+		}
+
+		// if url
+		if (!textarea.value || textarea.value.trim() === "") return showNotification(browser.i18n.getMessage("please_input_url_or_filepath"), 3000, "error", true), (confirmBtn.disabled = false);
+		else {
+			let url = textarea.value.trim();
+			// let addTaskType = parseUrlOrPathType(url);
 			browser.runtime.sendMessage({ api: "aria2_addUri", url: url }, (result) => {
 				if (result.error) {
 					console.log(`%cerror code: ${result.error.code} message: ${result.error.message}`, "color: red");
-					return showNotification(result.error.message, 3000, "error", true);
+					return showNotification(result.error.message, 3000, "error", true), (confirmBtn.disabled = false);
 				}
 				showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
 				hideAddTaskDialog();
-				console.log("[Add task] success result: ", result);
+				console.log("[Add url] success result: ", result);
+				confirmBtn.disabled = false;
 			});
-		} else if (addTaskType === "torrent" || addTaskType === "file_path" || addTaskType === "path" || addTaskType === "windows_path") {
-			// BUG 目前aria2不支持http发送过大的torrent文件
-			// TODO 尝试js解析torrent 然后分片发送
-			fetchActivateFlag = false;
-			browser.runtime.sendMessage({ api: "native-read-file", filepath: url }, (result) => {
-				console.log("result", result);
-				if (!result.ok) {
-					showNotification(result.result, 3000, "error", true);
-					fetchActivateFlag = true;
-				} else {
-					browser.runtime.sendMessage({ api: "aria2_addTorrent", torrent: result.result }, (result) => {
-						console.log("[Add task] success result: ", result);
-						if (result === "error" || !result) showNotification(browser.i18n.getMessage("Task_added_failed"), 3000, "error", true);
-						else showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
-						textarea.value = "";
-						hideAddTaskDialog();
-						fetchActivateFlag = true;
-					});
-				}
-			});
-		} else if (addTaskType === "metalink_file") {
-			browser.runtime.sendMessage({ api: "native-read-file", filepath: url }, (result) => {
-				console.log("result", result);
-				if (!result.ok) {
-					showNotification(result.result, 3000, "error", true);
-				} else {
-					browser.runtime.sendMessage({ api: "aria2_addMetalink", metalink: result.result }, (result) => {
-						console.log("[Add task] success result: ", result);
-						textarea.value = "";
-						// textarea.disabled = false;
-						showNotification(browser.i18n.getMessage("Task_added_successfully"), 3000, "success", true);
-						hideAddTaskDialog();
-					});
-				}
-			});
-		} else {
-			showNotification(browser.i18n.getMessage("invalid_input"), 3000, "error", true);
 		}
 	};
+
+	const clearInputFile = () => {
+		textarea.value = "";
+		inputFile.value = "";
+		textarea.disabled = false;
+		clearInputFileBtn.style.display = "none";
+	};
+
 	confirmBtn.addEventListener("click", (e) => confirmBtnEvent(e));
 	confirmBtn.addEventListener("dblclick", (e) => confirmBtnEvent(e));
-	cancelBtn.addEventListener("click", (e) => hideAddTaskDialog(e));
+	cancelBtn.addEventListener("click", (e) => {
+		clearInputFile();
+		hideAddTaskDialog(e);
+	});
 
-	selectFileBtn.addEventListener("click", () => {
-		browser.runtime.sendMessage({ api: "native-select-torrent" }, (result) => {
-			if (browser.runtime.lastError) {
-				console.error("Error:", browser.runtime.lastError.message);
-			} else {
-				if (result.result === "canceled") return showNotification(browser.i18n.getMessage("canel"), 3000, "info");
-				if (result && result.result && result.result !== "") {
-					textarea.value = result.path;
-					textareaInfo.innerText = parseUrlOrPathType(textarea.value.trim());
-					// textarea.disabled = true;
-				}
-			}
-		});
+	inputFile.addEventListener("change", () => {
+		let curfiles = inputFile.files;
+		console.log(curfiles);
+		if (curfiles.length === 0) {
+			textarea.disabled = false;
+			textareaInfo.textContent = "none";
+			clearInputFileBtn.style.display = "none";
+			textarea.value = "";
+		} else if (curfiles.length === 1) {
+			let file = curfiles[0];
+			textarea.disabled = true;
+			textareaInfo.textContent = file.type;
+			clearInputFileBtn.style.display = "flex";
+			textarea.value = `[name] ${file.name}\n[size] ${bytesToSize(file.size)}\n[type] ${file.type}`;
+		}
+	});
+
+	clearInputFileBtn.addEventListener("click", () => {
+		clearInputFile();
 	});
 
 	content.appendChild(textareaInfo);
+	content.appendChild(clearInputFileBtn);
 	content.appendChild(textarea);
 	actions.appendChild(confirmBtn);
 	actions.appendChild(cancelBtn);
 	actions.appendChild(selectFileBtn);
+	actions.appendChild(testBtn); //TEST
 	dialogueEl.appendChild(title);
 	dialogueEl.appendChild(content);
 	dialogueEl.appendChild(actions);
-
+	dialogueEl.appendChild(inputFile);
 	return dialogueEl;
 }
+
+// encoded torrent to base64 string
+let encodeFileToBase64 = (file) => {
+	return new Promise((resolve, reject) => {
+		const temporaryFileReader = new FileReader();
+		temporaryFileReader.onerror = () => {
+			temporaryFileReader.abort();
+			reject(new Error(`Cannot parse '${file}'.`));
+		};
+		temporaryFileReader.onloadend = () => {
+			if (temporaryFileReader.result) {
+				const splitResult = temporaryFileReader.result.toString().split(/[:;,]/);
+				if (splitResult.length >= 4) {
+					resolve(splitResult[3]);
+				} else {
+					reject(new Error(`Cannot get base64 encoded string for '${file}'.`));
+				}
+			} else {
+				reject(new Error(`Result is empty for '${file}'.`));
+			}
+		};
+		temporaryFileReader.readAsDataURL(file);
+	});
+};
 
 function showAddTaskDialog() {
 	const dialogue = document.getElementById("dialogue");
@@ -595,6 +637,7 @@ function createDownloadItemElement(item) {
 
 function updateDownloadItemElement(el, i) {
 	// info format
+
 	i.leftTime = calculateRemainingTime(i.completedLength, i.totalLength, i.downloadSpeed); // number
 	if (i.totalLength === 0) i.progress = 0; // 解决 totalLength === 0 时 progress 为 Infinity 的问题
 	else {
@@ -615,16 +658,16 @@ function updateDownloadItemElement(el, i) {
 	i.uploadSpeed = bytesToSize(i.uploadSpeed, 2) + "/s"; // string
 
 	if (i.bittorrent && i.bittorrent.info && i.bittorrent.info.name) {
-		i.taskName = i.bittorrent.info.name;
 		i.taskPath = i.files[0].path || "";
 		i.taskUri = "";
+		i.taskName = i.bittorrent.info.name;
 		i.fileparts = { extension: "", nameWithoutExtension: i.taskName };
 	} else {
-		if (!i.files[0].path || i.files[0].path === "") i.taskPath = i.files[0].uris[0].uri;
+		if (!i.files[0].path || i.files[0].path === "") i.taskPath = i.dir || "";
 		else i.taskPath = i.files[0].path;
-		i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskPath;
 		if (i.files[0].uris && i.files[0].uris.length > 0) i.taskUri = i.files[0].uris[0].uri;
 		else i.taskUri = "";
+		i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskPath;
 		i.fileparts = getPartsFromFilename(i.taskName);
 	}
 
@@ -827,18 +870,30 @@ function updateDownloadItemElement(el, i) {
 	}
 }
 
-let device = detectDevice();
+let testDevice = detectDevice();
 
-// MARK main
-document.addEventListener("DOMContentLoaded", function () {
-	// --downloadList-width
-	if (device === "iOS") {
+// init style
+function initStyle() {
+	if (testDevice === "ios") {
 		document.documentElement.style.setProperty("--downloadList-width", "100%");
 		document.documentElement.style.setProperty("--downloadList-max-height", "auto");
-		// browser.runtime.sendMessage({ api: "native-get-color" }, (result) => {});
 	}
 
+	// --downloadList-width
+	// browser.runtime.sendMessage({ api: "get-local-storage" }, (result) => {
+	// 	console.log("[get-local-storage] ", result);
+	// 	if (result.device === "ios") {
+	// 		document.documentElement.style.setProperty("--downloadList-width", "100%");
+	// 		document.documentElement.style.setProperty("--downloadList-max-height", "auto");
+	// 	}
+	// });
+}
+
+let fetchActivateFlag = true;
+// MARK main
+document.addEventListener("DOMContentLoaded", function () {
 	// initializing
+	initStyle();
 	document.getElementById("appTitle").innerHTML = browser.i18n.getMessage("extension_name") || "Aria2Helper";
 	showNoTaskElement(browser.i18n.getMessage("initializing"));
 	initProfile();

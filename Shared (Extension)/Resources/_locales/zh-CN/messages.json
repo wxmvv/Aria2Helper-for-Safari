@@ -119,6 +119,9 @@
     "invalid_input": {
         "message": "无效的输入"
     },
+    "invalid_file": {
+        "message": "无效的输入"
+    },
     "file_not_found": {
         "message": "文件未找到"
     },

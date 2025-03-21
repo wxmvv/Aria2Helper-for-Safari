@@ -1,7 +1,7 @@
 // MARK background server
 // [Doc] https://aria2.document.top/zh/aria2c.html#aria2.addUri
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-	let result = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings", "themeColor"]);
+	let result = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings", "device", "themeColor"]);
 	if (!result.defaultProfileId) return await sendResponse({ error: "no default profile", code: 1 });
 	if (!result.currentProfileId) return await sendResponse({ error: "no currentProfileId profile", code: 2 });
 	if (!result.profiles) return await sendResponse({ error: "no profiles", code: 3 });
@@ -33,7 +33,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 			await sendResponse(data);
 		}
 	}
-	if (message.api === "aria2_addTorrent" && message.torrent) {
+	if (message.api === "aria2_addTorrent" && message.file) {
 		const uris = []; // Web-seeding uri  https://aria2.github.io/manual/en/html/aria2c.html#aria2.addTorrent
 		const options = {};
 		if (message.dir) console.log("dir:", message.dir), (options.dir = message.dir);
@@ -43,7 +43,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		if (message.cookie) console.log("cookie:", message.cookie), (options.header = [`Cookie:${message.cookie}`]); //Cookie
 
 		const method = "aria2.addTorrent";
-		const params = [`token:${Aria2Info.rpcSecret}`, message.torrent, uris, options];
+		const params = [`token:${Aria2Info.rpcSecret}`, message.file, uris, options];
 		const res = await sendAria2Request(method, params);
 		if (res === "error") await sendResponse("error"), console.log("failed to add download");
 		else {
@@ -52,7 +52,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 			await sendResponse(data);
 		}
 	}
-	if (message.api === "aria2_addMetalink" && message.metalink) {
+	if (message.api === "aria2_addMetalink" && message.file) {
 		const options = {};
 		if (message.dir) console.log("dir:", message.dir), (options.dir = message.dir);
 		if (message.out) console.log("out:", message.out), (options.out = message.out);
@@ -61,7 +61,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		if (message.cookie) console.log("cookie:", message.cookie), (options.header = [`Cookie:${message.cookie}`]); //Cookie
 
 		const method = "aria2.addMetalink";
-		const params = [`token:${Aria2Info.rpcSecret}`, message.metalink, options];
+		const params = [`token:${Aria2Info.rpcSecret}`, message.file, options];
 		const res = await sendAria2Request(method, params);
 		if (res === "error") await sendResponse("error"), console.log("failed to add download");
 	}
@@ -254,71 +254,6 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	}
 
 	// MARK Native API
-	// select file
-	if (message.api === "native-select-file" && message.url) {
-		try {
-			const response = await new Promise((resolve, reject) => {
-				browser.runtime.sendNativeMessage({ message: "select-file", url: message.url }, (response) => {
-					if (browser.runtime.lastError) reject(browser.runtime.lastError);
-					else resolve(response);
-				});
-			});
-			console.log("Native message response:", response);
-			sendResponse({ isLocal, ...response }); // 返回原生消息的响应
-		} catch (error) {
-			console.error("Native message error:", error);
-			sendResponse({ isLocal, status: "error", message: error.message }); // 返回错误信息
-		}
-	}
-
-	if (message.api === "native-read-file" && message.filepath) {
-		try {
-			const response = await new Promise((resolve, reject) => {
-				browser.runtime.sendNativeMessage({ message: "read-file", filepath: message.filepath }, (response) => {
-					if (browser.runtime.lastError) reject(browser.runtime.lastError);
-					else resolve(response);
-				});
-			});
-			console.log("Native message response:", response);
-			sendResponse(response); // 返回原生消息的响应
-		} catch (error) {
-			console.error("Native message error:", error);
-			sendResponse({ status: "error", message: error.message }); // 返回错误信息
-		}
-	}
-	if (message.api === "native-select-torrent") {
-		try {
-			const response = await new Promise((resolve, reject) => {
-				browser.runtime.sendNativeMessage({ message: "select-torrent" }, (response) => {
-					if (browser.runtime.lastError) reject(browser.runtime.lastError);
-					else resolve(response);
-				});
-			});
-			console.log("Native message response:", response);
-			sendResponse(response); // 返回原生消息的响应
-		} catch (error) {
-			console.error("Native message error:", error);
-			sendResponse({ status: "error", message: error.message }); // 返回错误信息
-		}
-	}
-	// get system highlight color
-	if (message.api === "native-get-color") {
-		console.log("get color");
-		try {
-			const response = await new Promise((resolve, reject) => {
-				browser.runtime.sendNativeMessage({ message: "get-color" }, (response) => {
-					if (browser.runtime.lastError) reject(browser.runtime.lastError);
-					else resolve(response);
-				});
-			});
-			console.log("Native message response:", response);
-			sendResponse(response); // 返回原生消息的响应
-		} catch (error) {
-			console.error("Native message error:", error);
-			sendResponse({ status: "error", message: error.message }); // 返回错误信息
-		}
-	}
-	s;
 	// show notification
 	if (message.api === "native-open-notification") {
 		let title = message.title ? message.title : "no title";
@@ -334,15 +269,16 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 // MARK getColor
 function getColor() {
 	browser.runtime.sendNativeMessage({ message: "get-color" }, (response) => {
-		console.log("Received response: ", response);
+		console.log("get-color: ", response);
 		let r = response.result.r;
 		let g = response.result.g;
 		let b = response.result.b;
 		let a = response.result.a;
+		let resdevice = response.result.device;
 		if (r + g + b === 0 || r + g + b === 765) return;
 		let color = `rgba(${r - 10}, ${g + 30}, ${b + 9}, ${0.8})`;
 		console.log("color", color);
-		browser.storage.local.set({ themeColor: color });
+		browser.storage.local.set({ themeColor: color, device: resdevice });
 	});
 }
 
@@ -563,26 +499,3 @@ function getFileParts(filename) {
 		nameWithoutExtension: filename.slice(0, lastDotIndex),
 	};
 }
-
-// Scrap
-
-// listen to download start event
-// the downloads API is not supported in Safari
-// https://developer.apple.com/forums/thread/660046
-// browser.downloads.onCreated.addListener((downloadItem) => {
-//     console.log("Download created:", downloadItem);
-// });
-
-// browser webRequest
-// https://developer.chrome.com/docs/extensions/reference/webRequest/
-// browser.webRequest.onBeforeRequest.addListener((details) => {
-//     console.log("onBeforeRequest: ");
-//     console.log(details);
-//     return { cancel: false };
-// });
-
-// keeping the background script alive, but it's not necessary,
-// and will cause the extension to be loaded in the background all the time.
-//browser.runtime.onSuspend.addListener(() => {
-//    console.log("Unloading extension");
-//});
