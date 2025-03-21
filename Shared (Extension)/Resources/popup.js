@@ -279,7 +279,7 @@ function initProfile() {
 
 			// select btn
 			let selectEl = document.createElement("select");
-			selectEl.id = "select-profile";
+			selectEl.id = "select";
 			for (let profileId of Object.keys(result.profiles)) {
 				let profileName = result.profiles[profileId].alias;
 				let optionEl = document.createElement("option");
@@ -386,13 +386,6 @@ function createAddTaskDialog() {
 	inputFile.style.display = "none";
 	inputFile.type = "file";
 	inputFile.accept = ".torrent,.metalink,.meta4";
-	let testBtn = document.createElement("button");
-	testBtn.className = "btn";
-	testBtn.textContent = "test";
-	testBtn.addEventListener("click", () => {
-		let curfiles = inputFile.files;
-		console.log(curfiles);
-	});
 
 	const confirmBtnEvent = (e) => {
 		e.stopPropagation();
@@ -486,7 +479,6 @@ function createAddTaskDialog() {
 	actions.appendChild(confirmBtn);
 	actions.appendChild(cancelBtn);
 	actions.appendChild(selectFileBtn);
-	actions.appendChild(testBtn); //TEST
 	dialogueEl.appendChild(title);
 	dialogueEl.appendChild(content);
 	dialogueEl.appendChild(actions);
@@ -870,23 +862,13 @@ function updateDownloadItemElement(el, i) {
 	}
 }
 
-let testDevice = detectDevice();
-
 // init style
+let testDevice = detectDevice();
 function initStyle() {
 	if (testDevice === "ios") {
 		document.documentElement.style.setProperty("--downloadList-width", "100%");
 		document.documentElement.style.setProperty("--downloadList-max-height", "auto");
 	}
-
-	// --downloadList-width
-	// browser.runtime.sendMessage({ api: "get-local-storage" }, (result) => {
-	// 	console.log("[get-local-storage] ", result);
-	// 	if (result.device === "ios") {
-	// 		document.documentElement.style.setProperty("--downloadList-width", "100%");
-	// 		document.documentElement.style.setProperty("--downloadList-max-height", "auto");
-	// 	}
-	// });
 }
 
 let fetchActivateFlag = true;

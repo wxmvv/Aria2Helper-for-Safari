@@ -109,6 +109,10 @@ button {
 	outline: none;
 	background-color: transparent;
 	cursor: pointer;
+	color: var(--text-color);
+}
+label {
+	color: var(--text-color);
 }
 
 @keyframes breathe {
@@ -142,11 +146,12 @@ button {
 	/* min-width: 328px; */
 }
 
-select {
+#select {
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	position: relative;
+	color: var(--text-color);
 	background: rgba(166, 166, 166, 0.3);
 	border: 1px solid rgba(155, 155, 155, 0.4);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -154,8 +159,8 @@ select {
 	padding: 2px 16px 2px 6px;
 	font-size: 13px; /* small 13px */
 	font-weight: 500;
-	/* outline: none !important;  remove default */
 	transition: background-color 0.3s ease; /* smooth */
+	/* outline: none !important; */
 	/* animation: breathe 2s infinite ease-in-out;  */
 }
 
@@ -360,6 +365,7 @@ select {
 	font-size: 13px;
 	z-index: 1;
 	border: 1px solid rgba(255, 255, 255, 0.1);
+	color: var(--text-color);
 	background: rgba(255, 255, 255, 0.2);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 	padding: 2px 6px;
