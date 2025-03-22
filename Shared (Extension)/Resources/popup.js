@@ -659,7 +659,7 @@ function updateDownloadItemElement(el, i) {
 		else i.taskPath = i.files[0].path;
 		if (i.files[0].uris && i.files[0].uris.length > 0) i.taskUri = i.files[0].uris[0].uri;
 		else i.taskUri = "";
-		i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskPath;
+		i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskUri;
 		i.fileparts = getPartsFromFilename(i.taskName);
 	}
 
@@ -868,6 +868,7 @@ function initStyle() {
 	if (testDevice === "ios") {
 		document.documentElement.style.setProperty("--downloadList-width", "100%");
 		document.documentElement.style.setProperty("--downloadList-max-height", "auto");
+		document.body.classList.add("ios");
 	}
 }
 

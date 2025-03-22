@@ -289,14 +289,18 @@ browser.storage.local.get(["settings"]).then((result) => {
 				skipNextClick = false;
 				return;
 			}
+
 			let target = event.target;
 			while (target && target.nodeName !== "A") target = target.parentElement;
 			if (target && target.nodeName === "A") {
 				// block default
 				event.preventDefault();
 				if (settings.filterLists) filterLists = settings.filterLists;
-				if (matchExtensionWithFilters(target.href, extensions, filterLists)) {
-					const fileparts = getFileParts(target.href);
+				const url = new URL(target.href);
+				const testUrl = url.origin + url.pathname;
+
+				if (matchExtensionWithFilters(testUrl, extensions, filterLists)) {
+					const fileparts = getFileParts(testUrl);
 					// post to aria2 server
 					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
 						console.log(response, target);

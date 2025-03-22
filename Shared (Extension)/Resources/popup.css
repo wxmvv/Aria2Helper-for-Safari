@@ -517,6 +517,7 @@ textarea {
 	background-image: url("images/file/file.png");
 	background-size: contain;
 	background-repeat: no-repeat;
+	background-blend-mode: color-burn;
 	width: 32px;
 	height: 32px;
 	flex: 0 0 auto;
@@ -528,14 +529,14 @@ textarea {
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(0, 0, 0, 0.8);
 }
 .item .item-icon.play-icon::after {
 	mask-image: url("images/symbol/play.circle.fill.svg");
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
 .item .item-icon::after {
@@ -553,7 +554,14 @@ textarea {
 .item:hover .item-icon::after {
 	opacity: 1;
 }
-.item-icon:active::before {
+.ios .item .item-icon::after {
+	opacity: 1 !important;
+}
+
+
+
+.item:hover .item-icon.play-icon::before,
+.item:hover .item-icon.pause-icon::before {
 	position: absolute;
 	left: 0px;
 	top: 0px;
@@ -561,7 +569,21 @@ textarea {
 	width: 100%;
 	height: 100%;
 	filter: blur(8px);
-	background-color: rgba(128, 128, 128, 0.2);
+	background-color: rgba(128, 128, 128, 0.4);
+	border-radius: 8px;
+	z-index: 8;
+}
+.item:hover .item-icon.play-icon:active::before,
+.item:hover .item-icon.pause-icon:active::before,
+.item:hover .item-icon:active::before {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	content: "";
+	width: 100%;
+	height: 100%;
+	filter: blur(8px);
+	background-color: rgba(128, 128, 128, 0.6);
 	border-radius: 8px;
 	z-index: 8;
 }

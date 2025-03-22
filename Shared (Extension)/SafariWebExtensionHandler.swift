@@ -103,8 +103,27 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 ]]
             }
         }
+        if messageDict?["message"] == "select-file" {
+            let filePath = messageDict?["url"] ?? ""
+            if #available(iOS 15.0, macOS 11.0, *) {
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": "unable open file on ios"] ]
+            } else {
+                response.userInfo = [ "message": [ "echo": message, "result": "unable open file on ios" ] ]
+            }
+        }
         
 #elseif os(macOS)
+        if messageDict?["message"] == "select-file" {
+            let filePath = messageDict?["url"] ?? ""
+            // activateFileViewerSelecting(_:) This also works, but it doesn't return any value
+            let result = NSWorkspace.shared.selectFile(filePath as String?, inFileViewerRootedAtPath: filePath)
+            if #available(iOS 15.0, macOS 11.0, *) {
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": result] ]
+            } else {
+                response.userInfo = [ "message": [ "echo": message, "result": result ] ]
+            }
+        }
+        
         
         if messageDict?["message"] == "get-color" {
             let accentColor = NSColor.controlAccentColor

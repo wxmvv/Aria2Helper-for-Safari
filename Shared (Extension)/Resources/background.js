@@ -254,6 +254,23 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	}
 
 	// MARK Native API
+	// select file
+	if (message.api === "native-select-file" && message.url) {
+		try {
+			const response = await new Promise((resolve, reject) => {
+				browser.runtime.sendNativeMessage({ message: "select-file", url: message.url }, (response) => {
+					if (browser.runtime.lastError) reject(browser.runtime.lastError);
+					else resolve(response);
+				});
+			});
+			console.log("Native message response:", response);
+			sendResponse({ isLocal, ...response }); // 返回原生消息的响应
+		} catch (error) {
+			console.error("Native message error:", error);
+			sendResponse({ isLocal, status: "error", message: error.message }); // 返回错误信息
+		}
+	}
+
 	// show notification
 	if (message.api === "native-open-notification") {
 		let title = message.title ? message.title : "no title";
