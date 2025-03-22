@@ -589,7 +589,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("rpc-parameters").placeholder = browser.i18n.getMessage("parameters_example");
 
 	getLocalStorage().then((res) => {
-		if (res.device === "ios") document.documentElement.style.fontSize = "1.8rem";
+		if (res.device === "ios") {
+			document.documentElement.style.fontSize = "1.5rem";
+			document.documentElement.style.zoom = "1.5";
+			for (let i = 0; i < document.getElementsByClassName("input-checkbox").length; i++) {
+				document.getElementsByClassName("input-checkbox")[i].style.zoom = "1.3";
+			}
+		}
 		renderTabs(profiles);
 		loadProfile(currentProfileId);
 		loadSettings(settings);

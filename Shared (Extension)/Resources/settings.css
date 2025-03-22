@@ -27,10 +27,17 @@
 		--text-tertiary: var(--text-tertiary-dark);
 	}
 }
-/* 
-html {
-	font-size: 1.8rem;
-} */
+
+/* not work ? */
+/* auto fill block */
+input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
+	visibility: hidden;
+	display: none !important;
+	pointer-events: none;
+	height: 0;
+	width: 0;
+	margin: 0;
+}
 
 * {
 	margin: 0;
@@ -43,7 +50,7 @@ body {
 }
 
 #root {
-	line-height: 1.6;
+	/* line-height: 1.6; */
 	width: 100%;
 	padding: 20px;
 	display: flex;
@@ -54,19 +61,9 @@ body {
 }
 
 h2 {
-	font-size: 2rem;
+	font-size: 1.6rem;
 	font-weight: 600;
 	margin-bottom: 20px;
-}
-
-/* not work ? */
-input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
-	visibility: hidden;
-	display: none !important;
-	pointer-events: none;
-	height: 0;
-	width: 0;
-	margin: 0;
 }
 
 /* container */
@@ -78,12 +75,72 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	max-width: 1000px;
 	gap: 20px;
 	width: 100%;
-	/* margin: 0 auto; */
-	/* flex: 1; */
 	background: var(--bg-primary);
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* DOING */
+.form-desc {
+	font-size: 1rem;
+	color: var(--text-secondary);
+}
+
+.form-label {
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+input {
+	width: 100%;
+}
+.form-group .form-label {
+	margin-bottom: 8px;
+}
+.form-group {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-bottom: 20px;
+	width: 100%;
+}
+.form-group.row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-bottom: 20px;
+}
+.input-checkbox {
+	transform: scale(1.5);
+	min-width: 30px;
+	margin: 6px;
+	width: auto;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 1.2rem;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+	border-color: #3498db;
+	outline: none;
+}
+
+.form-border {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 5px;
 }
 
 /* tabs */
@@ -97,7 +154,7 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 .tab {
 	position: relative;
 	padding: 10px 20px;
-	font-size: 1.25rem;
+	font-size: 1.2rem;
 	border: 1px solid var(--text-tertiary);
 	border-radius: 4px;
 	cursor: pointer;
@@ -125,62 +182,31 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	background-color: var(--theme-color);
 	border-radius: 2px;
 	transition: all 0.2s ease;
-	/* border: 2px solid #2ecc71;
-	font-weight: bold; */
 }
 
 /* form */
 .form-actions {
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	gap: 10px;
-}
-
-.settings-form {
-	width: 100%;
-}
-
-.form-group {
-	margin-bottom: 20px;
-}
-
-.form-group label {
-	display: block;
-	font-weight: 600;
-	margin-bottom: 8px;
-}
-
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group select,
-.form-group textarea {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	font-size: 1.25rem;
-}
-
-.form-group input[type="text"]:focus,
-.form-group input[type="password"]:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-	border-color: #3498db;
-	outline: none;
 }
 
 .password-wrapper {
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	gap: 10px;
+	width: 100%;
 }
-
-.password-wrapper input[type="password"] {
-	flex: 1;
+.password-wrapper .btn {
+	position: absolute;
+	right: 1px;
+	top: 1px;
 }
 
 /* fold extensions */
@@ -206,7 +232,7 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 .btn {
 	display: inline-block;
 	padding: 10px 20px;
-	font-size: 1.25rem;
+	font-size: 1.2rem;
 	font-weight: 600;
 	color: #fff;
 	background-color: #3498db;
