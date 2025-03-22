@@ -183,7 +183,7 @@
 		"message": "Show Badge"
 	},
 	"show_notification": {
-		"message": "Show Notification (Possible due to browser restrictions, unable to display)"
+		"message": "Show Notification"
 	},
 	"listen_downloads": {
 		"message": "Listen Downloads"
