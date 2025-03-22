@@ -368,7 +368,7 @@ function loadProfile(profileId) {
 function loadSettings(settings) {
 	document.getElementById("listen-downloads").checked = settings.listenDownloads || false;
 	document.getElementById("show-badge").checked = settings.showBadge || false;
-	document.getElementById("show-notification").checked = settings.showNotification || true;
+	document.getElementById("show-notification").checked = settings.showNotification || false;
 	// Blacklist Whitelist
 	if (settings.filterLists) {
 		document.getElementById("extensionsBlackList").value = settings.filterLists.blacklist.extensions.toString();
@@ -589,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("rpc-parameters").placeholder = browser.i18n.getMessage("parameters_example");
 
 	getLocalStorage().then((res) => {
-		if (res.device === "ios") {
+		if (res.device === "iphone") {
 			document.documentElement.style.fontSize = "1.5rem";
 			document.documentElement.style.zoom = "1.5";
 			for (let i = 0; i < document.getElementsByClassName("input-checkbox").length; i++) {

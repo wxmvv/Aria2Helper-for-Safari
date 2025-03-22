@@ -61,15 +61,19 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             accentColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
             
             let rgba = UIColorToRGBA(rgbColor: accentColor)
+            var device: String
+            if UIDevice().userInterfaceIdiom == .pad {device = "ipad"}
+            else {device = "iphone"}
+            
             if #available(iOS 15.0, macOS 11.0, *) {
                 response.userInfo = [ SFExtensionMessageKey: [
                     "echo": message,
-                    "result": ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a,"device":"ios"]
+                    "result": ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a,"device":device]
                 ]]
             } else {
                 response.userInfo = [ "message": [
                     "echo": message,
-                    "result": ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a,"device":"ios"]
+                    "result": ["r": rgba.r, "g": rgba.g, "b": rgba.b, "a": rgba.a,"device":device]
                 ]]
             }
         }
