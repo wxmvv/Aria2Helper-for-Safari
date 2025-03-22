@@ -25,7 +25,6 @@
 	"Download_audio_with_Aria2": {
 		"message": "Download audio with Aria2"
 	},
-
 	"active": {
 		"message": "active"
 	},
@@ -127,6 +126,9 @@
 	},
 	"unable_open_remote_file": {
 		"message": "Unable to open remote file."
+	},
+	"unable_open_ios_file": {
+		"message": "Unable to open ios file."
 	},
 	"unable_to_connect_to_server": {
 		"message": "Unable to connect to server."

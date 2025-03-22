@@ -632,6 +632,10 @@ function createDownloadItemElement(item) {
 				} else {
 					showNotification(browser.i18n.getMessage("file_not_found"), 3000, "error");
 				}
+			} else if (response.result === "ios") {
+				showNotification(browser.i18n.getMessage("unable_open_ios_file"), 3000, "error");
+			} else {
+				showNotification(response.result, 3000, "info");
 			}
 		});
 	});
@@ -822,6 +826,10 @@ function updateDownloadItemElement(el, i) {
 					} else {
 						showNotification(browser.i18n.getMessage("file_not_found"), 3000, "error");
 					}
+				} else if (response.result === "ios") {
+					showNotification(browser.i18n.getMessage("unable_open_ios_file"), 3000, "error");
+				} else {
+					showNotification(response.result, 3000, "info");
 				}
 			});
 		});

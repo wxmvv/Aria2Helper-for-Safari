@@ -76,9 +76,9 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         if messageDict?["message"] == "select-file" {
             let filePath = messageDict?["url"] ?? ""
             if #available(iOS 15.0, macOS 11.0, *) {
-                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": "unable open file on ios"] ]
+                response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": "ios"] ]
             } else {
-                response.userInfo = [ "message": [ "echo": message, "result": "unable open file on ios" ] ]
+                response.userInfo = [ "message": [ "echo": message, "result": "ios" ] ]
             }
         }
         
