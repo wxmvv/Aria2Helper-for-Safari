@@ -333,7 +333,7 @@ function initNavbarBtn() {
 	let clearBtn = document.createElement("div");
 	clearBtn.className = "btn";
 	clearBtn.id = "clear";
-	clearBtn.innerText = browser.i18n.getMessage("clear");
+	clearBtn.textContent = browser.i18n.getMessage("clear");
 	clearBtn.title = browser.i18n.getMessage("clear_download_list");
 	clearBtn.style.display = "none";
 	navbarRight.prepend(clearBtn);
@@ -342,6 +342,18 @@ function initNavbarBtn() {
 			console.log("[aria2_purgeDownloadResult] ", data);
 		});
 	});
+
+	// TEST
+	// let testNotificationBtn = document.createElement("div");
+	// testNotificationBtn.className = "btn";
+	// testNotificationBtn.id = "testNotification";
+	// testNotificationBtn.textContent = "Test Notification";
+	// navbarRight.prepend(testNotificationBtn);
+	// testNotificationBtn.addEventListener("click", () => {
+	// 	browser.runtime.sendMessage({ api: "native-open-notification" }, function (data) {
+	// 		console.log("[aria2_purgeDownloadResult] ", data);
+	// 	});
+	// });
 }
 
 // Add task dialogue

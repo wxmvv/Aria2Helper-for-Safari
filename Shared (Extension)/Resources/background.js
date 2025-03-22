@@ -276,10 +276,23 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		let title = message.title ? message.title : "no title";
 		let subtitle = message.subtitle ? message.subtitle : "";
 		let body = message.body ? message.body : "no body";
-		browser.runtime.sendNativeMessage({ message: "open-notification", title: title, subtitle: subtitle, body: body }, function (response) {
-			// console.log("Received sendNativeMessage response:", response);
-			sendResponse(response);
-		});
+		try {
+			const responses = await new Promise((resolve, reject) => {
+				browser.runtime.sendNativeMessage({ message: "open-notification", title: title, subtitle: subtitle, body: body }, function (response) {
+					resolve(response);
+				});
+			});
+			console.log("Native message response:", responses);
+			sendResponse(responses);
+		} catch (error) {
+			console.error("Native message error:", error);
+			sendResponse({ status: "error", message: error.message }); // 返回错误信息
+		}
+	}
+
+	// MARK test
+	if (message.api === "test") {
+		sendResponse("test success");
 	}
 });
 

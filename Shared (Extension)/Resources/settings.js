@@ -217,7 +217,7 @@ const initProfiles = {
 
 const initSettings = {
 	showBadge: false, // show badge
-	showNotification: true, // show notifications
+	showNotification: false, // show notifications
 	listenDownloads: false, // listen downloads
 	filterLists: {
 		blacklist: {
@@ -500,6 +500,13 @@ function setupEventListeners() {
 	document.getElementById("show-notification").addEventListener("click", (e) => {
 		settings.showNotification = e.target.checked;
 		saveSettings();
+	});
+
+	// TEST
+	document.getElementById("testNotificationBtn").addEventListener("click", (e) => {
+		browser.runtime.sendMessage({ api: "native-open-notification", title: "test notification", subtitle: "", body: "Test Notification" }).then((res) => {
+			console.log(res);
+		});
 	});
 
 	document.getElementById("listen-downloads").addEventListener("click", (e) => {

@@ -6,7 +6,7 @@
 //
 
 import WebKit
-
+import UserNotifications
 #if os(iOS)
 import UIKit
 typealias PlatformViewController = UIViewController
@@ -64,17 +64,36 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
         if (message.body as! String != "open-preferences") {
             return
         }
-
+        
+        if (message.body as! String == "test-notification") {
+            let center = UNUserNotificationCenter.current()
+            let content = UNMutableNotificationContent()
+            content.title =  "no title"
+            content.subtitle =  "no subtitle"
+            content.sound = UNNotificationSound.default
+            content.body =  "no body"
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            center.add(request) { error in
+                if let error = error {
+                    print("添加通知失败: \(error.localizedDescription)")
+                } else {
+                    print("通知添加成功")
+                }
+            }
+        }
+        
         SFSafariApplication.showPreferencesForExtension(withIdentifier: extensionBundleIdentifier) { error in
             guard error == nil else {
                 // Insert code to inform the user that something went wrong.
                 return
             }
-
+            
             DispatchQueue.main.async {
                 NSApp.terminate(self)
             }
         }
+        
 #endif
     }
 

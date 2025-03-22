@@ -1,10 +1,10 @@
 {
 	"extension_name": {
-		"message": "Aira2Helper",
+		"message": "Aria2 Helper",
 		"description": "The display name for the extension."
 	},
 	"extension_description": {
-		"message": "This is Aira2Helper Extension. A safari extension for the Aria2 Download Manager.",
+		"message": "This is Aria2Helper Extension. A safari extension for the Aria2 Download Manager.",
 		"description": "Description of what the extension does."
 	},
 	"Download_with_Aria2": {
@@ -183,7 +183,7 @@
 		"message": "Show Badge"
 	},
 	"show_notification": {
-		"message": "Show Notification"
+		"message": "Show Notification (Possible due to browser restrictions, unable to display)"
 	},
 	"listen_downloads": {
 		"message": "Listen Downloads"

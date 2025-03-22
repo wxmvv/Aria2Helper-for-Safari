@@ -1,6 +1,6 @@
 {
     "extension_name": {
-        "message": "Aira2助手",
+        "message": "Aria2 助手",
         "description": "The display name for the extension."
     },
     "extension_description": {
@@ -183,7 +183,7 @@
         "message": "显示工具栏角标"
     },
     "show_notification": {
-        "message": "显示通知"
+        "message": "显示通知 (可能因为浏览器限制而无法显示)"
     },
     "listen_downloads": {
         "message": "监听系统下载请求(根据输入的文件扩展名拦截请求)"
