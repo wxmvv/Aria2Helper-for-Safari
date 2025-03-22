@@ -236,15 +236,22 @@ const initDefaultProfileId = "init";
 let extensionsChangeFlag = false;
 
 async function getLocalStorage() {
-	const res = await browser.storage.local.get(["settings", "profiles", "currentProfileId", "defaultProfile"]).then((result) => {
+	const res = await browser.storage.local.get(["settings", "profiles", "currentProfileId", "defaultProfile", "device"]).then((result) => {
 		// first time init
 		if (!result["settings"] && !result["profiles"] && !result["currentProfileId"] && !result["defaultProfile"]) {
 			profiles = initProfiles;
 			settings = initSettings;
 			currentProfileId = initCurrentProfileId;
 			defaultProfileId = initDefaultProfileId;
-			return "init";
+			device = "macos";
+			return result;
 		}
+		if (!result["profiles"]) profiles = initProfiles;
+		if (!result["settings"]) settings = initSettings;
+		if (!result["currentProfileId"]) currentProfileId = initCurrentProfileId;
+		if (!result["defaultProfileId"]) defaultProfileId = initDefaultProfileId;
+		if (!result["device"]) device = "macos";
+
 		// init
 		console.log("result", result);
 		if (JSON.stringify(result["profiles"]) === "{}" || !result["profiles"]) {
@@ -257,7 +264,7 @@ async function getLocalStorage() {
 		if (!result["defaultProfileId"] || result["defaultProfileId"] === "" || !profiles[result["defaultProfileId"]]) {
 			defaultProfileId = Object.keys(profiles)[0];
 		} else defaultProfileId = result["defaultProfileId"];
-		return "init success";
+		return result;
 	});
 	return res;
 }
@@ -503,11 +510,11 @@ function setupEventListeners() {
 	});
 
 	// TEST
-	document.getElementById("testNotificationBtn").addEventListener("click", (e) => {
-		browser.runtime.sendMessage({ api: "native-open-notification", title: "test notification", subtitle: "", body: "Test Notification" }).then((res) => {
-			console.log(res);
-		});
-	});
+	// document.getElementById("testNotificationBtn").addEventListener("click", (e) => {
+	// 	browser.runtime.sendMessage({ api: "native-open-notification", title: "test notification", subtitle: "", body: "Test Notification" }).then((res) => {
+	// 		console.log(res);
+	// 	});
+	// });
 
 	document.getElementById("listen-downloads").addEventListener("click", (e) => {
 		settings.listenDownloads = e.target.checked;
@@ -581,7 +588,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("rpc-secret").placeholder = browser.i18n.getMessage("input_secret");
 	document.getElementById("rpc-parameters").placeholder = browser.i18n.getMessage("parameters_example");
 
-	getLocalStorage().then(() => {
+	getLocalStorage().then((res) => {
+		if (res.device === "ios") document.documentElement.style.fontSize = "1.8rem";
 		renderTabs(profiles);
 		loadProfile(currentProfileId);
 		loadSettings(settings);

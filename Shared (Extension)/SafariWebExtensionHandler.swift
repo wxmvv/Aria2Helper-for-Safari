@@ -74,7 +74,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             }
         }
         if messageDict?["message"] == "select-file" {
-            let filePath = messageDict?["url"] ?? ""
+            _ = messageDict?["url"] ?? ""
             if #available(iOS 15.0, macOS 11.0, *) {
                 response.userInfo = [ SFExtensionMessageKey: [ "echo": message , "result": "ios"] ]
             } else {

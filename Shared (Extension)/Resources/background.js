@@ -5,6 +5,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	if (!result.defaultProfileId) return await sendResponse({ error: "no default profile", code: 1 });
 	if (!result.currentProfileId) return await sendResponse({ error: "no currentProfileId profile", code: 2 });
 	if (!result.profiles) return await sendResponse({ error: "no profiles", code: 3 });
+	if (!result.device) getSysInfo();
 	let Aria2Info = result.profiles[result.defaultProfileId]; // ["rpcHost", "rpcPort", "rpcSecret"]
 	let isLocal = Aria2Info.rpcHost.toLocaleLowerCase() === "localhost" || Aria2Info.rpcHost.toLocaleLowerCase() === "127.0.0.1";
 
@@ -297,7 +298,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 });
 
 // MARK getColor
-function getColor() {
+function getSysInfo() {
 	browser.runtime.sendNativeMessage({ message: "get-color" }, (response) => {
 		console.log("get-color: ", response);
 		let r = response.result.r;
@@ -312,7 +313,7 @@ function getColor() {
 	});
 }
 
-getColor();
+getSysInfo();
 
 // MARK contextMenus
 // Add

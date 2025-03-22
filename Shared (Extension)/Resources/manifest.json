@@ -1,47 +1,54 @@
 {
-    "manifest_version": 3,
-    "default_locale": "en",
+	"manifest_version": 3,
+	"default_locale": "en",
 
-    "name": "__MSG_extension_name__",
-    "description": "__MSG_extension_description__",
-    "version": "1.0",
+	"name": "__MSG_extension_name__",
+	"description": "__MSG_extension_description__",
+	"version": "1.0",
+	"author": "wxmvv",
+	"developer": {
+		"name": "wxmvv",
+		"url": "https://github.com/wxmvv"
+	},
 
-    "icons": {
-        "48": "images/icon-48.png",
-        "96": "images/icon-96.png",
-        "128": "images/icon-128.png",
-        "256": "images/icon-256.png",
-        "512": "images/icon-512.png"
-    },
+	"icons": {
+		"48": "images/icon-48.png",
+		"96": "images/icon-96.png",
+		"128": "images/icon-128.png",
+		"256": "images/icon-256.png",
+		"512": "images/icon-512.png"
+	},
 
-    "background": {
-        "service_worker": "background.js"
-    },
+	"background": {
+		"service_worker": "background.js"
+	},
 
-    "options_page": "settings.html",
+	"options_page": "settings.html",
+	"options_ui": {
+		"page": "settings.html",
+		"browser_style": true
+	},
 
-    "content_scripts": [
-        {
-            "js": ["content.js"],
-            "matches": ["*://*/*"]
-        }
-    ],
+	"content_scripts": [
+		{
+			"js": ["content.js"],
+			"matches": ["*://*/*"]
+		}
+	],
 
-    "action": {
-        "default_title": "Aria2Helper",
-        "default_popup": "popup.html",
-        "default_icon": "images/toolbar-icon.svg"
-    },
+	"action": {
+		"default_title": "Aria2Helper",
+		"default_popup": "popup.html",
+		"default_icon": "images/toolbar-icon.svg"
+	},
 
-    "web_accessible_resources": ["background.js", "content.js", "images/*", "popup.html", "settings.html"],
+	"permissions": ["nativeMessaging", "storage", "contextMenus", "activeTab", "notifications", "alert"],
+	"host_permissions": ["<all_urls>"],
+	"optional_permissions": ["<all_urls>"],
 
-    "permissions": ["nativeMessaging", "storage", "contextMenus", "activeTab", "notifications", "alert"],
-    "host_permissions": ["<all_urls>"],
-    "optional_permissions": ["<all_urls>"],
-
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "Aria2Helper@wxmvv.cc"
-        }
-    }
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "Aria2Helper@wxmvv.cc"
+		}
+	}
 }

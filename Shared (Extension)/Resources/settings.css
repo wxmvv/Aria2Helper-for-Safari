@@ -1,15 +1,5 @@
-/* Normal */
 :root {
 	color-scheme: light dark;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-:root {
 	--theme-color: rgba(98, 187, 68, 1);
 	--theme-color-dark: rgba(98, 187, 68, 1);
 	--bg-primary: #eee;
@@ -37,10 +27,24 @@
 		--text-tertiary: var(--text-tertiary-dark);
 	}
 }
+/* 
+html {
+	font-size: 1.8rem;
+} */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
 
 body {
 	font-family: system-ui;
+}
+
+#root {
 	line-height: 1.6;
+	width: 100%;
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
@@ -71,10 +75,11 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
+	max-width: 1000px;
 	gap: 20px;
-	max-width: 800px;
 	width: 100%;
-	margin: 0 auto;
+	/* margin: 0 auto; */
+	/* flex: 1; */
 	background: var(--bg-primary);
 	padding: 20px;
 	border-radius: 8px;
@@ -92,7 +97,7 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 .tab {
 	position: relative;
 	padding: 10px 20px;
-	font-size: 15px;
+	font-size: 1.25rem;
 	border: 1px solid var(--text-tertiary);
 	border-radius: 4px;
 	cursor: pointer;
@@ -155,7 +160,7 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	padding: 10px;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	font-size: 14px;
+	font-size: 1.25rem;
 }
 
 .form-group input[type="text"]:focus,
@@ -197,11 +202,11 @@ input[autocomplete="off"]::-webkit-contacts-auto-fill-button {
 	display: block;
 }
 
-/* 按钮样式 */
+/* button */
 .btn {
 	display: inline-block;
 	padding: 10px 20px;
-	font-size: 14px;
+	font-size: 1.25rem;
 	font-weight: 600;
 	color: #fff;
 	background-color: #3498db;
