@@ -281,10 +281,6 @@ browser.storage.local.get(["settings"]).then((result) => {
 			// 如果点击时有按下 command control option shift 键，则不拦截
 			if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
 
-			// TODO 设置拦截网址白名单 黑名单
-			// let url = window.location.href; // 获取当前页面网址
-			// console.log(url);
-
 			if (skipNextClick) {
 				skipNextClick = false;
 				return;
