@@ -675,7 +675,9 @@ function updateDownloadItemElement(el, i) {
 		else i.taskPath = i.files[0].path;
 		if (i.files[0].uris && i.files[0].uris.length > 0) i.taskUri = i.files[0].uris[0].uri;
 		else i.taskUri = "";
-		i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskUri;
+		if (i.taskUri === "" || !i.taskUri) i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1);
+		else if (i.dir === i.taskPath) i.taskName = i.taskUri;
+		else i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1) || i.taskUri;
 		i.fileparts = getPartsFromFilename(i.taskName);
 	}
 
@@ -829,7 +831,7 @@ function updateDownloadItemElement(el, i) {
 				} else if (response.result === "ios") {
 					showNotification(browser.i18n.getMessage("unable_open_ios_file"), 3000, "error");
 				} else {
-					showNotification(response.result, 3000, "info");
+					// showNotification(response.result, 3000, "info");
 				}
 			});
 		});
