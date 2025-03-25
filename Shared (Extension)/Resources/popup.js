@@ -635,7 +635,7 @@ function createDownloadItemElement(item) {
 			} else if (response.result === "ios") {
 				showNotification(browser.i18n.getMessage("unable_open_ios_file"), 3000, "error");
 			} else {
-				showNotification(response.result, 3000, "info");
+				// showNotification(response.result, 3000, "info");
 			}
 		});
 	});
