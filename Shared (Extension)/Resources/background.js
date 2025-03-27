@@ -239,6 +239,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 			browser.action.setBadgeText({ text: "" }); // clear Badge
 		} else {
 			let data = await res.json();
+			updateBadge();
 			await sendResponse(data);
 		}
 	}
