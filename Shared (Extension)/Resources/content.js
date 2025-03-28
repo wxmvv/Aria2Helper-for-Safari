@@ -266,26 +266,46 @@ function matchExtensionWithFilters(url, extensions, filterLists) {
 	return matchDefaultExtensions(url, extensions);
 }
 
-function simulateLinkBehavior(target) {
-	const href = target.href;
-	const targetAttr = target.getAttribute("target");
-	const hasDownload = target.hasAttribute("download");
+// simulate link behavior
+function simulateLinkBehavior(element) {
+	try {
+		const href = element.getAttribute("href");
+		if (!href) return console.log("[Aria2Helper] No href attribute found on the link element");
 
-	if (hasDownload) {
-		const link = document.createElement("a");
-		link.href = href;
-		link.download = target.getAttribute("download") || "";
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-	} else if (targetAttr === "_blank") {
-		window.open(href, "_blank");
-	} else if (targetAttr === "_top") {
-		window.top.location.href = href;
-	} else if (targetAttr === "_parent") {
-		window.parent.location.href = href;
-	} else {
-		window.location.href = href;
+		const targetAttr = element.getAttribute("target");
+		const hasDownload = element.hasAttribute("download");
+
+		const tempLink = element.cloneNode(true);
+		tempLink.href = href;
+
+		if (hasDownload) {
+			tempLink.download = element.getAttribute("download") || "";
+			tempLink.style.display = "none";
+			document.body.appendChild(tempLink);
+			tempLink.click();
+			document.body.removeChild(tempLink);
+		} else {
+			switch (targetAttr) {
+				case "_blank":
+					console.log("[Aria2Helper] Opening link in new tab:", href);
+					window.open(href, "_blank");
+					break;
+				case "_top":
+					console.log("[Aria2Helper] Opening link in top frame:", href);
+					window.top.location.href = href;
+					break;
+				case "_parent":
+					console.log("[Aria2Helper] Opening link in parent frame:", href);
+					window.parent.location.href = href;
+					break;
+				default:
+					console.log("[Aria2Helper] Opening link in current tab:", href);
+					window.location.href = href;
+					break;
+			}
+		}
+	} catch (error) {
+		console.error("[Aria2Helper] Error simulating link behavior:", error);
 	}
 }
 
@@ -330,31 +350,27 @@ function getRequestHeaders() {
 }
 
 // main
-let skipNextClick = false;
-
 browser.storage.local.get(["settings"]).then((result) => {
 	let settings = result.settings;
 	if (settings && settings.listenDownloads) {
 		console.log("[Aria2Helper] start to listen downloads");
 
 		let listener = (event) => {
-			// 如果点击时有按下 command control option shift 键，则不拦截
+			// command control option shift pressed when click -> ignore
 			if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-
-			if (skipNextClick) {
-				skipNextClick = false;
-				return;
-			}
 
 			let target = event.target;
 
-			while (target && target.nodeName !== "A") target = target.parentElement;
+			while (target && target.nodeName !== "A") {
+				if (target.nodeName === "BUTTON" && target.parentElement && target.parentElement.nodeName === "A") return; // for button inside a tag, ignore,it will download twice
+				target = target.parentElement;
+			}
 			if (target && target.nodeName === "A") {
 				if (target.href === window.location.href || target.href === window.location.href + "#") return; // for some vue sites
+				if (target.href.includes("archive/refs/heads") && target.href.includes("github.com")) return; // ignore github archive links
 
 				event.preventDefault(); // block default
 
-				if (settings.filterLists) filterLists = settings.filterLists;
 				const url = new URL(target.href);
 				const testUrl = url.origin + url.pathname;
 
@@ -364,24 +380,21 @@ browser.storage.local.get(["settings"]).then((result) => {
 					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
 						if (response === "error") {
 							console.log("[aria2Helper] error to connect aria2 server, download with safari native");
-							skipNextClick = true; // Set flag and trigger default behavior
 							simulateLinkBehavior(target);
 							if (settings.showNotification)
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
 						} else {
+							console.log("[aria2Helper] success to connect aria2 server, download with aria2");
 							if (settings.showNotification)
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
 						}
 					});
 				} else {
-					// not download extensions
-					skipNextClick = true; // Set flag and trigger default behavior
 					simulateLinkBehavior(target);
 				}
 			}
 		};
+
 		document.addEventListener("click", listener);
-	} else {
-		// not listen downloads
 	}
 });
