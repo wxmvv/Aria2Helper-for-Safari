@@ -255,7 +255,7 @@ function matchDefaultExtensions(url, extensions) {
 	return null;
 }
 
-// 综合匹配方法：优先白名单 -> 黑名单 -> 默认扩展名
+// Preferred White List -> Black List -> Default Extension
 function matchExtensionWithFilters(url, extensions, filterLists) {
 	// whitelist
 	const whitelistResult = matchWhitelist(url, filterLists.whitelist);
@@ -265,79 +265,29 @@ function matchExtensionWithFilters(url, extensions, filterLists) {
 	// default extensions
 	return matchDefaultExtensions(url, extensions);
 }
-// test
-// console.log(matchExtensionWithFilters("example.mp4", extensions, filterLists));
 
-// MARK
-let skipNextClick = false;
+function simulateLinkBehavior(target) {
+	const href = target.href;
+	const targetAttr = target.getAttribute("target");
+	const hasDownload = target.hasAttribute("download");
 
-browser.storage.local.get(["settings"]).then((result) => {
-	let settings = result.settings;
-	if (settings && settings.listenDownloads) {
-		console.log("[Aria2Helper] start to listen downloads");
-
-		let listener = (event) => {
-
-			// 如果点击时有按下 command control option shift 键，则不拦截
-			if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-
-			if (skipNextClick) {
-				skipNextClick = false;
-				return;
-			}
-
-			let target = event.target;
-
-			while (target && target.nodeName !== "A") target = target.parentElement;
-			if (target && target.nodeName === "A") {
-				// TEST log
-				// console.log("[Aria2Helper] target.href", target.href);
-				// console.log("[Aria2Helper] navigator", navigator);
-				// console.log("[Aria2Helper] window.location", window.location);
-
-				if (target.href === window.location.href) return;
-				if (target.href === window.location.href + "#") return; // for some vue sites
-				if (target.href === window.location.href + "#!") return;
-				if (target.href === window.location.href + "?") return;
-				if (target.href === window.location.href + "?#") return;
-
-				// block default
-				event.preventDefault();
-				if (settings.filterLists) filterLists = settings.filterLists;
-				const url = new URL(target.href);
-				const testUrl = url.origin + url.pathname;
-
-				if (matchExtensionWithFilters(testUrl, extensions, filterLists)) {
-					const fileparts = getFileParts(testUrl);
-					// post to aria2 server
-					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
-						console.log(response, target);
-						if (response === "error") {
-							console.log("[aria2Helper] error to connect aria2 server");
-							skipNextClick = true; // Set flag and trigger default behavior
-							target.click(); // click the link again
-							console.log("[aria2Helper] download with safari native");
-							if (settings.showNotification)
-								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
-						} else {
-							if (settings.showNotification)
-								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
-						}
-					});
-				} else {
-					// not download extensions
-					skipNextClick = true; // Set flag and trigger default behavior
-					target.click(); // click the link again
-				}
-			} else {
-				// not download link
-			}
-		};
-		document.addEventListener("click", listener);
+	if (hasDownload) {
+		const link = document.createElement("a");
+		link.href = href;
+		link.download = target.getAttribute("download") || "";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	} else if (targetAttr === "_blank") {
+		window.open(href, "_blank");
+	} else if (targetAttr === "_top") {
+		window.top.location.href = href;
+	} else if (targetAttr === "_parent") {
+		window.parent.location.href = href;
 	} else {
-		// not listen downloads
+		window.location.href = href;
 	}
-});
+}
 
 function getFileParts(filename) {
 	if (typeof filename !== "string" || filename.trim() === "") {
@@ -378,3 +328,60 @@ function getRequestHeaders() {
 
 	return headers;
 }
+
+// main
+let skipNextClick = false;
+
+browser.storage.local.get(["settings"]).then((result) => {
+	let settings = result.settings;
+	if (settings && settings.listenDownloads) {
+		console.log("[Aria2Helper] start to listen downloads");
+
+		let listener = (event) => {
+			// 如果点击时有按下 command control option shift 键，则不拦截
+			if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+
+			if (skipNextClick) {
+				skipNextClick = false;
+				return;
+			}
+
+			let target = event.target;
+
+			while (target && target.nodeName !== "A") target = target.parentElement;
+			if (target && target.nodeName === "A") {
+				if (target.href === window.location.href || target.href === window.location.href + "#") return; // for some vue sites
+
+				event.preventDefault(); // block default
+
+				if (settings.filterLists) filterLists = settings.filterLists;
+				const url = new URL(target.href);
+				const testUrl = url.origin + url.pathname;
+
+				if (matchExtensionWithFilters(testUrl, extensions, filterLists)) {
+					const fileparts = getFileParts(testUrl);
+					// post to aria2 server
+					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
+						if (response === "error") {
+							console.log("[aria2Helper] error to connect aria2 server, download with safari native");
+							skipNextClick = true; // Set flag and trigger default behavior
+							simulateLinkBehavior(target);
+							if (settings.showNotification)
+								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
+						} else {
+							if (settings.showNotification)
+								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
+						}
+					});
+				} else {
+					// not download extensions
+					skipNextClick = true; // Set flag and trigger default behavior
+					simulateLinkBehavior(target);
+				}
+			}
+		};
+		document.addEventListener("click", listener);
+	} else {
+		// not listen downloads
+	}
+});
