@@ -277,7 +277,7 @@ browser.storage.local.get(["settings"]).then((result) => {
 		console.log("[Aria2Helper] start to listen downloads");
 
 		let listener = (event) => {
-			console.log(event);
+
 			// 如果点击时有按下 command control option shift 键，则不拦截
 			if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
 
@@ -287,8 +287,20 @@ browser.storage.local.get(["settings"]).then((result) => {
 			}
 
 			let target = event.target;
+
 			while (target && target.nodeName !== "A") target = target.parentElement;
 			if (target && target.nodeName === "A") {
+				// TEST log
+				// console.log("[Aria2Helper] target.href", target.href);
+				// console.log("[Aria2Helper] navigator", navigator);
+				// console.log("[Aria2Helper] window.location", window.location);
+
+				if (target.href === window.location.href) return;
+				if (target.href === window.location.href + "#") return; // for some vue sites
+				if (target.href === window.location.href + "#!") return;
+				if (target.href === window.location.href + "?") return;
+				if (target.href === window.location.href + "?#") return;
+
 				// block default
 				event.preventDefault();
 				if (settings.filterLists) filterLists = settings.filterLists;
