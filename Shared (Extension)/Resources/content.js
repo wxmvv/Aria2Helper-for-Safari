@@ -287,19 +287,15 @@ function simulateLinkBehavior(element) {
 		} else {
 			switch (targetAttr) {
 				case "_blank":
-					console.log("[Aria2Helper] Opening link in new tab:", href);
 					window.open(href, "_blank");
 					break;
 				case "_top":
-					console.log("[Aria2Helper] Opening link in top frame:", href);
 					window.top.location.href = href;
 					break;
 				case "_parent":
-					console.log("[Aria2Helper] Opening link in parent frame:", href);
 					window.parent.location.href = href;
 					break;
 				default:
-					console.log("[Aria2Helper] Opening link in current tab:", href);
 					window.location.href = href;
 					break;
 			}
@@ -384,7 +380,6 @@ browser.storage.local.get(["settings"]).then((result) => {
 							if (settings.showNotification)
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
 						} else {
-							console.log("[aria2Helper] success to connect aria2 server, download with aria2");
 							if (settings.showNotification)
 								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
 						}
