@@ -362,10 +362,11 @@ browser.storage.local.get(["settings"]).then((result) => {
 				target = target.parentElement;
 			}
 			if (target && target.nodeName === "A") {
-				if (target.href === window.location.href || target.href === window.location.href + "#") return; // for some vue sites
+				if (!target.hasAttribute("href")) return;
 				if (target.href.includes("archive/refs/heads") && target.href.includes("github.com")) return; // ignore github archive links
+				if (!target.getAttribute("href").includes(".")) return;
 
-				event.preventDefault(); // block default
+				event.preventDefault(); // block default behavior
 
 				const url = new URL(target.href);
 				const testUrl = url.origin + url.pathname;
@@ -391,5 +392,9 @@ browser.storage.local.get(["settings"]).then((result) => {
 		};
 
 		document.addEventListener("click", listener);
+
+		window.addEventListener("unload", () => {
+			document.removeEventListener("click", listener);
+		});
 	}
 });
