@@ -270,8 +270,7 @@ function matchExtensionWithFilters(url, extensions, filterLists) {
 function simulateLinkBehavior(element) {
 	try {
 		const href = element.getAttribute("href");
-		if (!href) return console.log("[Aria2Helper] No href attribute found on the link element");
-
+	
 		const targetAttr = element.getAttribute("target");
 		const hasDownload = element.hasAttribute("download");
 
