@@ -1,46 +1,5 @@
 // MARK components
 
-// function createLoading() {
-//     const loadingDiv = document.createElement("div");
-//     loadingDiv.id = "custom-loading";
-//     loadingDiv.style.cssText = `
-//         position: fixed;
-//         top: 0;
-//         left: 0;
-//         width: 100%;
-//         height: 100%;
-//         background: rgba(0, 0, 0, 0.5);
-//         display: none;
-//         justify-content: center;
-//         align-items: center;
-//         z-index: 9999;
-//     `;
-
-//     const loadingText = document.createElement("span");
-//     loadingText.textContent = "Loading...";
-//     loadingText.style.cssText = `
-//         color: white;
-//         font-size: 24px;
-//         font-family: Arial, sans-serif;
-//     `;
-
-//     loadingDiv.appendChild(loadingText);
-//     document.body.appendChild(loadingDiv);
-
-//     return {
-//         show: function () {
-//             loadingDiv.style.display = "flex";
-//         },
-//         hide: function () {
-//             loadingDiv.style.display = "none";
-//         },
-//     };
-// }
-
-// const loading = createLoading();
-
-// get color
-
 // Attempt to obtain the current device used to distinguish iOS macOS
 function detectDevice() {
 	const userAgent = navigator.userAgent;
@@ -343,17 +302,6 @@ function initNavbarBtn() {
 		});
 	});
 
-	// TEST
-	// let testNotificationBtn = document.createElement("div");
-	// testNotificationBtn.className = "btn";
-	// testNotificationBtn.id = "testNotification";
-	// testNotificationBtn.textContent = "Test Notification";
-	// navbarRight.prepend(testNotificationBtn);
-	// testNotificationBtn.addEventListener("click", () => {
-	// 	browser.runtime.sendMessage({ api: "native-open-notification" }, function (data) {
-	// 		console.log("[aria2_purgeDownloadResult] ", data);
-	// 	});
-	// });
 }
 
 // Add task dialogue
@@ -894,6 +842,7 @@ function initStyle() {
 	}
 }
 
+
 let fetchActivateFlag = true;
 // MARK main
 document.addEventListener("DOMContentLoaded", function () {
@@ -910,7 +859,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const refreshInterval = setInterval(() => {
 		if (!fetchActivateFlag) return;
 		fetchDownloadList();
-	}, 1500);
+	}, 1000);
 
 	// clear interval on page close
 	window.addEventListener("beforeunload", () => {

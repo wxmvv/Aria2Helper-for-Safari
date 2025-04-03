@@ -1,4 +1,127 @@
-// MARK background server
+// MARK Badge
+function updateBadge() {
+	browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]).then((result) => {
+		if (result.error) return browser.action.setBadgeText({ text: "" });
+		if (!result.defaultProfileId) return browser.action.setBadgeText({ text: "" });
+		if (!result.currentProfileId) return browser.action.setBadgeText({ text: "" });
+		if (!result.profiles) return browser.action.setBadgeText({ text: "" });
+		let Aria2Info = result.profiles[result.defaultProfileId];
+		let showBadge = result.settings.showBadge || false;
+		if (showBadge) {
+			sendAria2Request("aria2.tellActive", [`token:${Aria2Info.rpcSecret}`], Aria2Info.rpcIshttps).then((res) => {
+				res.json().then((json) => {
+					if (res === "error") {
+						browser.action.setBadgeText({ text: "" }); // clear Badge
+					} else {
+						console.log("badgeCount", json);
+						if (json.result.length > 0) {
+							browser.action.setBadgeText({ text: json.result.length.toString() });
+						} else {
+							browser.action.setBadgeText({ text: "" });
+						}
+						browser.action.setBadgeBackgroundColor({ color: "#62bb44" }); // not work in safari
+						browser.action.setBadgeTextColor({ color: "#FFFFFF" }); // not work in safari
+					}
+				});
+			});
+		} else {
+			browser.action.setBadgeText({ text: "" });
+		}
+	});
+}
+
+// MARK utils
+
+// Aria2 request
+async function sendAria2Request(method, params, isHttps) {
+	let settings = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
+	let Aria2Info = settings.profiles[settings.defaultProfileId];
+	if (!isHttps) isHttps = Aria2Info.rpcIshttps;
+	if (!isHttps) isHttps = false;
+	const id = Math.floor(Math.random() * 9000) + 1000; // random int id
+	const rpcUrl = `${isHttps ? "https" : "http"}://${Aria2Info.rpcHost}:${Aria2Info.rpcPort}/jsonrpc`;
+	const rpcBody = { id: id, jsonrpc: "2.0", method: method, params: params };
+	console.log("%c[req] ", "color:blue", method, params);
+	try {
+		const response = await fetch(rpcUrl, {
+			method: "POST",
+			headers: { Accept: "application/json", "Content-Type": "application/json" },
+			body: JSON.stringify(rpcBody),
+		});
+		console.log("%c[res] success", "color:green", response);
+		return response;
+	} catch (error) {
+		console.log("%c[res] Failed!!! It's all on fire!", "color:red", error);
+		return "error";
+	}
+}
+
+// TODO websocket
+async function websocketSendAria2Request(method, params, isHttps) {
+	let settings = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
+	let Aria2Info = settings.profiles[settings.defaultProfileId];
+	if (!isHttps) isHttps = Aria2Info.rpcIshttps;
+	if (!isHttps) isHttps = false;
+}
+
+// getColor
+function getSysInfo() {
+	browser.runtime.sendNativeMessage({ message: "get-color" }, (response) => {
+		console.log("get-color: ", response);
+		let r = response.result.r;
+		let g = response.result.g;
+		let b = response.result.b;
+		let a = response.result.a;
+		let resdevice = response.result.device;
+		if (r + g + b === 0 || r + g + b === 765) return;
+		let color = `rgba(${r - 10}, ${g + 30}, ${b + 9}, ${0.8})`;
+		console.log("color", color);
+		browser.storage.local.set({ themeColor: color, device: resdevice });
+	});
+}
+
+function validateBase64(str) {
+	// check if str is a string and not empty
+	if (typeof str !== "string" || str.trim() === "") return false;
+
+	// Base64 reg
+	const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+
+	return base64Regex.test(str);
+}
+
+function getFileParts(filename) {
+	if (typeof filename !== "string" || filename.trim() === "") {
+		return {
+			extension: "",
+			nameWithoutExtension: "",
+		};
+	}
+
+	filename = filename.trim();
+
+	filename = decodeURIComponent(filename.substring(filename.lastIndexOf("/") + 1));
+	const lastDotIndex = filename.lastIndexOf(".");
+	if (
+		lastDotIndex === -1 || // no dot
+		lastDotIndex === 0 || // start with dot (.gitignore)
+		lastDotIndex === filename.length - 1
+	) {
+		// end with dot (file.)
+		return {
+			extension: "",
+			nameWithoutExtension: filename,
+		};
+	}
+	const ext = filename.slice(lastDotIndex + 1);
+	return {
+		filename: filename,
+		extension: ext ? `.${ext}` : "", // add dot if ext is not empty
+		nameWithoutExtension: filename.slice(0, lastDotIndex),
+	};
+}
+
+// MARK API
 // [Doc] https://aria2.document.top/zh/aria2c.html#aria2.addUri
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	let result = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings", "device", "themeColor"]);
@@ -9,11 +132,11 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	let Aria2Info = result.profiles[result.defaultProfileId]; // ["rpcHost", "rpcPort", "rpcSecret"]
 	let isLocal = Aria2Info.rpcHost.toLocaleLowerCase() === "localhost" || Aria2Info.rpcHost.toLocaleLowerCase() === "127.0.0.1";
 
-	// MARK browser API
+	// browser API
 	if (message.api === "get-local-storage") {
 		await sendResponse(result);
 	}
-	// MARK Aria2 API
+	// Aria2 API
 	// add uri/torrent/metalink
 	if (message.api === "aria2_addUri" && message.url) {
 		const options = {};
@@ -208,7 +331,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		}
 	}
 
-	// MARK Helper API
+	// Helper API
 	if (message.api === "set-default-profile" && message.profileId) {
 		await browser.storage.local.set({ defaultProfileId: message.profileId });
 		await sendResponse("success");
@@ -255,7 +378,7 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		}
 	}
 
-	// MARK Native API
+	// Native API
 	// select file
 	if (message.api === "native-select-file" && message.url) {
 		try {
@@ -292,29 +415,11 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 		}
 	}
 
-	// MARK test
+	// TEST
 	if (message.api === "test") {
 		sendResponse("test success");
 	}
 });
-
-// MARK getColor
-function getSysInfo() {
-	browser.runtime.sendNativeMessage({ message: "get-color" }, (response) => {
-		console.log("get-color: ", response);
-		let r = response.result.r;
-		let g = response.result.g;
-		let b = response.result.b;
-		let a = response.result.a;
-		let resdevice = response.result.device;
-		if (r + g + b === 0 || r + g + b === 765) return;
-		let color = `rgba(${r - 10}, ${g + 30}, ${b + 9}, ${0.8})`;
-		console.log("color", color);
-		browser.storage.local.set({ themeColor: color, device: resdevice });
-	});
-}
-
-getSysInfo();
 
 // MARK contextMenus
 // Add
@@ -367,6 +472,7 @@ browser.contextMenus.removeAll(() => {
 		contexts: ["audio"],
 	});
 });
+
 // Listen
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
 	let result = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
@@ -426,108 +532,5 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 	}
 });
 
-// MARK Badge
-function updateBadge() {
-	browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]).then((result) => {
-		if (result.error) return browser.action.setBadgeText({ text: "" });
-		if (!result.defaultProfileId) return browser.action.setBadgeText({ text: "" });
-		if (!result.currentProfileId) return browser.action.setBadgeText({ text: "" });
-		if (!result.profiles) return browser.action.setBadgeText({ text: "" });
-		let Aria2Info = result.profiles[result.defaultProfileId];
-		let showBadge = result.settings.showBadge || false;
-		if (showBadge) {
-			sendAria2Request("aria2.tellActive", [`token:${Aria2Info.rpcSecret}`], Aria2Info.rpcIshttps).then((res) => {
-				res.json().then((json) => {
-					if (res === "error") {
-						browser.action.setBadgeText({ text: "" }); // clear Badge
-					} else {
-						console.log("badgeCount", json);
-						if (json.result.length > 0) {
-							browser.action.setBadgeText({ text: json.result.length.toString() });
-						} else {
-							browser.action.setBadgeText({ text: "" });
-						}
-						browser.action.setBadgeBackgroundColor({ color: "#62bb44" }); // not work in safari
-						browser.action.setBadgeTextColor({ color: "#FFFFFF" }); // not work in safari
-					}
-				});
-			});
-		} else {
-			browser.action.setBadgeText({ text: "" });
-		}
-	});
-}
+getSysInfo();
 updateBadge();
-
-// MARK Aria2 request
-async function sendAria2Request(method, params, isHttps) {
-	let settings = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
-	let Aria2Info = settings.profiles[settings.defaultProfileId];
-	if (!isHttps) isHttps = Aria2Info.rpcIshttps;
-	if (!isHttps) isHttps = false;
-	const id = Math.floor(Math.random() * 9000) + 1000; // random int id
-	const rpcUrl = `${isHttps ? "https" : "http"}://${Aria2Info.rpcHost}:${Aria2Info.rpcPort}/jsonrpc`;
-	const rpcBody = { id: id, jsonrpc: "2.0", method: method, params: params };
-	console.log("%c[req] ", "color:blue", method, params);
-	try {
-		const response = await fetch(rpcUrl, {
-			method: "POST",
-			headers: { Accept: "application/json", "Content-Type": "application/json" },
-			body: JSON.stringify(rpcBody),
-		});
-		console.log("%c[res] success", "color:green", response);
-		return response;
-	} catch (error) {
-		console.log("%c[res] Failed!!! It's all on fire!", "color:red", error);
-		return "error";
-	}
-}
-
-async function websocketSendAria2Request(method, params, isHttps) {
-	let settings = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]);
-	let Aria2Info = settings.profiles[settings.defaultProfileId];
-	if (!isHttps) isHttps = Aria2Info.rpcIshttps;
-	if (!isHttps) isHttps = false;
-}
-
-// MARK Util
-function validateBase64(str) {
-	// check if str is a string and not empty
-	if (typeof str !== "string" || str.trim() === "") return false;
-
-	// Base64 reg
-	const base64Regex = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
-
-	return base64Regex.test(str);
-}
-
-function getFileParts(filename) {
-	if (typeof filename !== "string" || filename.trim() === "") {
-		return {
-			extension: "",
-			nameWithoutExtension: "",
-		};
-	}
-
-	filename = filename.trim();
-
-	filename = decodeURIComponent(filename.substring(filename.lastIndexOf("/") + 1));
-	const lastDotIndex = filename.lastIndexOf(".");
-	if (
-		lastDotIndex === -1 || // no dot
-		lastDotIndex === 0 || // start with dot (.gitignore)
-		lastDotIndex === filename.length - 1
-	) {
-		// end with dot (file.)
-		return {
-			extension: "",
-			nameWithoutExtension: filename,
-		};
-	}
-	const ext = filename.slice(lastDotIndex + 1);
-	return {
-		filename: filename,
-		extension: ext ? `.${ext}` : "", // add dot if ext is not empty
-		nameWithoutExtension: filename.slice(0, lastDotIndex),
-	};
-}

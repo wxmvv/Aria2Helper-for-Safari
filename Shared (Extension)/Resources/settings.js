@@ -396,31 +396,26 @@ function addProfile() {
 	saveLocalStorage();
 }
 
-// 生成折叠列表
+// Generate a collapsible list.
 function renderExtensions() {
 	const container = document.getElementById("listen-downloads-extensions");
 
 	Object.entries(extensions).forEach(([category, data]) => {
-		// 创建分类容器
 		const categoryDiv = document.createElement("div");
 		categoryDiv.className = "category";
 
-		// 创建头部
 		const header = document.createElement("div");
 		header.className = "category-header";
 		header.textContent = `${data.name} (${data.extensions.length})`;
 
-		// 创建扩展名列表
 		const extList = document.createElement("div");
 		extList.className = "extensions-list";
 		extList.innerHTML = data.extensions.map((ext) => `<span>${ext}</span>`).join(", ");
 
-		// 点击事件 - 切换显示/隐藏
 		header.addEventListener("click", () => {
 			extList.classList.toggle("show");
 		});
 
-		// 添加到 DOM
 		categoryDiv.appendChild(header);
 		categoryDiv.appendChild(extList);
 		container.appendChild(categoryDiv);
@@ -446,11 +441,6 @@ function setupEventListeners() {
 		saveLocalStorage();
 		alert(browser.i18n.getMessage("save_profile_alert") + profile.alias);
 	});
-
-	// add
-	// document.getElementById("add-profile").addEventListener("click", () => {
-	// 	addProfile();
-	// });
 
 	// remove
 	document.getElementById("removeProfile").addEventListener("click", () => {
@@ -498,7 +488,7 @@ function setupEventListeners() {
 		}
 	});
 
-	// MARK settings
+	// settings
 	document.getElementById("show-badge").addEventListener("click", (e) => {
 		settings.showBadge = e.target.checked;
 		saveSettings();
@@ -509,17 +499,11 @@ function setupEventListeners() {
 		saveSettings();
 	});
 
-	// TEST
-	// document.getElementById("testNotificationBtn").addEventListener("click", (e) => {
-	// 	browser.runtime.sendMessage({ api: "native-open-notification", title: "test notification", subtitle: "", body: "Test Notification" }).then((res) => {
-	// 		console.log(res);
-	// 	});
-	// });
-
 	document.getElementById("listen-downloads").addEventListener("click", (e) => {
 		settings.listenDownloads = e.target.checked;
 		saveSettings();
 	});
+
 	// Blacklist Whitelist
 	document.getElementById("saveExtensions").addEventListener("click", (e) => {
 		let whitelist = document.getElementById("extensionsWhiteList").value;
