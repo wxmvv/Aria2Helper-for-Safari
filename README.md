@@ -4,10 +4,10 @@ Aria2Helper is a Safari extension that enhances your browsing and download exper
 
 Features:
 
--   Seamless aria2 Integration: Connect to your aria2 service to view and manage tasks directly within Safari.
--   One-Click Downloads: Click any download link on a webpage to instantly send it to your connected aria2 service.
--   Apple-Style Popup: Access a clean, intuitive popup interface designed in Apple’s aesthetic for easy task management.
--   Effortless Monitoring: Track and control your aria2 downloads with simplicity and elegance.
+- Seamless aria2 Integration: Connect to your aria2 service to view and manage tasks directly within Safari.
+- One-Click Downloads: Click any download link on a webpage to instantly send it to your connected aria2 service.
+- Apple-Style Popup: Access a clean, intuitive popup interface designed in Apple’s aesthetic for easy task management.
+- Effortless Monitoring: Track and control your aria2 downloads with simplicity and elegance.
 
 Elevate your workflow with Aria2Helper and enjoy a streamlined download experience!
 

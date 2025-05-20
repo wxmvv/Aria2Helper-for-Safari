@@ -13,14 +13,14 @@ function updateBadge() {
 					if (res === "error") {
 						browser.action.setBadgeText({ text: "" }); // clear Badge
 					} else {
-						console.log("badgeCount", json);
+						// console.log("badgeCount", json);
 						if (json.result.length > 0) {
 							browser.action.setBadgeText({ text: json.result.length.toString() });
 						} else {
 							browser.action.setBadgeText({ text: "" });
 						}
-						browser.action.setBadgeBackgroundColor({ color: "#62bb44" }); // not work in safari
-						browser.action.setBadgeTextColor({ color: "#FFFFFF" }); // not work in safari
+						// browser.action.setBadgeBackgroundColor({ color: "#62bb44" }); // not work in safari
+						// browser.action.setBadgeTextColor({ color: "#FFFFFF" }); // not work in safari
 					}
 				});
 			});
@@ -41,7 +41,7 @@ async function sendAria2Request(method, params, isHttps) {
 	const id = Math.floor(Math.random() * 9000) + 1000; // random int id
 	const rpcUrl = `${isHttps ? "https" : "http"}://${Aria2Info.rpcHost}:${Aria2Info.rpcPort}/jsonrpc`;
 	const rpcBody = { id: id, jsonrpc: "2.0", method: method, params: params };
-	console.log("%c[req] ", "color:blue", method, params);
+	// console.log("%c[req] ", "color:blue", method, params);
 	try {
 		const response = await fetch(rpcUrl, {
 			method: "POST",
@@ -531,6 +531,16 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 		}
 	}
 });
+
+// DOING
+// notification
+browser.runtime.onInstalled.addListener((e) => {
+	console.log("onInstalled", e);
+});
+browser.runtime.onStartup.addListener((e) => {
+	console.log("onStartup", e);
+});
+
 
 getSysInfo();
 updateBadge();

@@ -42,7 +42,7 @@
 		"default_icon": "images/toolbar-icon.svg"
 	},
 
-	"permissions": ["nativeMessaging", "storage", "contextMenus", "activeTab", "notifications", "alert"],
+	"permissions": ["nativeMessaging", "storage", "contextMenus", "activeTab", "notifications", "alert", "runtime"],
 	"host_permissions": ["<all_urls>"],
 	"optional_permissions": ["<all_urls>"],
 
