@@ -1,7 +1,10 @@
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 import fs from "fs";
+import tailwindcss from "@tailwindcss/vite";
 
+// https://vite.dev/config/
 export default defineConfig({
 	build: {
 		rollupOptions: {
@@ -21,7 +24,10 @@ export default defineConfig({
 		outDir: "dist/settings",
 		assetsDir: "",
 	},
+
 	plugins: [
+		react(),
+		tailwindcss(),
 		{
 			name: "rename-html",
 			closeBundle() {
