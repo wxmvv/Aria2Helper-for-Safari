@@ -1,2 +1,32 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+	themes: emerald --default, abyss --prefersdark, cupcake, dracula, nord;
+	root: ":root";
+	include: ;
+	exclude: ;
+	prefix: ;
+	logs: true;
+}
+
+@layer utilities {
+	.bg-system-accent {
+		background-color: rgb(from -apple-system-control-accent r g b / 80%);
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	--safe-area-top: 52px;
+	--navbar-height: 52px;
+	/* apple */
+	--apple-system-accent-bg: rgb(from -apple-system-control-accent r g b / 80%);
+	--apple-system-accent: -apple-system-control-accent;
+	--apple-system-accent: #007aff;
+
+	/* sidebar  */
+	--sidebar-width: 215px;
+	--profile-gap-height: 15px;
+}
