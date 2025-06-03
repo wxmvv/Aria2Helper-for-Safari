@@ -12,10 +12,10 @@ export default defineConfig({
 				setting: resolve(__dirname, "index.html"),
 			},
 			output: {
-				entryFileNames: "setting.js",
+				entryFileNames: "settings.js",
 				assetFileNames: (assetInfo) => {
 					if (assetInfo.name.endsWith(".css")) {
-						return "setting.css";
+						return "settings.css";
 					}
 					return "assets/[name].[ext]";
 				},
@@ -32,7 +32,7 @@ export default defineConfig({
 			name: "rename-html",
 			closeBundle() {
 				const oldPath = resolve(__dirname, "dist/settings/index.html");
-				const newPath = resolve(__dirname, "dist/settings/setting.html");
+				const newPath = resolve(__dirname, "dist/settings/settings.html");
 				if (fs.existsSync(oldPath)) {
 					fs.renameSync(oldPath, newPath);
 				}

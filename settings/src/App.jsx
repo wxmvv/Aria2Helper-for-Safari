@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 
 import Aria2Tab from "./tabs/Aria2Settings";
 import Aria2HelperTab from "./tabs/Aria2HelperSettings";
@@ -16,6 +16,23 @@ import { useState } from "react";
 
 function App() {
 	const [tab, setTab] = useState("Aria2Helper");
+	const [RPCTab, setRPCTab] = useState("");
+	const addRPC = () => {
+		console.log("addRPC");
+		setRPCs([...RPCs, { name: "RPC3", url: "http://localhost:6800/jsonrpc" }]);
+	};
+	const removeRPC = () => {
+		console.log("removeRPC");
+		setRPCs(RPCs.filter((item) => item.name !== RPCTab));
+	};
+	const selectRPCTab = (rpcName) => {
+		setTab("RPC");
+		setRPCTab(rpcName);
+	};
+	const [RPCs, setRPCs] = useState([
+		{ name: "RPC1", url: "http://localhost:6800/jsonrpc" },
+		{ name: "RPC2", url: "http://localhost:6800/jsonrpc" },
+	]);
 
 	return (
 		<div id="main" className="flex flex-row justify-center items-center w-full min-h-lvh relative">
@@ -31,6 +48,26 @@ function App() {
 						<SidebarItem iconSrc={aria2helperIcon} selected={tab === "Aria2Helper"} title={"Aria2Helper"} onClick={() => setTab("Aria2Helper")} />
 						<SidebarItem iconSrc={aria2Icon} selected={tab === "Aria2"} title={"Aria2"} onClick={() => setTab("Aria2")} />
 						<SidebarItem iconSrc={aria2Icon} selected={tab === "Others"} title={"Others"} onClick={() => setTab("Others")} />
+					</div>
+					<div id="profile-gap" className="w-full h-[var(--profile-gap-height)] bg-transparent"></div>
+
+					<div id="sidebar-content" className="flex flex-col pt-[10px] px-[10px] gap-[2px] font-semibold">
+						<div className="flex flex-row items-center justify-between gap-[10px] text-l font-bold text-gray-600">
+							<div className="">Aria2 RPC</div>
+							<div className="flex flex-row gap-[10px]">
+								<button className="text-primary" onClick={addRPC}>
+									+
+								</button>
+								<button disabled={!RPCTab || tab !== "RPC"} className={`${!RPCTab || tab !== "RPC" ? "" : "text-primary"}`} onClick={removeRPC}>
+									-
+								</button>
+							</div>
+						</div>
+						<div className="flex flex-col gap-[2px] h-[432px] overflow-scroll pb-[10px]">
+							{RPCs.map((rpc, index) => {
+								return <SidebarItem key={index} iconSrc={aria2helperIcon} selected={tab === "RPC" && RPCTab === rpc.name} title={rpc.name} onClick={() => selectRPCTab(rpc.name)} />;
+							})}
+						</div>
 					</div>
 				</div>
 				<div id="content" className=" shadow-gray-400 border-l border-gray-400 shadow relative flex flex-col flex-1 grow bg-base-100/[0.8] backdrop-blur-md">
@@ -50,6 +87,7 @@ function App() {
 					<div className="w-full h-full p-[20px]">
 						{tab && tab === "Aria2" && <Aria2Tab className="p-[20px]" />}
 						{tab && tab === "Aria2Helper" && <Aria2HelperTab className="p-[20px]" />}
+						{tab && tab === "RPC" && RPCTab && <RPCTab RPC="RPCTab" />}
 					</div>
 				</div>
 			</div>

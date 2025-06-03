@@ -1,100 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Aria2Helper Settings</title>
-		<link rel="stylesheet" href="settings.css" />
+		<script type="module" crossorigin src="/settings.js"></script>
+		<link rel="stylesheet" crossorigin href="/settings.css">
 	</head>
 	<body>
-		<root id="root">
-			<div class="settings-container">
-				<h2 id="settingsTitle">Aria2</h2>
-				<div class="profile-tabs" id="profile-tabs"></div>
-
-				<form class="form-group" style="width: 100%" id="settings-form">
-					<input type="hidden" autocomplete="off" id="profile-id" value="" />
-
-					<div class="form-group">
-						<label class="form-label" for="alias" id="titleAlias">Alias</label>
-						<input type="text" id="alias" autocomplete="off" placeholder="input alias" />
-					</div>
-
-					<div class="form-group row">
-						<div class="form-group" style="width: 85%; margin-bottom: 0">
-							<label class="form-label" for="rpc-host" id="titleRpcHost">RPC Host</label>
-							<input type="text" id="rpc-host" autocomplete="off" placeholder="example：localhost" />
-						</div>
-						<div class="form-group" style="width: 15%; height: 100%; align-items: center; justify-content: center" style="margin-bottom: 0">
-							<label class="form-label" style="margin-bottom: 20px" for="rpc-host" id="titleRpcIsHttps">Https</label>
-							<input class="input-checkbox" style="width: auto" type="checkbox" id="rpc-ishttps" autocomplete="off" placeholder="" />
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="form-label" for="rpc-port" id="titleRpcPort">RPC Port</label>
-						<input type="text" id="rpc-port" autocomplete="off" placeholder="example：6800" />
-					</div>
-
-					<div class="form-group">
-						<label class="form-label" for="rpc-secret" id="titleRpcSecret">RPC Secret</label>
-						<div class="password-wrapper">
-							<input type="password" autocomplete="off" id="rpc-secret" placeholder="RPC Secret" />
-							<button class="btn" type="button" id="toggle-password">Show</button>
-						</div>
-					</div>
-					<!-- TODO  rpc-parameters 参数-->
-					<div class="form-group" style="display: none">
-						<label class="form-label" for="rpc-parameters" id="titleRpcParameters">RPC Parameters</label>
-						<textarea type="text" id="rpc-parameters" autocomplete="off" placeholder="split:5"></textarea>
-					</div>
-
-					<div class="form-actions" style="margin-top: 30px">
-						<div class="actions">
-							<button class="btn blue" type="submit" id="saveBtn">Save</button>
-							<button class="btn" type="button" id="setDefault">Set Default</button>
-						</div>
-						<button class="btn red" type="button" id="removeProfile">Remove Current</button>
-					</div>
-				</form>
-			</div>
-			<div class="settings-container" style="gap: 5px">
-				<h2 id="otherSettingsTitle">Other settings</h2>
-				<div class="form-group row form-border">
-					<input class="input-checkbox" type="checkbox" id="show-badge" autocomplete="off" placeholder="" />
-					<label class="form-label" style="margin-bottom: 0" for="show-badge" id="labelShowBadge">Show badge on toolbarItem</label>
-				</div>
-				<br />
-				<div class="form-group row form-border">
-					<input class="input-checkbox" type="checkbox" id="show-notification" autocomplete="off" placeholder="" />
-					<label class="form-label" style="margin-bottom: 0" for="show-notification" id="labelShowNotification">Show Notification</label>
-					<!-- <button id="testNotificationBtn" type="button">test Notification</button> -->
-				</div>
-				<br />
-				<div class="form-group form-border">
-					<div class="form-group row">
-						<input class="input-checkbox" type="checkbox" id="listen-downloads" autocomplete="off" placeholder="" />
-						<label class="form-label" style="margin-bottom: 0" for="listen-downloads" id="labelListenDownloads">
-							Listen for system download requests (intercept requests based on file extensions entered)
-						</label>
-					</div>
-					<label class="form-desc" style="margin-bottom: 16px" id="labelListenDownloadsExtensions">Here are the suffixes to be listened to, separated by ",".</label>
-
-					<label class="form-label" style="margin-bottom: 0" for="extensionsWhiteList" id="labelExtensionsWhiteList">WhiteList</label>
-					<div class="form-group" style="display: flex; width: 100%">
-						<textarea type="text" id="extensionsWhiteList" style="width: 100%; height: 100px" autocomplete="off"></textarea>
-					</div>
-					<label class="form-label" style="margin-bottom: 0" for="extensionsBlackList" id="labelExtensionsBlackList">BlackList</label>
-					<div class="form-group" style="display: flex; width: 100%">
-						<textarea type="text" id="extensionsBlackList" style="width: 100%; height: 100px" autocomplete="off"></textarea>
-					</div>
-					<button class="btn blue" disabled id="saveExtensions">Save</button>
-				</div>
-				<div class="form-group form-border">
-					<label class="form-label" style="margin-bottom: 0" id="labelDefaultExtensions">Here are the default extensions listened to.</label>
-					<div type="text" id="listen-downloads-extensions" style="width: 100%" autocomplete="off"></div>
-				</div>
-			</div>
-		</root>
-		<script src="settings.js"></script>
+		<div id="root"></div>
 	</body>
 </html>

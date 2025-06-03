@@ -6,8 +6,14 @@ function Aria2HelperSettings() {
 	return (
 		<>
 			<ListGroup>
-				<h2 className="">Aria2helperSettings</h2>
-				<p>Aria2helper相关设置</p>
+				<div>
+					<h2 className="">Aria2helperSettings</h2>
+					<p>Aria2helper相关设置</p>
+				</div>
+				<div>
+					<h2 className="">Aria2helperSettings</h2>
+					<p>Aria2helper相关设置</p>
+				</div>
 			</ListGroup>
 		</>
 	);
