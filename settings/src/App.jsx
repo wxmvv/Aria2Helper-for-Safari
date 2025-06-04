@@ -11,28 +11,34 @@ import { ChevronBackward } from "./icon/chevron_backward";
 import { ChevronForward } from "./icon/chevron_forward";
 import { SidebarItem, SidebarProfile } from "./components/SidebarItem";
 import { TrafficLight } from "./components/TrafficLight";
+import { RPCTabView } from "./tabs/RPCTab";
+import { AboutTab } from "./tabs/AboutTab";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function App() {
+function App({ helper }) {
 	const [tab, setTab] = useState("Aria2Helper");
-	const [RPCTab, setRPCTab] = useState("");
+	const [RPCTab, setRPCTab] = useState(helper.getCurrentProfileId());
+	const [RPCs, setRPCs] = useState(helper.getProfiles());
+
 	const addRPC = () => {
 		console.log("addRPC");
-		setRPCs([...RPCs, { name: "RPC3", url: "http://localhost:6800/jsonrpc" }]);
+		helper.addProfile();
+		setRPCs(helper.getProfiles());
+		setRPCTab(helper.getCurrentProfileId());
 	};
 	const removeRPC = () => {
 		console.log("removeRPC");
-		setRPCs(RPCs.filter((item) => item.name !== RPCTab));
+		helper.removeProfile(RPCTab);
+		setRPCs(helper.getProfiles());
+		setRPCTab(helper.getCurrentProfileId());
 	};
-	const selectRPCTab = (rpcName) => {
+	const selectRPCTab = (rpcKey) => {
 		setTab("RPC");
-		setRPCTab(rpcName);
+		helper.setCurrentProfileById(rpcKey);
+		setRPCs(helper.getProfiles());
+		setRPCTab(helper.getCurrentProfileId());
 	};
-	const [RPCs, setRPCs] = useState([
-		{ name: "RPC1", url: "http://localhost:6800/jsonrpc" },
-		{ name: "RPC2", url: "http://localhost:6800/jsonrpc" },
-	]);
 
 	return (
 		<div id="main" className="flex flex-row justify-center items-center w-full min-h-lvh relative">
@@ -64,8 +70,8 @@ function App() {
 							</div>
 						</div>
 						<div className="flex flex-col gap-[2px] h-[432px] overflow-scroll pb-[10px]">
-							{RPCs.map((rpc, index) => {
-								return <SidebarItem key={index} iconSrc={aria2helperIcon} selected={tab === "RPC" && RPCTab === rpc.name} title={rpc.name} onClick={() => selectRPCTab(rpc.name)} />;
+							{Object.keys(RPCs).map((rpcKey, index) => {
+								return <SidebarItem key={rpcKey} iconSrc={aria2helperIcon} selected={tab === "RPC" && RPCTab === rpcKey} title={RPCs[rpcKey].alias} onClick={() => selectRPCTab(rpcKey)} />;
 							})}
 						</div>
 					</div>
@@ -78,16 +84,21 @@ function App() {
 								<ChevronForward className="w-[15px] h-[15px]" color={"#999"}></ChevronForward>
 							</div>
 							<div id="nav-title" className="font-semibold text-xl">
-								{tab && tab === "Aria2" && "Aria2 Settings"}
+								{tab && tab === "About" && "About"}
 								{tab && tab === "Aria2Helper" && "Aria2Helper Settings"}
+								{tab && tab === "Aria2" && "Aria2 Settings"}
+								{tab && tab === "Others" && "Others"}
+								{tab && tab === "RPC" && "RPC Settings"}
 							</div>
 						</div>
 					</div>
 					<div className="safe-area h-[var(--safe-area-top)] bg-transparent w-full"></div>
 					<div className="w-full h-full p-[20px]">
-						{tab && tab === "Aria2" && <Aria2Tab className="p-[20px]" />}
-						{tab && tab === "Aria2Helper" && <Aria2HelperTab className="p-[20px]" />}
-						{tab && tab === "RPC" && RPCTab && <RPCTab RPC="RPCTab" />}
+						{tab && tab === "About" && <AboutTab className="p-[20px]" />}
+						{tab && tab === "Aria2Helper" && <Aria2HelperTab helper={helper} className="p-[20px]" />}
+						{tab && tab === "Aria2" && <Aria2Tab helper={helper} className="p-[20px]" />}
+						{tab && tab === "Others" && "Others"}
+						{tab && tab === "RPC" && RPCTab && <RPCTabView helper={helper} />}
 					</div>
 				</div>
 			</div>

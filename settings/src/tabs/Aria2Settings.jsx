@@ -1,4 +1,4 @@
-function Aria2Settings() {
+function Aria2Settings({helper}) {
 	return (
 		<div className=" bg-base-100 border border-base-300">
 			<h1 className="text-2xl font-bold">Aria2</h1>

@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { ListGroup } from "../components/ListGroup";
 
-function Aria2HelperSettings() {
+function Aria2HelperSettings({ helper }) {
 	const [isChecked, setIsChecked] = useState(false);
 	return (
 		<>
