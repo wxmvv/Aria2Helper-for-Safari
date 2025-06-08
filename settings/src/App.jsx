@@ -13,6 +13,7 @@ import { SidebarItem, SidebarProfile } from "./components/SidebarItem";
 import { TrafficLight } from "./components/TrafficLight";
 import { RPCTabView } from "./tabs/RPCTab";
 import { AboutTab } from "./tabs/AboutTab";
+import { OtherSettings } from "./tabs/OtherSettings";
 
 import { useState, useEffect } from "react";
 
@@ -29,7 +30,7 @@ function App({ helper }) {
 	};
 	const removeRPC = () => {
 		console.log("removeRPC");
-		helper.removeProfile(RPCTab);
+		helper.removeProfileById(RPCTab);
 		setRPCs(helper.getProfiles());
 		setRPCTab(helper.getCurrentProfileId());
 	};
@@ -41,8 +42,8 @@ function App({ helper }) {
 	};
 
 	return (
-		<div id="main" className="flex flex-row justify-center items-center w-full min-h-lvh relative">
-			<div className="flex flex-row w-[90%] max-w-[715px] h-[700px] rounded-xl  overflow-hidden border border-b-accent ">
+		<div id="main" className="text flex flex-row justify-center items-center w-full min-h-lvh relative">
+			<div className="flex flex-row w-[90%] max-w-[715px] h-[700px] rounded-xl  overflow-hidden border">
 				<img src={bgimg} alt="" srcSet="" className="absolute top-0 left-0 w-full h-full object-cover -z-1 " />
 				<div id="sidebar" className="flex flex-col w-[var(--sidebar-width)] bg-base-100/[0.65] backdrop-blur-md">
 					<div id="sidebar-header" className="relative h-[var(--navbar-height)] w-full">
@@ -97,7 +98,7 @@ function App({ helper }) {
 						{tab && tab === "About" && <AboutTab className="p-[20px]" />}
 						{tab && tab === "Aria2Helper" && <Aria2HelperTab helper={helper} className="p-[20px]" />}
 						{tab && tab === "Aria2" && <Aria2Tab helper={helper} className="p-[20px]" />}
-						{tab && tab === "Others" && "Others"}
+						{tab && tab === "Others" && "Others" && <OtherSettings helper={helper} className="p-[20px]" />}
 						{tab && tab === "RPC" && RPCTab && <RPCTabView helper={helper} />}
 					</div>
 				</div>

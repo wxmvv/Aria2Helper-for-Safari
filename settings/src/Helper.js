@@ -57,13 +57,13 @@ class Helper {
 		};
 		this.profiles[profileId] = profile;
 		this.currentProfileId = profileId;
-		// TODO
+		// TODO profile
 		// renderTabs(profiles);
 		// loadProfile(profileId);
 		// saveLocalStorage();
 	}
-	removeCurrentProfile() {
-		delete this.profiles[this.currentProfileId];
+	removeProfileById(profileId) {
+		delete this.profiles[profileId];
 		if (Object.keys(this.profiles).length === 0)
 			this.profiles = {
 				init: {
@@ -76,8 +76,8 @@ class Helper {
 					isDefault: true,
 				},
 			};
-		if (this.currentProfileId === this.defaultProfileId) this.defaultProfileId = Object.keys(this.profiles)[0];
-		this.currentProfileId = Object.keys(this.profiles)[0];
+		if (profileId === this.defaultProfileId) this.currentProfileId = Object.keys(this.profiles)[0];
+		if (profileId === this.currentProfileId) this.currentProfileId = Object.keys(this.profiles)[0];
 		// renderTabs(profiles);
 		// loadProfile(currentProfileId);
 		// saveLocalStorage();
@@ -106,7 +106,7 @@ class Helper {
 		return this.currentProfileId;
 	}
 
-	// MARK LocalStorage
+	// LocalStorage
 	async getLocalStorages() {
 		return await browser.storage.local.get(["settings", "profiles", "currentProfileId", "defaultProfile", "device"]);
 	}

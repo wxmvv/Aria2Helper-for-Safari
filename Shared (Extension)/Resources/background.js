@@ -1,4 +1,4 @@
-// MARK Badge
+// Badge
 function updateBadge() {
 	browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings"]).then((result) => {
 		if (result.error) return browser.action.setBadgeText({ text: "" });
@@ -30,7 +30,7 @@ function updateBadge() {
 	});
 }
 
-// MARK utils
+// utils
 
 // Aria2 request
 async function sendAria2Request(method, params, isHttps) {
@@ -121,7 +121,7 @@ function getFileParts(filename) {
 	};
 }
 
-// MARK API
+// API
 // [Doc] https://aria2.document.top/zh/aria2c.html#aria2.addUri
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	let result = await browser.storage.local.get(["defaultProfileId", "currentProfileId", "profiles", "settings", "device", "themeColor"]);
@@ -414,14 +414,9 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 			sendResponse({ status: "error", message: error.message }); // 返回错误信息
 		}
 	}
-
-	// TEST
-	if (message.api === "test") {
-		sendResponse("test success");
-	}
 });
 
-// MARK contextMenus
+// contextMenus
 // Add
 browser.contextMenus.removeAll(() => {
 	/*
@@ -531,16 +526,6 @@ browser.contextMenus.onClicked.addListener(async (info, tab) => {
 		}
 	}
 });
-
-// DOING
-// notification
-browser.runtime.onInstalled.addListener((e) => {
-	console.log("onInstalled", e);
-});
-browser.runtime.onStartup.addListener((e) => {
-	console.log("onStartup", e);
-});
-
 
 getSysInfo();
 updateBadge();

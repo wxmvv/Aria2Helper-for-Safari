@@ -1,4 +1,4 @@
-// MARK components
+// components
 
 // Attempt to obtain the current device used to distinguish iOS macOS
 function detectDevice() {
@@ -301,7 +301,6 @@ function initNavbarBtn() {
 			console.log("[aria2_purgeDownloadResult] ", data);
 		});
 	});
-
 }
 
 // Add task dialogue
@@ -842,9 +841,8 @@ function initStyle() {
 	}
 }
 
-
 let fetchActivateFlag = true;
-// MARK main
+// MARK popup main
 document.addEventListener("DOMContentLoaded", function () {
 	// initializing
 	initStyle();
@@ -867,7 +865,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-// MARK utils
+// utils
 
 function getPartsFromFilename(filename) {
 	if (typeof filename !== "string" || filename.trim() === "") {
