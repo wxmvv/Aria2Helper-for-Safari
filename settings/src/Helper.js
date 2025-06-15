@@ -9,43 +9,16 @@ class Helper {
 		this.settings = null;
 		this.profiles = null;
 		this.currentProfileId = null;
-		this.defaultProfile = null;
-		this.device = null;
+		this.defaultProfileId = null;
 
-		this.init();
+		this.device = null;
 	}
 
 	async init() {
-		const res = {
-			settings: initSettings,
-			profiles: initProfiles,
-			currentProfileId: initCurrentProfileId,
-			defaultProfileId: initDefaultProfileId,
-			device: "macos",
-		};
-		// const res = await this.getLocalStorages();
-		// 检查
-		if (!res["settings"] && !res["profiles"] && !res["currentProfileId"] && !res["defaultProfile"]) {
-			this.settings = initSettings;
-			this.profiles = initProfiles;
-			this.currentProfileId = initCurrentProfileId;
-			this.defaultProfileId = initDefaultProfileId;
-			this.device = "macos";
-			return res;
-		}
-		if (!res["profiles"] || JSON.stringify(res["profiles"]) === "{}") this.profiles = initProfiles;
-		else this.profiles = res["profiles"];
-		if (!res["settings"]) this.settings = initSettings;
-		else this.settings = res["settings"];
-		if (!res["currentProfileId"] || res["currentProfileId"] === "" || !this.profiles[res["currentProfileId"]]) this.currentProfileId = Object.keys(profiles)[0];
-		else this.currentProfileId = res["currentProfileId"];
-		if (!res["defaultProfileId"] || res["defaultProfileId"] === "" || !this.profiles[res["defaultProfileId"]]) this.defaultProfileId = Object.keys(profiles)[0];
-		else this.defaultProfileId = res["defaultProfileId"];
-		if (!res["device"]) this.device = "macos";
-		return res;
+		const res = await this.loadLocalStorages();
 	}
 
-	addProfile() {
+	addNewProfile() {
 		const profileId = generateProfileId();
 		const profile = {
 			alias: "New",
@@ -54,13 +27,11 @@ class Helper {
 			rpcPort: "",
 			rpcSecret: "",
 			rpcParameters: "",
+			isDefault: false,
 		};
 		this.profiles[profileId] = profile;
 		this.currentProfileId = profileId;
-		// TODO profile
-		// renderTabs(profiles);
-		// loadProfile(profileId);
-		// saveLocalStorage();
+		this.saveLocalStorages();
 	}
 	removeProfileById(profileId) {
 		delete this.profiles[profileId];
@@ -78,21 +49,53 @@ class Helper {
 			};
 		if (profileId === this.defaultProfileId) this.currentProfileId = Object.keys(this.profiles)[0];
 		if (profileId === this.currentProfileId) this.currentProfileId = Object.keys(this.profiles)[0];
-		// renderTabs(profiles);
-		// loadProfile(currentProfileId);
-		// saveLocalStorage();
+		this.saveLocalStorages();
+	}
+	setDefaultProfileById(profileId) {
+		this.defaultProfileId = profileId;
+		Object.keys(this.profiles).forEach((profileId) => {
+			this.profiles[profileId].isDefault = false;
+		});
+		this.profiles[profileId].isDefault = true;
+		this.saveLocalStorages();
 	}
 	setCurrentProfileById(profileId) {
 		this.currentProfileId = profileId;
-		// saveLocalStorage();
+		this.saveLocalStorages();
 	}
-
-	getSettings() {
-		return this.settings;
+	setProfileById(profileId, profile) {
+		this.profiles[profileId] = profile;
+		this.saveLocalStorages();
+	}
+	setSettings(settings) {
+		console.log(this.settings);
+		this.settings = { ...this.settings, ...settings };
+		console.log(this.settings);
+		this.saveLocalStorageSettings();
+	}
+	setBlackList(blacklist) {
+		this.settings.filterLists.blacklist = blacklist;
+		this.saveLocalStorageSettings();
+	}
+	setWhiteList(whitelist) {
+		this.settings.filterLists.whitelist = whitelist;
+		this.saveLocalStorageSettings();
 	}
 
 	getProfiles() {
-		return this.profiles;
+		return { ...this.profiles };
+	}
+	getProfileById(profileId) {
+		return this.profiles[profileId];
+	}
+	getSettings() {
+		return this.settings;
+	}
+	getWhitelist() {
+		return this.settings.filterLists.whitelist.extensions || [];
+	}
+	getBlacklist() {
+		return this.settings.filterLists.blacklist.extensions || [];
 	}
 
 	getCurrentProfile() {
@@ -100,33 +103,70 @@ class Helper {
 			if (this.profiles[this.currentProfileId]) return this.profiles[this.currentProfileId];
 			else return this.profiles[0];
 		}
-		return this.defaultProfile;
 	}
 	getCurrentProfileId() {
 		return this.currentProfileId;
 	}
 
 	// LocalStorage
-	async getLocalStorages() {
-		return await browser.storage.local.get(["settings", "profiles", "currentProfileId", "defaultProfile", "device"]);
+	async loadLocalStorages() {
+		if (browser && browser.storage && browser.storage.local) {
+			console.log("[extions mode]");
+			return await browser.storage.local.get(["settings", "profiles", "currentProfileId", "defaultProfileId", "device"]).then((res) => {
+				if (!res["settings"] && !res["profiles"] && !res["currentProfileId"] && !res["defaultProfileId"]) {
+					this.settings = initSettings;
+					this.profiles = initProfiles;
+					this.currentProfileId = initCurrentProfileId;
+					this.defaultProfileId = initDefaultProfileId;
+					this.device = "macos";
+					return res;
+				}
+				if (!res["profiles"] || JSON.stringify(res["profiles"]) === "{}") this.profiles = initProfiles;
+				else this.profiles = res["profiles"];
+				if (!res["settings"]) this.settings = initSettings;
+				else this.settings = res["settings"];
+				if (!res["currentProfileId"] || res["currentProfileId"] === "" || !this.profiles[res["currentProfileId"]]) this.currentProfileId = Object.keys(profiles)[0];
+				else this.currentProfileId = res["currentProfileId"];
+				if (!res["defaultProfileId"] || res["defaultProfileId"] === "" || !this.profiles[res["defaultProfileId"]]) this.defaultProfileId = Object.keys(profiles)[0];
+				else this.defaultProfileId = res["defaultProfileId"];
+				if (!res["device"]) this.device = "macos";
+				return res;
+			});
+		} else {
+			// DEV
+			this.settings = initSettings;
+			this.profiles = initProfiles;
+			this.currentProfileId = initCurrentProfileId;
+			this.defaultProfileId = initDefaultProfileId;
+			this.device = "macos";
+			return Promise.resolve({
+				settings: initSettings,
+				profiles: initProfiles,
+				currentProfileId: initCurrentProfileId,
+				defaultProfileId: initDefaultProfileId,
+				device: "macos",
+			});
+		}
 	}
-
-	async setLocalStorages(profiles, settings, currentProfileId, defaultProfileId) {
-		await browser.storage.local.set({
-			profiles,
-			settings,
-			currentProfileId,
-			defaultProfileId,
-		});
-	}
-	async setLocalStorageSettings() {
-		browser.storage.local
+	async saveLocalStorages() {
+		await browser.storage.local
 			.set({
-				settings: settings,
+				profiles: this.profiles,
+				settings: this.settings,
+				currentProfileId: this.currentProfileId,
+				defaultProfileId: this.defaultProfileId,
 			})
 			.then((res) => {
-				console.log("saveSettings", res);
-				console.log(settings);
+				console.log("[save local storage]", this.profiles, this.settings, this.currentProfileId, this.defaultProfileId);
+			});
+	}
+	async saveLocalStorageSettings() {
+		browser.storage.local
+			.set({
+				settings: this.settings,
+			})
+			.then((res) => {
+				console.log("[save settings]", this.settings);
 			});
 	}
 }

@@ -49,12 +49,12 @@ export function useThemeHook() {
 	useEffect(() => {
 		setMounted(true);
 		const savedConfig = localStorage.getItem("daisyui-theme-config");
-		console.log("init theme config from local storage", savedConfig);
 		if (savedConfig) {
 			try {
 				const { light, dark } = JSON.parse(savedConfig);
 				if (DAISYUI_THEMES.includes(light)) setLightTheme(light);
 				if (DAISYUI_THEMES.includes(dark)) setDarkTheme(dark);
+				// console.log(`Loaded theme config from localStorage: ${savedConfig}`);
 			} catch (e) {
 				console.error("Failed to parse theme config", e);
 			}
@@ -62,46 +62,30 @@ export function useThemeHook() {
 	}, []);
 
 	const setLightTheme = (newTheme) => {
+		if (!DAISYUI_THEMES.includes(newTheme)) return;
 		setLightDaisyTheme(newTheme);
 	};
+
 	const setDarkTheme = (newTheme) => {
+		if (!DAISYUI_THEMES.includes(newTheme)) return;
 		setDarkDaisyTheme(newTheme);
 	};
+
 	const setBaseTheme = (newTheme) => {
 		setTheme(newTheme);
-		if (newTheme === "system") {
-			if (systemTheme === "dark") document.documentElement.setAttribute("data-theme", darkDaisyTheme);
-			else document.documentElement.setAttribute("data-theme", lightDaisyTheme);
-		} else if (newTheme === "dark") {
-			document.documentElement.setAttribute("data-theme", darkDaisyTheme);
-		} else if (newTheme === "light") {
-			document.documentElement.setAttribute("data-theme", lightDaisyTheme);
-		} else {
-			console.log(`Invalid theme: ${theme}. Please use one of the following: ${DAISYUI_THEMES.join(", ")}`);
-		}
+	};
+
+	const applyDaisyTheme = () => {
+		if (!mounted) return;
+		const targetTheme = resolvedTheme === "dark" ? darkDaisyTheme : lightDaisyTheme;
+		document.documentElement.setAttribute("data-theme", targetTheme);
+		document.documentElement.classList.toggle("dark", resolvedTheme === "dark");
+		localStorage.setItem("daisyui-theme-config", JSON.stringify({ light: lightDaisyTheme, dark: darkDaisyTheme }));
 	};
 
 	useEffect(() => {
-		if (!mounted) return;
-
-		if (theme === "system") {
-			if (systemTheme === "dark") document.documentElement.setAttribute("data-theme", darkDaisyTheme);
-			else document.documentElement.setAttribute("data-theme", lightDaisyTheme);
-		} else if (theme === "dark") {
-			document.documentElement.setAttribute("data-theme", darkDaisyTheme);
-		} else if (theme === "light") {
-			document.documentElement.setAttribute("data-theme", lightDaisyTheme);
-		} else {
-			console.log(`Invalid theme: ${theme}. Please use one of the following: ${DAISYUI_THEMES.join(", ")}`);
-		}
-		localStorage.setItem(
-			"daisyui-theme-config",
-			JSON.stringify({
-				light: lightDaisyTheme,
-				dark: darkDaisyTheme,
-			})
-		);
-	}, [lightDaisyTheme, darkDaisyTheme, mounted]);
+		applyDaisyTheme();
+	}, [lightDaisyTheme, darkDaisyTheme, resolvedTheme, mounted]); // 添加 resolvedTheme
 
 	return {
 		setBaseTheme, // 设置基础模式

@@ -22,7 +22,7 @@ import AppKit
 
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
-    
+
     func beginRequest(with context: NSExtensionContext) {
         let request = context.inputItems.first as? NSExtensionItem
         
@@ -46,7 +46,6 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         
         // sendNativeMessage API
         let messageDict = message as? [String: String]
-        
         
         
 #if os(iOS)

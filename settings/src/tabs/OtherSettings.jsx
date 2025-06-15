@@ -1,13 +1,16 @@
 import { ThemeSwitch, ThemeSelector } from "../components/ThemeSwitch";
-import { ListGroup } from "../components/ListGroup";
-import { ListItem } from "../components/ListItem";
 import { useThemeHook } from "../useThemeHook";
 
-export function OtherSettings({ helper, className, onClick }) {
+import { ListGroup } from "../components/ListGroup";
+import { ListItem } from "../components/ListItem";
+import { ListGroupTitle } from "../components/ListGroupTitle";
+
+export function OtherSettings({ helper, className }) {
 	const { baseTheme, setBaseTheme, lightDaisyTheme, darkDaisyTheme, setLightTheme, setDarkTheme, daisyThemes, mounted } = useThemeHook();
 
 	return (
 		<>
+			<ListGroupTitle title="Setting View Theme" />
 			<ListGroup>
 				<ListItem>
 					<ThemeSwitch baseTheme={baseTheme} setBaseTheme={setBaseTheme} />
