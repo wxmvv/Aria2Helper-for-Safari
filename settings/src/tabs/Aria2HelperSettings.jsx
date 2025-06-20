@@ -4,6 +4,7 @@ import { ListGroup } from "../components/ListGroup";
 import { ListItem } from "../components/ListItem";
 import { ListGroupTitle } from "../components/ListGroupTitle";
 import { extensions } from "../utils/extension";
+import { t } from "../utils/i18n";
 
 function Aria2HelperSettings({ helper }) {
 	const [showBadge, setShowBadge] = useState(helper.getSettings().showBadge);
@@ -26,7 +27,11 @@ function Aria2HelperSettings({ helper }) {
 		const wl = whitelist.trim();
 		let whitelistExtensions;
 		if (wl === "") whitelistExtensions = [];
-		else whitelistExtensions = wl.split(",").map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+		else {
+			// 去除wl.split(",")中的空项目
+			whitelistExtensions = wl.split(",").filter((item) => item.trim() !== "");
+			whitelistExtensions = whitelistExtensions.map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+		}
 		helper.setWhiteList({ name: "Whitelist", extensions: whitelistExtensions });
 		setWhitelist(whitelistExtensions.toString());
 		oldWhitelist = whitelistExtensions.toString();
@@ -36,7 +41,10 @@ function Aria2HelperSettings({ helper }) {
 		const bl = blacklist.trim();
 		let blacklistExtensions;
 		if (bl === "") blacklistExtensions = [];
-		else blacklistExtensions = bl.split(",").map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+		else {
+			blacklistExtensions = bl.split(",").filter((item) => item.trim() !== "");
+			blacklistExtensions = blacklistExtensions.map((item) => (item.trim().startsWith(".") ? item.trim() : `.${item.trim()}`));
+		}
 		helper.setBlackList({ name: "Blacklist", extensions: blacklistExtensions });
 		setBlacklist(blacklistExtensions.toString());
 		oldBlacklist = blacklistExtensions.toString();
@@ -50,51 +58,50 @@ function Aria2HelperSettings({ helper }) {
 		<>
 			<ListGroup>
 				<ListItem>
-					<div>Show Badge</div>
+					<div>{t("show_badge")}</div>
 					<input type="checkbox" onChange={(e) => setShowBadge(!showBadge)} checked={showBadge} className="toggle checked:bg-primary checked:border-primary checked:text-white" />
 				</ListItem>
 				<ListItem>
-					<div>Show Notification</div>
+					<div>{t("show_notification")}</div>
 					<input type="checkbox" onChange={(e) => setShowNotification(!showNotification)} checked={showNotification} className="toggle checked:bg-primary checked:border-primary checked:text-white" />
 				</ListItem>
 			</ListGroup>
 			<ListGroup>
 				<ListItem>
-					<div>Listen Downloads</div>
-					<input type="checkbox" onChange={(e) => setListenDownloads(!listenDownloads)} checked={listenDownloads} className="toggle checked:bg-primary checked:border-primary checked:text-white" />
+					<div>{t("listen_downloads")}</div>
+					<input type="checkbox" onChange={(e) => setListenDownloads(!listenDownloads)} checked={listenDownloads} className=" toggle checked:bg-primary checked:border-primary checked:text-white" />
 				</ListItem>
-				<ListItem>
+				<ListItem col>
 					<div className="w-full">
 						<fieldset className="fieldset">
-							<legend className="fieldset-legend">White List</legend>
-							<textarea value={whitelist} onChange={(e) => setWhitelist(e.target.value)} className="textarea h-24 w-full" placeholder="Bio"></textarea>
+							<legend className="text-base">{t("label_extensions_whitelist")}</legend>
+							<textarea value={whitelist} onChange={(e) => setWhitelist(e.target.value)} className="textarea h-24 w-full" placeholder=""></textarea>
 							<button disabled={oldWhitelist === whitelist} className="btn justify-self-end btn-primary m-2 w-32 h-8" onClick={saveWhiteList}>
-								保存白名单
+								{t("save_white_list")}
 							</button>
 						</fieldset>
 					</div>
-				</ListItem>
-				<ListItem>
 					<div className="w-full">
 						<fieldset className="fieldset">
-							<legend className="fieldset-legend">Black List</legend>
-							<textarea value={blacklist} onChange={(e) => setBlacklist(e.target.value)} className="textarea h-24 w-full" placeholder="Bio"></textarea>
+							<legend className="text-base">{t("label_extensions_blacklist")}</legend>
+							<textarea value={blacklist} onChange={(e) => setBlacklist(e.target.value)} className="textarea h-24 w-full" placeholder=""></textarea>
 							<button disabled={oldBlacklist === blacklist} className="btn justify-self-end btn-primary m-2 w-32 h-8" onClick={saveBlackList}>
-								保存黑名单
+								{t("save_black_list")}
 							</button>
 						</fieldset>
 					</div>
+					<div className="label w-full whitespace-break-spaces">{t("listen_downloads_extensions")}</div>
 				</ListItem>
 				<ListItem col className="gap-4">
-					<div>Default Extensions Listened To</div>
+					<div>{t("label_default_extensions")}</div>
 					{Object.keys(extensions).map((ext, index) => {
 						return (
-							<div key={index} className="collapse collapse-arrow bg-base-100 border-base-300 border w-full">
+							<div key={index} className="collapse collapse-arrow bg-base-100 border-base-300 border">
 								<input type="checkbox" />
 								<div className="collapse-title font-semibold">
 									{extensions[ext].name} ({extensions[ext].extensions.length})
 								</div>
-								<div className="collapse-content text-sm w-100% wrap-anywhere">{extensions[ext].extensions.toString()}</div>
+								<div className="collapse-content text-sm w-full wrap-anywhere">{extensions[ext].extensions.toString()}</div>
 							</div>
 						);
 					})}

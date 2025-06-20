@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @plugin "daisyui" {
 	themes: light --default, dark, cupcake, bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine, halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black, luxury, dracula, cmyk, autumn, business, acid,
@@ -11,9 +12,9 @@
 }
 
 @layer utilities {
-	.bg-system-accent {
+	/* .bg-system-accent {
 		background-color: rgb(from -apple-system-control-accent r g b / 80%);
-	}
+	} */
 }
 
 * {
@@ -21,14 +22,18 @@
 }
 
 :root {
+	/* safe top */
 	--safe-area-top: 52px;
 	--navbar-height: 52px;
-	/* apple */
-	--apple-system-accent-bg: rgb(from -apple-system-control-accent r g b / 80%);
-	--apple-system-accent: -apple-system-control-accent;
-	--apple-system-accent: #007aff;
-
 	/* sidebar  */
-	--sidebar-width: 215px;
+	--sidebar-width: var(--sidebar-width-value);
+	--sidebar-opacity: 1;
+	--sidebar-width-value: 215px;
 	--profile-gap-height: 15px;
+	/* apple */
+	/* 如果不存在 则使用daisy的主题色 */
+	--apple-system-accent-bg: rgb(from -apple-system-control-accent r g b / 80%);
+	--apple-system-accent-bg: rgb(from var(--color-primary) r g b / 80%);
+	--apple-system-accent: -apple-system-control-accent;
+	--apple-system-accent: var(--color-primary);
 }

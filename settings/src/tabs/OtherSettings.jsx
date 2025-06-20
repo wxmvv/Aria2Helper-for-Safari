@@ -5,21 +5,23 @@ import { ListGroup } from "../components/ListGroup";
 import { ListItem } from "../components/ListItem";
 import { ListGroupTitle } from "../components/ListGroupTitle";
 
+import { t } from "../utils/i18n";
+
 export function OtherSettings({ helper, className }) {
 	const { baseTheme, setBaseTheme, lightDaisyTheme, darkDaisyTheme, setLightTheme, setDarkTheme, daisyThemes, mounted } = useThemeHook();
 
 	return (
 		<>
-			<ListGroupTitle title="Setting View Theme" />
+			<ListGroupTitle title={t("setting_view_theme")} />
 			<ListGroup>
 				<ListItem>
-					<ThemeSwitch baseTheme={baseTheme} setBaseTheme={setBaseTheme} />
+					<ThemeSwitch title={t("base_theme")} baseTheme={baseTheme} setBaseTheme={setBaseTheme} />
 				</ListItem>
 				<ListItem>
-					<ThemeSelector title="LightThemeSelector" theme={lightDaisyTheme} setTheme={setLightTheme} themes={daisyThemes} />
+					<ThemeSelector title={t("light_theme")} theme={lightDaisyTheme} setTheme={setLightTheme} themes={daisyThemes} />
 				</ListItem>
 				<ListItem>
-					<ThemeSelector title="DarkThemeSelector" theme={darkDaisyTheme} setTheme={setDarkTheme} themes={daisyThemes} />
+					<ThemeSelector title={t("dark_theme")} theme={darkDaisyTheme} setTheme={setDarkTheme} themes={daisyThemes} />
 				</ListItem>
 			</ListGroup>
 		</>

@@ -68,9 +68,7 @@ class Helper {
 		this.saveLocalStorages();
 	}
 	setSettings(settings) {
-		console.log(this.settings);
 		this.settings = { ...this.settings, ...settings };
-		console.log(this.settings);
 		this.saveLocalStorageSettings();
 	}
 	setBlackList(blacklist) {
@@ -110,7 +108,7 @@ class Helper {
 
 	// LocalStorage
 	async loadLocalStorages() {
-		if (browser && browser.storage && browser.storage.local) {
+		if (typeof browser !== "undefined" && browser && browser.storage && browser.storage.local) {
 			console.log("[extions mode]");
 			return await browser.storage.local.get(["settings", "profiles", "currentProfileId", "defaultProfileId", "device"]).then((res) => {
 				if (!res["settings"] && !res["profiles"] && !res["currentProfileId"] && !res["defaultProfileId"]) {
@@ -149,25 +147,29 @@ class Helper {
 		}
 	}
 	async saveLocalStorages() {
-		await browser.storage.local
-			.set({
-				profiles: this.profiles,
-				settings: this.settings,
-				currentProfileId: this.currentProfileId,
-				defaultProfileId: this.defaultProfileId,
-			})
-			.then((res) => {
-				console.log("[save local storage]", this.profiles, this.settings, this.currentProfileId, this.defaultProfileId);
-			});
+		if (typeof browser !== "undefined" && browser && browser.storage && browser.storage.local) {
+			await browser.storage.local
+				.set({
+					profiles: this.profiles,
+					settings: this.settings,
+					currentProfileId: this.currentProfileId,
+					defaultProfileId: this.defaultProfileId,
+				})
+				.then((res) => {
+					console.log("[save local storage]", this.profiles, this.settings, this.currentProfileId, this.defaultProfileId);
+				});
+		}
 	}
 	async saveLocalStorageSettings() {
-		browser.storage.local
-			.set({
-				settings: this.settings,
-			})
-			.then((res) => {
-				console.log("[save settings]", this.settings);
-			});
+		if (typeof browser !== "undefined" && browser && browser.storage && browser.storage.local) {
+			await browser.storage.local
+				.set({
+					settings: this.settings,
+				})
+				.then((res) => {
+					console.log("[save settings]", this.settings);
+				});
+		}
 	}
 }
 

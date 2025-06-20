@@ -1,4 +1,5 @@
 import aria2helperIcon from "../assets/tabIcon/o.png";
+import { t } from "../utils/i18n";
 export function AboutTab({ className, onClick }) {
 	return (
 		<>
@@ -6,12 +7,14 @@ export function AboutTab({ className, onClick }) {
 				<div className="flex justify-center items-center rounded-full bg-[#287ed1] w-[100px] h-[100px]">
 					<img src={aria2helperIcon} className="w-[80px] h-[80px]" alt="" />
 				</div>
-				<div className="flex flex-col gap-[5px]">
+				<div className="flex flex-col gap-[5px] items-center justify-center">
 					<div id="title" className="text-xl font-bold leading-6">
-						Aria2 Helper
+						{/* Aria2 Helper */}
+						{t("extension_name")}
 					</div>
 					<div id="subTitle" className="leading-4">
-						Use Aria2 Easily
+						{/* Use Aria2 Easily */}
+						{t("extension_description")}
 					</div>
 				</div>
 			</div>

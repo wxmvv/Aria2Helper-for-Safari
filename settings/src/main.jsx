@@ -10,7 +10,7 @@ const helper = new Helper();
 const root = createRoot(document.getElementById("root"));
 
 // 等待初始化完成后再渲染
-helper.init().then((res) => {
+helper.init().then(() => {
 	root.render(
 		<StrictMode>
 			<ThemeProviders>

@@ -181,6 +181,9 @@
 	"other_settings": {
 		"message": "其他设置"
 	},
+	"helper_settings": {
+		"message": "助手设置"
+	},
 	"show_badge": {
 		"message": "显示工具栏角标"
 	},
@@ -205,6 +208,12 @@
 	"save_extensions": {
 		"message": "保存文件类型"
 	},
+	"save_white_list": {
+		"message": "保存白名单"
+	},
+	"save_black_list": {
+		"message": "保存黑名单"
+	},
 	"set_default_profile_alert": {
 		"message": "设置为默认:"
 	},
@@ -225,5 +234,34 @@
 	},
 	"parameters_example": {
 		"message": "示例: --all-proxy=http://127.0.0.1:1080"
+	},
+
+	"setting_view_theme": {
+		"message": "设置页面主题"
+	},
+
+	"base_theme": {
+		"message": "基础主题"
+	},
+	"light_theme": {
+		"message": "浅色主题"
+	},
+	"dark_theme": {
+		"message": "深色主题"
+	},
+	"light": {
+		"message": "浅色"
+	},
+	"dark": {
+		"message": "深色"
+	},
+	"system": {
+		"message": "跟随系统"
+	},
+	"about": {
+		"message": "关于"
+	},
+	"aria2_settings": {
+		"message": "Aira2设置"
 	}
 }

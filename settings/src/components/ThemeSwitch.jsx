@@ -1,3 +1,4 @@
+import { t } from "../utils/i18n";
 const Sun = () => (
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="group:hover:text-gray-100 h-6 w-6">
 		<path
@@ -21,20 +22,20 @@ const Monitor = () => (
 );
 const Blank = () => <svg className="h-6 w-6" />;
 
-export const ThemeSwitch = ({ baseTheme, setBaseTheme }) => {
+export const ThemeSwitch = ({ baseTheme, setBaseTheme, title = "Base Theme" }) => {
 	return (
 		<>
 			<div className="flex flex-row items-center justify-between w-full">
-				<div>Theme Swither</div>
+				<div>{title}</div>
 				<div className="tabs-box flex flex-row items-center justify-center gap-2 w-fit h-fit">
 					<div onClick={() => setBaseTheme("light")} className={`tab ${baseTheme === "light" ? "tab-active" : ""}`}>
-						Light
+						{t("light")}
 					</div>
 					<div onClick={() => setBaseTheme("dark")} className={`tab ${baseTheme === "dark" ? "tab-active" : ""}`}>
-						Dark
+						{t("dark")}
 					</div>
 					<div onClick={() => setBaseTheme("system")} className={`tab ${baseTheme === "system" ? "tab-active" : ""}`}>
-						System
+						{t("system")}
 					</div>
 				</div>
 			</div>

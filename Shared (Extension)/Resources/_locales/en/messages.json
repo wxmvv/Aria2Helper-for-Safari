@@ -181,6 +181,9 @@
 	"other_settings": {
 		"message": "Other Settings"
 	},
+	"helper_settings": {
+		"message": "Helper Settings"
+	},
 	"show_badge": {
 		"message": "Show Badge"
 	},
@@ -205,6 +208,12 @@
 	"save_extensions": {
 		"message": "Save Extensions"
 	},
+	"save_white_list": {
+		"message": "save whitelist"
+	},
+	"save_black_list": {
+		"message": "save blacklist"
+	},
 	"set_default_profile_alert": {
 		"message": "Default profile set to "
 	},
@@ -225,5 +234,33 @@
 	},
 	"parameters_example": {
 		"message": "Example: \"dir=/path/to/download,parameter2=value2\""
+	},
+
+	"setting_view_theme": {
+		"message": "Setting View Theme"
+	},
+	"base_theme": {
+		"message": "Base Theme"
+	},
+	"light_theme": {
+		"message": "Light Theme"
+	},
+	"dark_theme": {
+		"message": "Dark Theme"
+	},
+	"light": {
+		"message": "light"
+	},
+	"dark": {
+		"message": "dark"
+	},
+	"system": {
+		"message": "system"
+	},
+	"about": {
+		"message": "About"
+	},
+	"aria2_settings": {
+		"message": "Aria2 Settings"
 	}
 }
