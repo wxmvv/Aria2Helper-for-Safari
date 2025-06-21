@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { ListGroup } from "../components/ListGroup";
 import { ListItem } from "../components/ListItem";
 import { ListGroupTitle } from "../components/ListGroupTitle";
+import { Eye, EyeSlash } from "../icon/eye";
 import { t } from "../utils/i18n";
 
 export function RPCTabView({ helper, onRPCUpdate }) {
 	const [rpc, setRPC] = useState(helper.getCurrentProfile());
 	const [profileId, setProfileId] = useState(helper.getCurrentProfileId());
+	const [showAlert, setShowAlert] = useState(false);
+
+	const [isShowPassword, setIsShowPassword] = useState(false);
 
 	useEffect(() => {
 		setProfileId(helper.getCurrentProfileId());
@@ -16,6 +20,8 @@ export function RPCTabView({ helper, onRPCUpdate }) {
 
 	const saveRpc = () => {
 		helper.setProfileById(profileId, rpc);
+		setShowAlert(true);
+		setTimeout(() => setShowAlert(false), 5000);
 		onRPCUpdate();
 	};
 	const setDefault = () => {
@@ -26,8 +32,14 @@ export function RPCTabView({ helper, onRPCUpdate }) {
 
 	return (
 		<>
-			<ListGroupTitle title="RPC HOST"></ListGroupTitle>
+			<ListGroupTitle title={t("rpc_host")}></ListGroupTitle>
 			<div className="text-sm text-gray-500/20">{`ID:${profileId}`}</div>
+			<div role="alert" className={`fixed top-[20px] alert alert-success transition-all ${showAlert ? "opacity-100 h-[50px]" : "opacity-0 h-0"}`}>
+				<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+					<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				<span>{t("save_profile_alert")}</span>
+			</div>
 			<ListGroup>
 				<ListItem>
 					<div>{t("alias")}</div>
@@ -49,7 +61,13 @@ export function RPCTabView({ helper, onRPCUpdate }) {
 
 				<ListItem>
 					<div>{t("rpc_secret")}</div>
-					<input type="text" value={rpc.rpcSecret} onChange={(e) => setRPC({ ...rpc, rpcSecret: e.target.value })} placeholder={t("input_secret")} className="input w-3/5" />
+					{/* 显示星号 */}
+					<div className="flex flex-row gap-2 w-3/5 items-center">
+						<input type={isShowPassword ? "text" : "password"} value={rpc.rpcSecret} onChange={(e) => setRPC({ ...rpc, rpcSecret: e.target.value })} placeholder={t("input_secret")} className="input grow" />
+						<button className="btn btn-ghost w-12 p-0 fill-accent" onClick={() => setIsShowPassword(!isShowPassword)}>
+							{isShowPassword ? <EyeSlash width={24} height={24} color={"inhert"} /> : <Eye width={24} height={24} color={"inhert"} />}
+						</button>
+					</div>
 				</ListItem>
 				<ListItem>
 					<div>{t("default")}</div>
@@ -62,7 +80,7 @@ export function RPCTabView({ helper, onRPCUpdate }) {
 					{t("save")}
 				</button>
 			</ListGroup>
-			<ListGroupTitle title="Advanced"></ListGroupTitle>
+			<ListGroupTitle title={t("rpc_advanced")}></ListGroupTitle>
 			<ListGroup>
 				{/* <ListItem>
 					<div className="w-full">
@@ -72,22 +90,26 @@ export function RPCTabView({ helper, onRPCUpdate }) {
 						</fieldset>
 					</div>
 				</ListItem> */}
-				{/* TODO 保存提示 */}
 				{/* TODO RPC参数 */}
 				<ListItem col className="items-start">
-					<div className="">out 下载文件夹</div>
-					<input type="text" value={rpc.out} onChange={(e) => setRPC({ ...rpc, out: e.target.value })} placeholder="如何服务的下载地址" className="input w-full" />
-					<div className="label">*输入错误会导致下载失败</div>
+					<div className="">{t("dir_--dir")}</div>
+					<input type="text" value={rpc.dir} onChange={(e) => setRPC({ ...rpc, dir: e.target.value })} placeholder="" className="input w-full" />
+					<div className="label whitespace-break-spaces">{t("dir_placeholder")}</div>
+					<div className="label whitespace-break-spaces">{t("dir_notice")}</div>
 				</ListItem>
 				<ListItem col className="items-start">
 					<div className="w-full">
 						<fieldset className="fieldset">
-							<legend className="text-base">header 请求头</legend>
-							<textarea value={rpc.header} onChange={(e) => setRPC({ ...rpc, header: e.target.value })} className="textarea h-24 w-full" placeholder=""></textarea>
+							<legend className="text-base">{t("header_--header")}</legend>
+							<textarea
+								value={rpc.header && Array.isArray(rpc.header) && rpc.header.join("\n")}
+								onChange={(e) => setRPC({ ...rpc, header: e.target.value.split("\n") })}
+								className="textarea h-24 w-full"
+								placeholder=""
+							></textarea>
 						</fieldset>
+						<div className="label whitespace-break-spaces">{t("header_notice")}</div>
 					</div>
-					{/* <div>header 请求头</div> */}
-					{/* <input type="text" value={rpc.out} onChange={(e) => setRPC({ ...rpc, out: e.target.value })} placeholder="输入下载地址" className="input w-full" /> */}
 				</ListItem>
 			</ListGroup>
 		</>

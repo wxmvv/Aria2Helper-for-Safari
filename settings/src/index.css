@@ -28,6 +28,7 @@
 	/* sidebar  */
 	--sidebar-width: var(--sidebar-width-value);
 	--sidebar-opacity: 1;
+	--sidebar-icon-backdrop-blur: 0px;
 	--sidebar-width-value: 215px;
 	--profile-gap-height: 15px;
 	/* apple */

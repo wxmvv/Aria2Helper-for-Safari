@@ -148,6 +148,9 @@
 	"rpc_host": {
 		"message": "RPC 地址"
 	},
+	"rpc_advanced": {
+		"message": "RPC 进阶设置"
+	},
 	"rpc_is_https": {
 		"message": "Https"
 	},
@@ -263,5 +266,30 @@
 	},
 	"aria2_settings": {
 		"message": "Aira2设置"
+	},
+
+	"dir_--dir": {
+		"message": "下载目录 --dir"
+	},
+	"dir_notice": {
+		"message": "**请注意输入错误有可能会导致下载失败**"
+	},
+	"dir_placeholder": {
+		"message": "请输入绝对地址 如：/Users/YourName/Downloads"
+	},
+	"header_--header": {
+		"message": "请求头 --header"
+	},
+	"header_notice": {
+		"message": "可以直接选中复制safari的请求头，或者手动输入并在每个属性之间换行"
+	},
+	"delete_success": {
+		"message": "删除成功"
+	},
+	"add_success": {
+		"message": "添加成功"
+	},
+	"bg_color": {
+		"message": "背景色"
 	}
 }

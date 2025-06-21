@@ -148,6 +148,9 @@
 	"rpc_host": {
 		"message": "RPC Host"
 	},
+	"rpc_advanced": {
+		"message": "Advanced"
+	},
 	"rpc_is_https": {
 		"message": "Https"
 	},
@@ -262,5 +265,30 @@
 	},
 	"aria2_settings": {
 		"message": "Aria2 Settings"
+	},
+
+	"dir_--dir": {
+		"message": "Download directory --dir"
+	},
+	"dir_notice": {
+		"message": "**Please note that input errors may lead to download failure.**"
+	},
+	"dir_placeholder": {
+		"message": "Please enter an absolute address such as：/Users/YourName/Downloads"
+	},
+	"header_--header": {
+		"message": "Header --header"
+	},
+	"header_notice": {
+		"message": "You can directly select and copy Safari's request headers, or manually enter them with a line break between each attribute."
+	},
+	"delete_success": {
+		"message": "Delete Success"
+	},
+	"add_success": {
+		"message": "Add Success"
+	},
+	"bg_color": {
+		"message": "Background Color"
 	}
 }

@@ -24,6 +24,11 @@ export function OtherSettings({ helper, className }) {
 					<ThemeSelector title={t("dark_theme")} theme={darkDaisyTheme} setTheme={setDarkTheme} themes={daisyThemes} />
 				</ListItem>
 			</ListGroup>
+			{/* <ListGroup>
+				<ListItem>
+					<ThemeSwitch title={t("bg_color")} baseTheme={baseTheme} setBaseTheme={setBaseTheme} />
+				</ListItem>
+			</ListGroup> */}
 		</>
 	);
 }

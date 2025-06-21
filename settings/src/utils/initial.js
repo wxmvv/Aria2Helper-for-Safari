@@ -7,6 +7,8 @@ export const initProfiles = {
 		rpcSecret: "",
 		rpcParameters: "",
 		isDefault: true,
+		dir: "", 
+		header:[],
 	},
 };
 

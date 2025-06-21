@@ -140,11 +140,11 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	// add uri/torrent/metalink
 	if (message.api === "aria2_addUri" && message.url) {
 		const options = {};
-		if (message.dir) console.log("dir:", message.dir), (options.dir = message.dir);
+		if (Aria2Info.dir && typeof Aria2Info.dir === "string" && Aria2Info.dir.trim() !== "") console.log("dir:", Aria2Info.dir), (options.dir = Aria2Info.dir); //下载文件夹
 		if (message.split) console.log("split:", message.split), (options.split = message.split);
-		if (message.out) console.log("out:", message.out), (options.out = message.out);
+		if (message.out) console.log("out:", message.out), (options.out = message.out); //下载文件名
 		if (message.referrer) console.log("reference:", message.referrer);
-		if (message.header) console.log("header:", message.header);
+		if (Aria2Info.header && Array.isArray(Aria2Info.header) && Aria2Info.header.length > 0) console.log("header:", Aria2Info.header), (options.header = Aria2Info.header); //header
 		if (message.cookie) console.log("cookie:", message.cookie), (options.header = [`Cookie:${message.cookie}`]); //Cookie
 
 		const method = "aria2.addUri";
@@ -160,10 +160,10 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	if (message.api === "aria2_addTorrent" && message.file) {
 		const uris = []; // Web-seeding uri  https://aria2.github.io/manual/en/html/aria2c.html#aria2.addTorrent
 		const options = {};
-		if (message.dir) console.log("dir:", message.dir), (options.dir = message.dir);
+		if (Aria2Info.dir && typeof Aria2Info.dir === "string" && Aria2Info.dir.trim() !== "") console.log("dir:", Aria2Info.dir), (options.dir = Aria2Info.dir); //下载文件夹
 		if (message.out) console.log("out:", message.out), (options.out = message.out);
 		if (message.referrer) console.log("reference:", message.referrer);
-		if (message.header) console.log("header:", message.header);
+		if (Aria2Info.header && Array.isArray(Aria2Info.header) && Aria2Info.header.length > 0) console.log("header:", Aria2Info.header), (options.header = Aria2Info.header); //header
 		if (message.cookie) console.log("cookie:", message.cookie), (options.header = [`Cookie:${message.cookie}`]); //Cookie
 
 		const method = "aria2.addTorrent";
@@ -178,10 +178,10 @@ browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
 	}
 	if (message.api === "aria2_addMetalink" && message.file) {
 		const options = {};
-		if (message.dir) console.log("dir:", message.dir), (options.dir = message.dir);
+		if (Aria2Info.dir && typeof Aria2Info.dir === "string" && Aria2Info.dir.trim() !== "") console.log("dir:", Aria2Info.dir), (options.dir = Aria2Info.dir); //下载文件夹
 		if (message.out) console.log("out:", message.out), (options.out = message.out);
 		if (message.referrer) console.log("reference:", message.referrer);
-		if (message.header) console.log("header:", message.header);
+		if (Aria2Info.header && Array.isArray(Aria2Info.header) && Aria2Info.header.length > 0) console.log("header:", Aria2Info.header), (options.header = Aria2Info.header); //header
 		if (message.cookie) console.log("cookie:", message.cookie), (options.header = [`Cookie:${message.cookie}`]); //Cookie
 
 		const method = "aria2.addMetalink";

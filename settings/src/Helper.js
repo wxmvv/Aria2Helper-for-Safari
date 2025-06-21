@@ -28,6 +28,8 @@ class Helper {
 			rpcSecret: "",
 			rpcParameters: "",
 			isDefault: false,
+			dir: "",
+			header: [],
 		};
 		this.profiles[profileId] = profile;
 		this.currentProfileId = profileId;
@@ -45,6 +47,8 @@ class Helper {
 					rpcSecret: "",
 					rpcParameters: "",
 					isDefault: true,
+					dir: "",
+					header: [],
 				},
 			};
 		if (profileId === this.defaultProfileId) this.currentProfileId = Object.keys(this.profiles)[0];
@@ -65,6 +69,7 @@ class Helper {
 	}
 	setProfileById(profileId, profile) {
 		this.profiles[profileId] = profile;
+		console.log(this.profiles[profileId]);
 		this.saveLocalStorages();
 	}
 	setSettings(settings) {
