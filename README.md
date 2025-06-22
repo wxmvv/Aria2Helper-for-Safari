@@ -15,7 +15,7 @@ Elevate your workflow with Aria2Helper and enjoy a streamlined download experien
 
 |                                               light                                                |                                                dark                                                |
 | :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
-| ![light](<https://github.com/wxmvv/Aira2Helper-for-Safari/raw/main/Shared%20(Extension)shot2.png>) | ![dark](<https://github.com/wxmvv/Aira2Helper-for-Safari/raw/main/Shared%20(Extension)/shot1.png>) |
+| ![light](<https://github.com/wxmvv/Aira2Helper-for-Safari/raw/main/Shared%20(Extension)/shot2.png>) | ![dark](<https://github.com/wxmvv/Aira2Helper-for-Safari/raw/main/Shared%20(Extension)/shot1.png>) |
 
 ## Installation
 
