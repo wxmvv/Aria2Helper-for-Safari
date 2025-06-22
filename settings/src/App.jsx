@@ -97,7 +97,7 @@ function App({ helper }) {
 				</svg>
 				<span>{alertTitle}</span>
 			</div>
-			<div className="relative flex flex-row w-[100%] md:w-[90%] max-w-[715px] h-[calc(100lvh-40px)] md:h-[700px] rounded-xl overflow-hidden border border-gray-300/50 shadow-md shadow-primary/15 ">
+			<div className="relative flex flex-row w-[100%] md:w-[90%] max-w-[715px] h-[calc(100lvh-80px)] md:h-[700px] rounded-xl overflow-hidden border border-gray-300/50 shadow-md shadow-primary/15 ">
 				<div id="nav" className="flex flex-row z-[99] absolute top-0 left-0 w-full h-[var(--navbar-height)] bg-transparent ">
 					<TrafficLight id="nav-traffic-light" className="transition-all opacity-0 md:opacity-[var(--sidebar-opacity)] absolute top-[20px] left-[20px]" />
 

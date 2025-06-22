@@ -11,9 +11,15 @@ Features:
 
 Elevate your workflow with Aria2Helper and enjoy a streamlined download experience!
 
+## Screenshot
+
+|                                               light                                                |                                                dark                                                |
+| :------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
+| ![light](<https://github.com/wxmvv/Aira2Helper-for-Safari/raw/main/Shared%20(Extension)shot2.png>) | ![dark](<https://github.com/wxmvv/Aira2Helper-for-Safari/raw/main/Shared%20(Extension)/shot1.png>) |
+
 ## Installation
 
-[![Download on the Mac App Store](https://raw.githubusercontent.com/wxmvv/Aria2Helper-for-Safari/refs/heads/main/Shared%20(Extension)/Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg)](https://apps.apple.com/us/app/aria2helper/id6742623503#?platform=mac)
+[![Download on the Mac App Store](<https://raw.githubusercontent.com/wxmvv/Aria2Helper-for-Safari/refs/heads/main/Shared%20(Extension)/Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg>)](https://apps.apple.com/us/app/aria2helper/id6742623503#?platform=mac)
 
 ## Bugs and feature requests
 
