@@ -154,7 +154,7 @@ let connectionStatus = false;
 
 function checkConnectionStatus() {
 	browser.runtime.sendMessage({ api: "aria2_getVersion" }, (response) => {
-		if (response === "error" || !response) {
+		if (!response || response === "error" || response.error) {
 			updatedConnectionStatus(false);
 		} else {
 			updatedConnectionStatus(true);
@@ -163,17 +163,22 @@ function checkConnectionStatus() {
 }
 
 function updatedConnectionStatus(isConnect) {
+	const indicator = document.querySelector(".connect-indicator");
 	if (isConnect) {
 		document.documentElement.style.setProperty("--connection-status-color", "var(--connect-color)");
-		document.querySelector(".connect-indicator").style.animation = "breathe 2s infinite ease-in-out";
-		document.querySelector(".connect-indicator").title = browser.i18n.getMessage("connect");
 		connectionStatus = true;
+		if (indicator) {
+			indicator.style.animation = "breathe 2s infinite ease-in-out";
+			indicator.title = browser.i18n.getMessage("connect");
+		}
 		// console.log("%cconnected to server", "color: green", response);
 	} else {
 		document.documentElement.style.setProperty("--connection-status-color", "var(--disconnect-color)");
-		document.querySelector(".connect-indicator").style.animation = "none";
-		document.querySelector(".connect-indicator").title = browser.i18n.getMessage("disconnect");
 		connectionStatus = false;
+		if (indicator) {
+			indicator.style.animation = "none";
+			indicator.title = browser.i18n.getMessage("disconnect");
+		}
 		// console.log("%cdisconnected to server", "color: red", "error");
 	}
 }
@@ -349,6 +354,7 @@ function createAddTaskDialog() {
 	const confirmBtnEvent = (e) => {
 		e.stopPropagation();
 		e.preventDefault();
+		if (confirmBtn.disabled) return; // block double submit (click + dblclick)
 		confirmBtn.disabled = true;
 		// setTimeout(() => (confirmBtn.disabled = false), 1000);
 		if (!connectionStatus) return showNotification(browser.i18n.getMessage("please_connect_first"), 3000, "error", true), (confirmBtn.disabled = false);
@@ -501,10 +507,10 @@ function fetchDownloadList() {
 
 function updateList(response) {
 	// init error
-	if (response.error && response.code === 1) return showNoTaskElement(browser.i18n.getMessage("please_connect_first")), updatedConnectionStatus(false);
+	if (!response || response === "error") return showNoTaskElement(browser.i18n.getMessage("unable_to_connect_to_server")), updatedConnectionStatus(false);
+	if (response.error) return showNoTaskElement(browser.i18n.getMessage("please_connect_first")), updatedConnectionStatus(false);
 	else arrow.hide();
-	if (response === "error" || !response) return showNoTaskElement(browser.i18n.getMessage("unable_to_connect_to_server")), updatedConnectionStatus(false);
-	else updatedConnectionStatus(true);
+	updatedConnectionStatus(true);
 
 	// get list from response && concat two result
 	let tellActiveList = response.result[0][0] || [];
@@ -612,15 +618,16 @@ function updateDownloadItemElement(el, i) {
 	i.downloadSpeed = bytesToSize(i.downloadSpeed, 2) + "/s"; // string
 	i.uploadSpeed = bytesToSize(i.uploadSpeed, 2) + "/s"; // string
 
+	const firstFile = (i.files && i.files[0]) || {};
 	if (i.bittorrent && i.bittorrent.info && i.bittorrent.info.name) {
-		i.taskPath = i.files[0].path || "";
+		i.taskPath = firstFile.path || "";
 		i.taskUri = "";
 		i.taskName = i.bittorrent.info.name;
 		i.fileparts = { extension: "", nameWithoutExtension: i.taskName };
 	} else {
-		if (!i.files[0].path || i.files[0].path === "") i.taskPath = i.dir || "";
-		else i.taskPath = i.files[0].path;
-		if (i.files[0].uris && i.files[0].uris.length > 0) i.taskUri = i.files[0].uris[0].uri;
+		if (!firstFile.path || firstFile.path === "") i.taskPath = i.dir || "";
+		else i.taskPath = firstFile.path;
+		if (firstFile.uris && firstFile.uris.length > 0) i.taskUri = firstFile.uris[0].uri;
 		else i.taskUri = "";
 		if (i.taskUri === "" || !i.taskUri) i.taskName = i.taskPath.substring(i.taskPath.lastIndexOf("/") + 1);
 		else if (i.dir === i.taskPath) i.taskName = i.taskUri;
@@ -735,10 +742,11 @@ function updateDownloadItemElement(el, i) {
 			e.stopPropagation();
 			e.preventDefault();
 			let status = downloadItemsState.get(i.gid);
-			if ((status === "removed" || status === "complete" || status === "error") && !i.bittorrent) {
+			const restartUri = i.files && i.files[0] && i.files[0].uris && i.files[0].uris[0] && i.files[0].uris[0].uri;
+			if ((status === "removed" || status === "complete" || status === "error") && !i.bittorrent && restartUri) {
 				browser.runtime.sendMessage({ api: "aria2_removeDownloadResult", gid: i.gid }).then((response) => {
 					// torrent magnet unable restart
-					browser.runtime.sendMessage({ api: "aria2_addUri", url: i.files[0].uris[0].uri }).then((response) => {
+					browser.runtime.sendMessage({ api: "aria2_addUri", url: restartUri }).then((response) => {
 						console.log("[delete task] gid:", i.gid, "[Received response] ", response);
 						deleteBtn.classList.remove("btn-restart-icon");
 						deleteBtn.classList.add("btn-delete-icon");
@@ -747,7 +755,7 @@ function updateDownloadItemElement(el, i) {
 					});
 					console.log("[delete task] gid:", i.gid, "[Received response] ", response);
 				});
-			} else if ((status === "removed" || status === "complete" || status === "error") && i.bittorrent) {
+			} else if ((status === "removed" || status === "complete" || status === "error") && (i.bittorrent || !restartUri)) {
 				browser.runtime.sendMessage({ api: "aria2_removeDownloadResult", gid: i.gid }).then((response) => {
 					console.log("[delete task history] gid:", i.gid, "[Received response] ", response);
 					fetchDownloadList();
@@ -912,7 +920,6 @@ function calculateRemainingTime(completedLength, totalLength, downloadSpeed) {
 	if (!totalLength || !downloadSpeed) return "N/A";
 	if (downloadSpeed == 0) return "N/A";
 	if (totalLength == 0) return "N/A";
-	console.log("test", downloadSpeed, totalLength, downloadSpeed);
 	const size = totalLength - completedLength;
 	const speed = downloadSpeed;
 	// int
