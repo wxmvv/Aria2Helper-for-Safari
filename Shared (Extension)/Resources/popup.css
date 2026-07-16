@@ -31,7 +31,12 @@
 	/* item info status */
 	--status-color: rgba(10, 10, 10, 0.6);
 	--status-color-dark: rgba(222, 222, 222, 0.6);
-	--status-active-color: rgba(255, 255, 255, 0.8); /* --status-active-color: rgba(0, 0, 0, 0.8); */
+	--status-active-color: rgba(
+		255,
+		255,
+		255,
+		0.8
+	); /* --status-active-color: rgba(0, 0, 0, 0.8); */
 	--status-active-color-dark: rgba(255, 255, 255, 0.8);
 
 	--name-active-color: rgba(255, 255, 255, 1);
@@ -166,8 +171,8 @@ label {
 
 .listen-icon {
 	background-color: var(--text-color) !important;
-	-webkit-mask-image: url("images/symbol/headphones.svg");
-	mask-image: url("images/symbol/headphones.svg");
+	-webkit-mask-image: url('images/symbol/headphones.svg');
+	mask-image: url('images/symbol/headphones.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -178,8 +183,8 @@ label {
 }
 .notlisten-icon {
 	background-color: var(--text-color) !important;
-	-webkit-mask-image: url("images/symbol/headphones.slash.svg");
-	mask-image: url("images/symbol/headphones.slash.svg");
+	-webkit-mask-image: url('images/symbol/headphones.slash.svg');
+	mask-image: url('images/symbol/headphones.slash.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -193,8 +198,8 @@ label {
 	position: absolute;
 	right: 6px;
 	background-color: var(--text-color);
-	-webkit-mask-image: url("images/symbol/arrowtriangle.down.fill.svg");
-	mask-image: url("images/symbol/arrowtriangle.down.fill.svg");
+	-webkit-mask-image: url('images/symbol/arrowtriangle.down.fill.svg');
+	mask-image: url('images/symbol/arrowtriangle.down.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -263,8 +268,8 @@ label {
 
 .settings-icon {
 	background-color: var(--btn-color);
-	-webkit-mask-image: url("images/symbol/gearshape.fill.svg");
-	mask-image: url("images/symbol/gearshape.fill.svg");
+	-webkit-mask-image: url('images/symbol/gearshape.fill.svg');
+	mask-image: url('images/symbol/gearshape.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -275,8 +280,8 @@ label {
 
 .addtask-icon {
 	background-color: var(--btn-color);
-	-webkit-mask-image: url("images/symbol/plus.app.fill.svg");
-	mask-image: url("images/symbol/plus.app.fill.svg");
+	-webkit-mask-image: url('images/symbol/plus.app.fill.svg');
+	mask-image: url('images/symbol/plus.app.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -287,8 +292,8 @@ label {
 
 .broom-icon {
 	background-color: var(--btn-color);
-	-webkit-mask-image: url("images/symbol/mingcute-broom-fill.svg");
-	mask-image: url("images/symbol/mingcute-broom-fill.svg");
+	-webkit-mask-image: url('images/symbol/mingcute-broom-fill.svg');
+	mask-image: url('images/symbol/mingcute-broom-fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -398,8 +403,8 @@ label {
 	height: 18px;
 	display: none;
 	background: var(--text-color);
-	-webkit-mask-image: url("images/symbol/xmark.circle.fill.svg");
-	mask-image: url("images/symbol/xmark.circle.fill.svg");
+	-webkit-mask-image: url('images/symbol/xmark.circle.fill.svg');
+	mask-image: url('images/symbol/xmark.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -489,8 +494,8 @@ textarea {
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
-	-webkit-mask-image: url("images/cloud.svg");
-	mask-image: url("images/cloud.svg");
+	-webkit-mask-image: url('images/cloud.svg');
+	mask-image: url('images/cloud.svg');
 }
 
 .no-task-text {
@@ -512,7 +517,7 @@ textarea {
 }
 /* divider */
 .item::after {
-	content: "";
+	content: '';
 	position: absolute;
 	left: 62px;
 	bottom: 0;
@@ -536,7 +541,7 @@ textarea {
 /* item icon */
 .item-icon {
 	position: relative;
-	background-image: url("images/file/file.png");
+	background-image: url('images/file/file.png');
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-blend-mode: color-burn;
@@ -547,14 +552,14 @@ textarea {
 }
 
 .item .item-icon.pause-icon::after {
-	mask-image: url("images/symbol/pause.circle.fill.svg");
+	mask-image: url('images/symbol/pause.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 .item .item-icon.play-icon::after {
-	mask-image: url("images/symbol/play.circle.fill.svg");
+	mask-image: url('images/symbol/play.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -565,7 +570,7 @@ textarea {
 	position: absolute;
 	left: 7px;
 	top: 9px;
-	content: "";
+	content: '';
 	width: 18px;
 	height: 18px;
 	border-radius: 8px;
@@ -585,7 +590,7 @@ textarea {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	content: "";
+	content: '';
 	width: 100%;
 	height: 100%;
 	filter: blur(4px);
@@ -599,7 +604,7 @@ textarea {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	content: "";
+	content: '';
 	width: 100%;
 	height: 100%;
 	filter: blur(4px);
@@ -721,8 +726,8 @@ textarea {
 }
 
 .btn-delete-icon {
-	-webkit-mask-image: url("images/symbol/x.circle.fill.svg");
-	mask-image: url("images/symbol/x.circle.fill.svg");
+	-webkit-mask-image: url('images/symbol/x.circle.fill.svg');
+	mask-image: url('images/symbol/x.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -732,8 +737,8 @@ textarea {
 }
 
 .btn-stop-icon {
-	-webkit-mask-image: url("images/symbol/stop.circle.fill.svg");
-	mask-image: url("images/symbol/stop.circle.fill.svg");
+	-webkit-mask-image: url('images/symbol/stop.circle.fill.svg');
+	mask-image: url('images/symbol/stop.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -743,8 +748,8 @@ textarea {
 }
 
 .btn-open-icon {
-	-webkit-mask-image: url("images/symbol/magnifyingglass.circle.fill.svg");
-	mask-image: url("images/symbol/magnifyingglass.circle.fill.svg");
+	-webkit-mask-image: url('images/symbol/magnifyingglass.circle.fill.svg');
+	mask-image: url('images/symbol/magnifyingglass.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -754,8 +759,8 @@ textarea {
 }
 
 .btn-restart-icon {
-	-webkit-mask-image: url("images/symbol/arrow.clockwise.circle.fill.svg");
-	mask-image: url("images/symbol/arrow.clockwise.circle.fill.svg");
+	-webkit-mask-image: url('images/symbol/arrow.clockwise.circle.fill.svg');
+	mask-image: url('images/symbol/arrow.clockwise.circle.fill.svg');
 	mask-size: contain;
 	mask-repeat: no-repeat;
 	mask-position: center;
@@ -792,7 +797,6 @@ textarea {
 .item.active .item-actions .btn-open-icon:active {
 	background-color: rgba(200, 200, 200, 0.6);
 }
-
 
 .item .item-actions .btn-delete-icon:active,
 .item .item-actions .btn-restart-icon:active,
