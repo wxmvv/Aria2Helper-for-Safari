@@ -792,3 +792,11 @@ textarea {
 .item.active .item-actions .btn-open-icon:active {
 	background-color: rgba(200, 200, 200, 0.6);
 }
+
+
+.item .item-actions .btn-delete-icon:active,
+.item .item-actions .btn-restart-icon:active,
+.item .item-actions .btn-stop-icon:active,
+.item .item-actions .btn-open-icon:active {
+	background-color: rgba(200, 200, 200, 1);
+}
