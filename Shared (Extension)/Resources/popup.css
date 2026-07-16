@@ -168,6 +168,9 @@ label {
 	background-color: var(--text-color) !important;
 	-webkit-mask-image: url("images/symbol/headphones.svg");
 	mask-image: url("images/symbol/headphones.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	opacity: 1;
 	cursor: default;
 	width: 18px;
@@ -177,6 +180,9 @@ label {
 	background-color: var(--text-color) !important;
 	-webkit-mask-image: url("images/symbol/headphones.slash.svg");
 	mask-image: url("images/symbol/headphones.slash.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	opacity: 0.4;
 	cursor: default;
 	width: 18px;
@@ -189,6 +195,9 @@ label {
 	background-color: var(--text-color);
 	-webkit-mask-image: url("images/symbol/arrowtriangle.down.fill.svg");
 	mask-image: url("images/symbol/arrowtriangle.down.fill.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	opacity: 0.6;
 	cursor: default;
 	width: 8px;
@@ -256,6 +265,9 @@ label {
 	background-color: var(--btn-color);
 	-webkit-mask-image: url("images/symbol/gearshape.fill.svg");
 	mask-image: url("images/symbol/gearshape.fill.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	cursor: default;
 	width: 16px;
 	height: 16px;
@@ -265,6 +277,9 @@ label {
 	background-color: var(--btn-color);
 	-webkit-mask-image: url("images/symbol/plus.app.fill.svg");
 	mask-image: url("images/symbol/plus.app.fill.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	cursor: default;
 	width: 16px;
 	height: 16px;
@@ -274,6 +289,9 @@ label {
 	background-color: var(--btn-color);
 	-webkit-mask-image: url("images/symbol/mingcute-broom-fill.svg");
 	mask-image: url("images/symbol/mingcute-broom-fill.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	cursor: default;
 	width: 16px;
 	height: 16px;
@@ -382,6 +400,9 @@ label {
 	background: var(--text-color);
 	-webkit-mask-image: url("images/symbol/xmark.circle.fill.svg");
 	mask-image: url("images/symbol/xmark.circle.fill.svg");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
 	cursor: default;
 
 	/* display: flex;
