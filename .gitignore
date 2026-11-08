@@ -148,3 +148,9 @@ dist-ssr
 *.sw?
 
 .claude
+# Build products
+build/
+build-*/
+DerivedData/
+settings/public/common/
+tests/ui/output/

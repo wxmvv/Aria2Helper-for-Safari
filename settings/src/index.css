@@ -38,3 +38,166 @@
 	--apple-system-accent: -apple-system-control-accent;
 	--apple-system-accent: var(--color-primary);
 }
+
+/* ------------------------------------------------------------------ */
+/* Setup wizard                                                        */
+/* ------------------------------------------------------------------ */
+
+.wizard-intro {
+	font-size: 0.85rem;
+	line-height: 1.6;
+	opacity: 0.75;
+}
+
+.wizard-steps {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.wizard-step {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 10px 12px;
+	border-radius: 12px;
+	border: 1px solid rgb(128 128 128 / 0.25);
+	background: rgb(255 255 255 / 0.18);
+}
+
+.wizard-step-index {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: rgba(98, 187, 68, 0.16);
+	background: rgb(from var(--color-primary) r g b / 0.16);
+	color: var(--color-primary);
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.wizard-command {
+	display: inline-block;
+	margin: 6px 6px 0 0;
+	padding: 4px 8px;
+	border-radius: 7px;
+	background: rgb(128 128 128 / 0.14);
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-size: 0.72rem;
+	word-break: break-all;
+}
+
+.wizard-note {
+	margin-top: 4px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	opacity: 0.7;
+}
+
+.scan-results {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.scan-result {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 12px;
+	border-radius: 10px;
+	border: 1px solid rgb(128 128 128 / 0.28);
+	text-align: left;
+	background: rgb(255 255 255 / 0.16);
+}
+
+.scan-result:hover {
+	border-color: var(--color-primary);
+}
+
+.engine-card {
+	padding: 10px 12px;
+	border-radius: 12px;
+	border: 1px solid rgba(98, 187, 68, 0.35);
+	border-color: rgb(from var(--color-primary) r g b / 0.35);
+	background: rgba(98, 187, 68, 0.08);
+	background: rgb(from var(--color-primary) r g b / 0.08);
+}
+
+/* ------------------------------------------------------------------ */
+/* Liquid Glass-inspired settings surfaces                             */
+/* ------------------------------------------------------------------ */
+
+:root {
+	--glass-stroke: rgb(255 255 255 / 0.45);
+	--glass-highlight: rgb(255 255 255 / 0.6);
+	--glass-shadow: rgb(15 23 42 / 0.18);
+}
+
+.glass body {
+	background:
+		radial-gradient(120% 90% at 10% -10%, rgb(255 255 255 / 0.55), transparent 55%),
+		radial-gradient(110% 90% at 100% 0%, rgb(from var(--color-primary) r g b / 0.18), transparent 52%),
+		linear-gradient(180deg, rgb(255 255 255 / 0.35), rgb(255 255 255 / 0.1));
+}
+
+.dark.glass body,
+.glass.dark body {
+	background:
+		radial-gradient(120% 90% at 10% -10%, rgb(255 255 255 / 0.12), transparent 55%),
+		radial-gradient(110% 90% at 100% 0%, rgb(from var(--color-primary) r g b / 0.22), transparent 52%),
+		linear-gradient(180deg, rgb(16 16 18 / 0.7), rgb(16 16 18 / 0.35));
+}
+
+.glass #sidebar,
+.glass #content {
+	backdrop-filter: blur(30px) saturate(180%);
+	-webkit-backdrop-filter: blur(30px) saturate(180%);
+	box-shadow:
+		inset 0 1px 0 var(--glass-highlight),
+		0 20px 50px var(--glass-shadow);
+}
+
+.glass #sidebar {
+	background: rgb(255 255 255 / 0.42);
+}
+
+.glass #content {
+	background: rgb(255 255 255 / 0.58);
+}
+
+.dark.glass #sidebar,
+.glass.dark #sidebar {
+	background: rgb(30 30 32 / 0.55);
+}
+
+.dark.glass #content,
+.glass.dark #content {
+	background: rgb(30 30 32 / 0.62);
+}
+
+.glass .wizard-step,
+.glass .scan-result,
+.glass .engine-card {
+	backdrop-filter: blur(18px) saturate(160%);
+	-webkit-backdrop-filter: blur(18px) saturate(160%);
+	box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+	.glass #sidebar,
+	.glass #content,
+	.glass .wizard-step,
+	.glass .scan-result,
+	.glass .engine-card {
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		background: rgb(255 255 255 / 0.95);
+	}
+}

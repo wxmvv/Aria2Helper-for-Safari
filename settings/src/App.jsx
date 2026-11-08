@@ -1,6 +1,5 @@
 import Aria2HelperTab from "./tabs/Aria2HelperSettings";
 
-import bgimg from "./assets/70_1750.png";
 import aria2helperIcon from "./assets/tabIcon/o.png";
 import aria2Icon from "./assets/tabIcon/Application Settings.webp";
 
@@ -13,20 +12,26 @@ import { TrafficLight } from "./components/TrafficLight";
 import { RPCTabView } from "./tabs/RPCTab";
 import { AboutTab } from "./tabs/AboutTab";
 import { OtherSettings } from "./tabs/OtherSettings";
+import { WelcomeTab } from "./tabs/WelcomeTab";
 
 import { t } from "./utils/i18n";
 
 import { useState, useEffect, useRef } from "react";
 
 function App({ helper }) {
-	const [tab, setTab] = useState("Aria2Helper");
+	const [tab, setTab] = useState(helper.isConfigured() ? "Aria2Helper" : "Welcome");
 	const [RPCTab, setRPCTab] = useState(helper.getCurrentProfileId());
 	const [RPCs, setRPCs] = useState(helper.getProfiles());
 	const [showSidebar, setShowSidebar] = useState(true);
 	const [isShowAlert, setIsShowAlert] = useState(false);
 	const [alertType, setAlertType] = useState("alert-success");
-	const [alertTitle, setAlertTitle] = useState("成功！");
+	const [alertTitle, setAlertTitle] = useState("");
 	const alertRef = useRef(null);
+
+	useEffect(() => {
+		const glass = helper.getSettings().appearance.liquidGlass !== false;
+		document.documentElement.classList.toggle("glass", glass);
+	}, [helper]);
 
 	const showAlert = (title, alertType) => {
 		if (!title) {
@@ -73,6 +78,13 @@ function App({ helper }) {
 		setRPCTab(helper.getCurrentProfileId());
 	};
 
+	const onConfigured = () => {
+		setRPCs(helper.getProfiles());
+		setRPCTab(helper.getCurrentProfileId());
+		showAlert(t("setup_saved"), "alert-success");
+		setTab("Aria2Helper");
+	};
+
 	const handleToggleClick = () => {
 		if (!showSidebar) {
 			document.documentElement.style.setProperty("--sidebar-width", "var(--sidebar-width-value)");
@@ -117,6 +129,7 @@ function App({ helper }) {
 							{tab && tab === "Aria2Helper" && t("helper_settings")}
 							{tab && tab === "Others" && t("other_settings")}
 							{tab && tab === "RPC" && t("aria2_settings")}
+							{tab && tab === "Welcome" && t("welcome")}
 						</div>
 					</div>
 				</div>
@@ -126,7 +139,7 @@ function App({ helper }) {
 
 				<div
 					id="sidebar"
-					className="transition-all opacity-[var(--sidebar-opacity)] absolute left-0 top-0 h-full z-10 border-r-0 border-r-amber-50/20 md:relative flex flex-col w-[var(--sidebar-width)] bg-base-100/[0.65] backdrop-blur-md"
+					className="transition-all opacity-[var(--sidebar-opacity)] absolute left-0 top-0 h-full z-10 border-r-0 border-r-amber-50/20 md:relative flex flex-col min-h-0 overflow-hidden w-[var(--sidebar-width)] bg-base-100/[0.65] backdrop-blur-md"
 				>
 					<div id="sidebar-header" className=" relative h-[var(--navbar-height)] min-h-[var(--navbar-height)] w-full ">
 						{/* <TrafficLight className="absolute top-[20px] left-[20px]" />
@@ -135,11 +148,12 @@ function App({ helper }) {
 						</button> */}
 					</div>
 					<div id="sidebar-content" className="mb-[var(--profile-gap-height)] flex flex-col py-[10px] px-[10px] gap-[2px] font-semibold">
-						<SidebarProfile className="mb-[var(--profile-gap-height)]" iconSrc={aria2helperIcon} selected={tab === "About"} title={t("extension_name")} subTitle={"v1.4.0"} onClick={() => setTab("About")} />
+						<SidebarProfile className="mb-[var(--profile-gap-height)]" iconSrc={aria2helperIcon} selected={tab === "About"} title={t("extension_name")} subTitle={`v${helper.Version}`} onClick={() => setTab("About")} />
+						<SidebarItem iconSrc={aria2helperIcon} selected={tab === "Welcome"} title={t("welcome")} onClick={() => setTab("Welcome")} />
 						<SidebarItem iconSrc={aria2helperIcon} selected={tab === "Aria2Helper"} title={t("helper_settings")} onClick={() => setTab("Aria2Helper")} />
 						<SidebarItem iconSrc={aria2Icon} selected={tab === "Others"} title={t("other_settings")} onClick={() => setTab("Others")} />
 					</div>
-					<div id="section-title" className="flex flex-row items-center px-[10px] pt-[10px] justify-between gap-[10px] text-l font-bold text-gray-600">
+					<div id="section-title" className="flex flex-row items-center px-[10px] pt-[10px] justify-between gap-[10px] text-l font-bold text-base-content/60">
 						<div className="">{t("aria2_settings")}</div>
 						{/* 添加 删除rpc按钮 */}
 						{/* <div className="flex flex-row gap-[10px]">
@@ -151,10 +165,10 @@ function App({ helper }) {
 							</button>
 						</div> */}
 					</div>
-					<div id="sidebar-content" className="flex flex-col px-[10px] gap-[2px] font-semibold  overflow-scroll grow">
+					<div id="sidebar-profiles" className="flex flex-col px-[10px] gap-[2px] font-semibold overflow-y-auto grow min-h-0">
 						{/* <div className="flex flex-col gap-[2px] h-[450px] pb-[10px]"> */}
 						<div className="flex flex-col gap-[2px] pb-[10px]">
-							{Object.keys(RPCs).map((rpcKey, index) => {
+							{Object.keys(RPCs).map((rpcKey) => {
 								return (
 									<SidebarItem
 										className={RPCs[rpcKey].isDefault ? "bg-primary/20" : ""}
@@ -168,12 +182,12 @@ function App({ helper }) {
 							})}
 						</div>
 					</div>
-					<div className="flex flex-row gap-[10px] p-[10px]">
+					<div className="flex flex-row gap-[10px] p-[10px] shrink-0">
 						<button className="btn btn-primary grow" onClick={addRPC}>
-							添加
+							{t("add_profile")}
 						</button>
 						<button className="btn btn-error grow" disabled={!RPCTab || tab !== "RPC"} onClick={removeRPC}>
-							删除
+							{t("remove_profile")}
 						</button>
 					</div>
 				</div>
@@ -190,12 +204,14 @@ function App({ helper }) {
 								{tab && tab === "Aria2Helper" && t("helper_settings")}
 								{tab && tab === "Others" && t("other_settings")}
 								{tab && tab === "RPC" && t("aria2_settings")}
+							{tab && tab === "Welcome" && t("welcome")}
 							</div>
 						</div> */}
 					</div>
 					<div className="w-full h-full overflow-scroll p-[20px]">
 						<div className="safe-area h-[var(--safe-area-top)] bg-transparent w-full"></div>
 						{tab && tab === "About" && <AboutTab />}
+						{tab && tab === "Welcome" && <WelcomeTab helper={helper} onConfigured={onConfigured} />}
 						{tab && tab === "Aria2Helper" && <Aria2HelperTab helper={helper} />}
 						{tab && tab === "Others" && "Others" && <OtherSettings helper={helper} />}
 						{tab && tab === "RPC" && RPCTab && <RPCTabView onRPCUpdate={onRPCUpdate} helper={helper} />}

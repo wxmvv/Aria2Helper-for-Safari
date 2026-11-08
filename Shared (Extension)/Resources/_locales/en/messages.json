@@ -71,7 +71,7 @@
 		"message": "open settings page"
 	},
 	"clear": {
-		"message": "clear"
+		"message": "Clear"
 	},
 	"clear_download_list": {
 		"message": "clear download list"
@@ -194,7 +194,7 @@
 		"message": "Show Notification"
 	},
 	"listen_downloads": {
-		"message": "Listen Downloads"
+		"message": "Intercept download links"
 	},
 	"listen_downloads_extensions": {
 		"message": "Here, you can fill in the suffix to be monitored, separated by \",\" , Priority:whitelist > blacklist > default"
@@ -238,7 +238,6 @@
 	"parameters_example": {
 		"message": "Example: \"dir=/path/to/download,parameter2=value2\""
 	},
-
 	"setting_view_theme": {
 		"message": "Setting View Theme"
 	},
@@ -266,7 +265,6 @@
 	"aria2_settings": {
 		"message": "Aria2 Settings"
 	},
-
 	"dir_--dir": {
 		"message": "Download directory --dir"
 	},
@@ -290,5 +288,185 @@
 	},
 	"bg_color": {
 		"message": "Background Color"
+	},
+	"setup_aria2": {
+		"message": "Set up aria2"
+	},
+	"retry": {
+		"message": "Retry"
+	},
+	"engine_connected": {
+		"message": "aria2"
+	},
+	"enter_links_hint": {
+		"message": "Paste links, one per line"
+	},
+	"links_detected": {
+		"message": "links detected"
+	},
+	"choose_torrent_files": {
+		"message": "Choose .torrent / .metalink files"
+	},
+	"drop_files_here": {
+		"message": "or drop them here"
+	},
+	"files_selected": {
+		"message": "files selected"
+	},
+	"select_all": {
+		"message": "Select all"
+	},
+	"select_none": {
+		"message": "Select none"
+	},
+	"no_files_selected": {
+		"message": "No files selected"
+	},
+	"skip_list_applied": {
+		"message": "Skipped file types"
+	},
+	"added": {
+		"message": "added"
+	},
+	"failed": {
+		"message": "failed"
+	},
+	"skipped": {
+		"message": "skipped"
+	},
+	"cannot_pause_task": {
+		"message": "This task cannot be paused"
+	},
+	"open_setup": {
+		"message": "Open setup"
+	},
+	"engine_label": {
+		"message": "Engine"
+	},
+	"setup_title": {
+		"message": "Connect aria2"
+	},
+	"setup_intro": {
+		"message": "Aria2Helper talks to aria2, aria2-next or Rayburst over JSON-RPC. Pick a preset, then confirm the port and secret."
+	},
+	"setup_preset": {
+		"message": "Preset"
+	},
+	"setup_scan": {
+		"message": "Scan local engines"
+	},
+	"setup_scanning": {
+		"message": "Scanning…"
+	},
+	"setup_scan_none": {
+		"message": "No local engine answered. Start aria2 or Rayburst, then scan again."
+	},
+	"setup_secret_required": {
+		"message": "This engine requires an RPC secret."
+	},
+	"setup_secret_hint": {
+		"message": "Rayburst: Settings › Engine › RPC secret. aria2: the --rpc-secret value."
+	},
+	"setup_test": {
+		"message": "Test connection"
+	},
+	"setup_testing": {
+		"message": "Testing…"
+	},
+	"setup_connected": {
+		"message": "Connected"
+	},
+	"setup_failed": {
+		"message": "Connection failed"
+	},
+	"setup_save": {
+		"message": "Save and use this profile"
+	},
+	"setup_saved": {
+		"message": "Saved"
+	},
+	"setup_step_install": {
+		"message": "1. Install or start an engine"
+	},
+	"setup_step_connect": {
+		"message": "2. Connect"
+	},
+	"setup_step_enable": {
+		"message": "3. Enable the Safari extension"
+	},
+	"setup_install_aria2": {
+		"message": "Install aria2 with Homebrew"
+	},
+	"setup_install_next": {
+		"message": "Or run aria2-next / Rayburst"
+	},
+	"setup_enable_hint": {
+		"message": "Safari › Settings › Extensions: turn on Aria2Helper. The toolbar button lives next to the address bar."
+	},
+	"setup_copy": {
+		"message": "Copy"
+	},
+	"setup_copied": {
+		"message": "Copied"
+	},
+	"setup_required": {
+		"message": "Host and port are required"
+	},
+	"setup_parse_failed": {
+		"message": "Could not understand that RPC URL"
+	},
+	"setup_paste_url": {
+		"message": "Paste an RPC URL (optional)"
+	},
+	"setup_paste_url_hint": {
+		"message": "http://127.0.0.1:6800/jsonrpc"
+	},
+	"rpc_test": {
+		"message": "Test connection"
+	},
+	"rpc_test_ok": {
+		"message": "Connected to {engine}"
+	},
+	"rpc_test_fail": {
+		"message": "Connection failed"
+	},
+	"skip_extensions": {
+		"message": "Never send these file types"
+	},
+	"skip_extensions_hint": {
+		"message": "Comma separated, for example: .jpg, .png, .nfo"
+	},
+	"skip_in_torrent": {
+		"message": "Skip these types inside torrents"
+	},
+	"confirm_torrent_selection": {
+		"message": "Review torrent files before adding"
+	},
+	"send_cookies": {
+		"message": "Send page cookies to aria2"
+	},
+	"send_referer": {
+		"message": "Send page referer to aria2"
+	},
+	"appearance": {
+		"message": "Appearance"
+	},
+	"liquid_glass": {
+		"message": "Liquid Glass surfaces"
+	},
+	"liquid_glass_hint": {
+		"message": "Translucent layered surfaces. Turn off for a flat look."
+	},
+	"welcome": {
+		"message": "Get started"
+	},
+	"engine_info": {
+		"message": "Engine"
+	},
+	"engine_offline": {
+		"message": "Not connected"
+	},
+	"add_profile": {
+		"message": "Add profile"
 	}
 }

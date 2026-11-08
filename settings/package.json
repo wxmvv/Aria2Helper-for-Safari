@@ -1,11 +1,13 @@
 {
   "name": "settings",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/sync-common.mjs",
     "dev": "vite",
-    "build": "vite build && mv dist/settings/* '../Shared (Extension)/Resources/'",
+    "prebuild": "node scripts/sync-common.mjs",
+    "build": "vite build && node scripts/copy-to-extension.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

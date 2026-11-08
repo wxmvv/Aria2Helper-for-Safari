@@ -1,5 +1,5 @@
 import { useTheme } from "next-themes";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 const DAISYUI_THEMES = [
 	"light",
@@ -40,7 +40,7 @@ const DAISYUI_THEMES = [
 ];
 
 export function useThemeHook() {
-	const { theme, setTheme, resolvedTheme, systemTheme } = useTheme();
+	const { theme, setTheme, resolvedTheme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 
 	const [lightDaisyTheme, setLightDaisyTheme] = useState("light");
@@ -85,7 +85,9 @@ export function useThemeHook() {
 
 	useEffect(() => {
 		applyDaisyTheme();
-	}, [lightDaisyTheme, darkDaisyTheme, resolvedTheme, mounted]); // 添加 resolvedTheme
+		// applyDaisyTheme is intentionally recreated per render; it only writes DOM/localStorage.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [lightDaisyTheme, darkDaisyTheme, resolvedTheme, mounted]);
 
 	return {
 		setBaseTheme, // 设置基础模式

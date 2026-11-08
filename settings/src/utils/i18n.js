@@ -1,6 +1,6 @@
-// browser.i18n.getMessage
+import core from "../lib/core.js";
 
+/** Localised string via the shared i18n wrapper; falls back to the key in dev. */
 export function t(messageName) {
-	if (typeof browser !== "undefined" && browser && browser.i18n && browser.i18n.getMessage) return browser.i18n.getMessage(messageName);
-	else return messageName;
+	return core.i18n.t(messageName);
 }

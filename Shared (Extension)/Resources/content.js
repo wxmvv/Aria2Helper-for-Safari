@@ -1,398 +1,142 @@
-const extensions = {
-	video: {
-		name: "Videos",
-		extensions: [
-			".3g2",
-			".3gp",
-			".3gp2",
-			".3gpp",
-			".asf",
-			".asx",
-			".avi",
-			".dat",
-			".divx",
-			".flv",
-			".m1v",
-			".m2ts",
-			".m2v",
-			".m4v",
-			".mkv",
-			".mov",
-			".mp4",
-			".mpe",
-			".mpeg",
-			".mpg",
-			".mts",
-			".ogv",
-			".qt",
-			".ram",
-			".rm",
-			".rmvb",
-			".ts",
-			".vob",
-			".wmv",
-		],
-	},
-	audio: {
-		name: "Audios",
-		extensions: [
-			".aac",
-			".ac3",
-			".adts",
-			".amr",
-			".ape",
-			".eac3",
-			".flac",
-			".m1a",
-			".m2a",
-			".m4a",
-			".mid",
-			".mka",
-			".mp2",
-			".mp3",
-			".mpa",
-			".mpc",
-			".ogg",
-			".ra",
-			".tak",
-			".vqf",
-			".wm",
-			".wav",
-			".wma",
-			".wv",
-		],
-	},
-	picture: {
-		name: "Pictures",
-		extensions: [
-			".abr",
-			".bmp",
-			".emf",
-			".gif",
-			".j2c",
-			".j2k",
-			".jfif",
-			".jif",
-			".jp2",
-			".jpc",
-			".jpe",
-			".jpeg",
-			".jpf",
-			".jpg",
-			".jpk",
-			".jpx",
-			".pcx",
-			".pct",
-			".pic",
-			".pict",
-			".png",
-			".pns",
-			".psd",
-			".psdx",
-			".raw",
-			".svg",
-			".svgz",
-			".tga",
-			".tif",
-			".tiff",
-			".wbm",
-			".wbmp",
-			".webp",
-			".wmf",
-			".xif",
-		],
-	},
-	document: {
-		name: "Documents",
-		extensions: [
-			".csv",
-			".doc",
-			".docm",
-			".docx",
-			".dot",
-			".dotm",
-			".dotx",
-			".key",
-			".mpp",
-			".numbers",
-			".odp",
-			".ods",
-			".odt",
-			".pages",
-			".pdf",
-			".pot",
-			".potm",
-			".potx",
-			".pps",
-			".ppsm",
-			".ppsx",
-			".ppt",
-			".pptm",
-			".pptx",
-			".rtf",
-			".txt",
-			".vsd",
-			".vsdx",
-			".wk1",
-			".wk2",
-			".wk3",
-			".wk4",
-			".wks",
-			".wpd",
-			".wps",
-			".xla",
-			".xlam",
-			".xll",
-			".xlm",
-			".xls",
-			".xlsb",
-			".xlsm",
-			".xlsx",
-			".xlt",
-			".xltx",
-			".xlw",
-			".xps",
-		],
-	},
-	application: {
-		name: "Applications",
-		extensions: [".apk", ".bat", ".com", ".deb", ".dll", ".dmg", ".exe", ".ipa", ".jar", ".msi", ".rpm", ".sh"],
-	},
-	archive: {
-		name: "Archives",
-		extensions: [
-			".001",
-			".7z",
-			".ace",
-			".arj",
-			".bz2",
-			".cab",
-			".cbr",
-			".cbz",
-			".gz",
-			".img",
-			".iso",
-			".lzh",
-			".qcow2",
-			".r",
-			".rar",
-			".sef",
-			".tar",
-			".taz",
-			".tbz",
-			".tbz2",
-			".uue",
-			".vdi",
-			".vhd",
-			".vmdk",
-			".wim",
-			".xar",
-			".xz",
-			".z",
-			".zip",
-		],
-	},
-	others: {
-		name: "Others",
-		extensions: [".bin", ".db", ".torrent", ".sig", ".eaglepack"],
-	},
-};
+/**
+ * Content script: hands matching link clicks to aria2.
+ * Loaded after common/*.js (see manifest.json), guarded against double injection.
+ */
+(function () {
+	"use strict";
 
-let filterLists = {
-	blacklist: {
-		name: "Blacklist",
-		extensions: [],
-	},
-	whitelist: {
-		name: "Whitelist",
-		extensions: [],
-	},
-};
+	if (window.__aria2HelperContentLoaded) return;
+	window.__aria2HelperContentLoaded = true;
 
-function matchBlacklist(url, blacklist) {
-	const urlLower = url.toLowerCase();
-	const lastDotIndex = urlLower.lastIndexOf(".");
-	if (lastDotIndex === -1) return false;
+	const A = window.Aria2Helper;
+	if (!A || !A.filters || !A.messaging) return;
 
-	const ext = urlLower.substring(lastDotIndex);
-	return blacklist.extensions.some((extension) => ext.endsWith(extension.toLowerCase()));
-}
-function matchWhitelist(url, whitelist) {
-	const urlLower = url.toLowerCase();
-	const lastDotIndex = urlLower.lastIndexOf(".");
-	if (lastDotIndex === -1) return null;
+	const { filters, files, storage, messaging, i18n } = A;
 
-	const ext = urlLower.substring(lastDotIndex);
-	const matched = whitelist.extensions.find((extension) => ext.endsWith(extension.toLowerCase()));
+	let settings = null;
 
-	if (matched) {
-		return {
-			category: "whitelist",
-			name: whitelist.name,
-			extension: matched,
-		};
+	function refreshSettings() {
+		storage
+			.loadState()
+			.then((state) => {
+				settings = state.settings;
+			})
+			.catch(() => {
+				settings = null;
+			});
 	}
-	return null;
-}
-function matchDefaultExtensions(url, extensions) {
-	const urlLower = url.toLowerCase();
-	const lastDotIndex = urlLower.lastIndexOf(".");
-	if (lastDotIndex === -1) return null;
 
-	const ext = urlLower.substring(lastDotIndex);
+	refreshSettings();
+	if (window.browser && window.browser.storage && window.browser.storage.onChanged) {
+		window.browser.storage.onChanged.addListener(() => refreshSettings());
+	}
 
-	for (const [category, data] of Object.entries(extensions)) {
-		const matched = data.extensions.find((extension) => ext.endsWith(extension.toLowerCase()));
-		if (matched) {
-			return {
-				category: category,
-				name: data.name,
-				extension: matched,
-			};
+	function findAnchor(node) {
+		let element = node;
+		while (element && element.nodeType === Node.ELEMENT_NODE) {
+			if (element.nodeName === "A") return element;
+			// A button inside a link usually has its own click behaviour; leave it alone.
+			if (element.nodeName === "BUTTON" && element.parentElement && element.parentElement.nodeName === "A") return null;
+			element = element.parentElement;
+		}
+		return null;
+	}
+
+	function resolvedHttpUrl(anchor) {
+		const raw = anchor.getAttribute("href");
+		if (!raw || raw.startsWith("#") || /^(javascript|mailto|tel|data|blob):/i.test(raw)) return "";
+		const absolute = files.resolveUrl(raw, document.baseURI);
+		if (!absolute || !files.isHttpUrl(absolute)) return "";
+		try {
+			const url = new URL(absolute);
+			return `${url.origin}${url.pathname}`;
+		} catch {
+			return "";
 		}
 	}
-	return null;
-}
 
-// Preferred White List -> Black List -> Default Extension
-function matchExtensionWithFilters(url, extensions, filterLists) {
-	// whitelist
-	const whitelistResult = matchWhitelist(url, filterLists.whitelist);
-	if (whitelistResult) return whitelistResult;
-	// blacklist
-	if (matchBlacklist(url, filterLists.blacklist)) return null;
-	// default extensions
-	return matchDefaultExtensions(url, extensions);
-}
+	function openNatively(anchor) {
+		const href = anchor.href;
+		if (!href) return;
+		try {
+			if (anchor.hasAttribute("download")) {
+				const link = anchor.cloneNode(true);
+				link.style.display = "none";
+				document.body.appendChild(link);
+				link.click();
+				link.remove();
+				return;
+			}
+			const target = anchor.getAttribute("target");
+			if (target === "_blank") {
+				const opened = window.open(href, "_blank", "noopener");
+				if (opened) return;
+			}
+			if (target === "_top" && window.top) {
+				window.top.location.href = href;
+				return;
+			}
+			if (target === "_parent" && window.parent) {
+				window.parent.location.href = href;
+				return;
+			}
+			window.location.href = href;
+		} catch (error) {
+			console.warn("[Aria2Helper] Could not open the link: ", error);
+		}
+	}
 
-// simulate link behavior
-function simulateLinkBehavior(element) {
-	try {
-		const href = element.getAttribute("href");
-	
-		const targetAttr = element.getAttribute("target");
-		const hasDownload = element.hasAttribute("download");
+	function notify(title, body) {
+		if (!settings || !settings.showNotification) return;
+		messaging.send({ api: "native.notify", title, body }, { timeoutMs: 5000 }).catch(() => {});
+	}
 
-		const tempLink = element.cloneNode(true);
-		tempLink.href = href;
+	async function handleClick(event) {
+		if (event.defaultPrevented) return;
+		if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+		const anchor = findAnchor(event.target);
+		if (!anchor) return;
+		if (anchor.hasAttribute("data-aria2helper-ignore")) return;
+		const href = anchor.getAttribute("href");
+		if (!href) return;
+		if (anchor.href && anchor.href.includes("github.com") && anchor.href.includes("archive/refs/heads")) return;
 
-		if (hasDownload) {
-			tempLink.download = element.getAttribute("download") || "";
-			tempLink.style.display = "none";
-			document.body.appendChild(tempLink);
-			tempLink.click();
-			document.body.removeChild(tempLink);
+		const url = resolvedHttpUrl(anchor);
+		if (!url) return;
+		if (!settings) {
+			// Settings have not loaded yet: let Safari handle the click instead of blocking it.
+			return;
+		}
+		// "Listen for downloads" is the master switch for automatic interception.
+		if (!settings.listenDownloads) return;
+		const decision = filters.decideInterception(url, settings);
+		if (!decision.intercept) return;
+
+		event.preventDefault();
+		const parts = files.getFileParts(url);
+		const response = await messaging.send(
+			{
+				api: "downloads.addUri",
+				url: anchor.href,
+				referer: location.href,
+				cookie: document.cookie || "",
+			},
+			{ timeoutMs: 8000 }
+		);
+		if (response.ok) {
+			notify(i18n.t("Task_added_successfully", "Download started"), parts.filename || url);
 		} else {
-			switch (targetAttr) {
-				case "_blank":
-					window.open(href, "_blank");
-					break;
-				case "_top":
-					window.top.location.href = href;
-					break;
-				case "_parent":
-					window.parent.location.href = href;
-					break;
-				default:
-					window.location.href = href;
-					break;
-			}
+			console.warn("[Aria2Helper] aria2 rejected the link, falling back to Safari: ", response.error);
+			openNatively(anchor);
+			notify(i18n.t("Task_added_failed", "Could not reach aria2"), response.error ? response.error.message : "");
 		}
-	} catch (error) {
-		console.error("[Aria2Helper] Error simulating link behavior:", error);
-	}
-}
-
-function getFileParts(filename) {
-	if (typeof filename !== "string" || filename.trim() === "") {
-		return {
-			extension: "",
-			nameWithoutExtension: "",
-		};
 	}
 
-	filename = filename.trim();
+	document.addEventListener("click", (event) => {
+		handleClick(event).catch((error) => console.warn("[Aria2Helper] click handler failed: ", error));
+	});
 
-	filename = decodeURIComponent(filename.substring(filename.lastIndexOf("/") + 1));
-	const lastDotIndex = filename.lastIndexOf(".");
-	if (
-		lastDotIndex === -1 || // no dot
-		lastDotIndex === 0 || // start with dot (.gitignore)
-		lastDotIndex === filename.length - 1
-	) {
-		// end with dot (file.)
-		return {
-			extension: "",
-			nameWithoutExtension: filename,
-		};
-	}
-	const ext = filename.slice(lastDotIndex + 1);
-	return {
-		filename: filename,
-		extension: ext ? `.${ext}` : "", // add dot if ext is not empty
-		nameWithoutExtension: filename.slice(0, lastDotIndex),
-	};
-}
-
-function getRequestHeaders() {
-	const headers = {};
-
-	headers["User-Agent"] = navigator.userAgent;
-	headers["Accept-Language"] = navigator.language;
-
-	return headers;
-}
-
-// main
-browser.storage.local.get(["settings"]).then((result) => {
-	let settings = result.settings;
-	if (settings && settings.listenDownloads) {
-		console.log("[Aria2Helper] start to listen downloads");
-
-		let listener = (event) => {
-			// command control option shift pressed when click -> ignore
-			if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
-
-			let target = event.target;
-
-			while (target && target.nodeName !== "A") {
-				if (target.nodeName === "BUTTON" && target.parentElement && target.parentElement.nodeName === "A") return; // for button inside a tag, ignore,it will download twice
-				target = target.parentElement;
-			}
-			if (target && target.nodeName === "A") {
-				if (!target.hasAttribute("href")) return;
-				if (target.href.includes("archive/refs/heads") && target.href.includes("github.com")) return; // ignore github archive links
-				if (!target.getAttribute("href").includes(".")) return;
-
-				event.preventDefault(); // block default behavior
-
-				const url = new URL(target.href);
-				const testUrl = url.origin + url.pathname;
-
-				if (matchExtensionWithFilters(testUrl, extensions, filterLists)) {
-					const fileparts = getFileParts(testUrl);
-					// post to aria2 server
-					browser.runtime.sendMessage({ api: "aria2_addUri", url: target.href, cookie: document.cookie, header: getRequestHeaders() }).then((response) => {
-						if (response === "error") {
-							console.log("[aria2Helper] error to connect aria2 server, download with safari native");
-							simulateLinkBehavior(target);
-							if (settings.showNotification)
-								browser.runtime.sendMessage({ api: "native-open-notification", title: "Error", subtitle: "", body: `Error to connect aria2 server. Download with Safari Native.` });
-						} else {
-							if (settings.showNotification)
-								browser.runtime.sendMessage({ api: "native-open-notification", title: "Success", subtitle: "", body: `[Download started] ${fileparts.filename}` });
-						}
-					});
-				} else {
-					simulateLinkBehavior(target);
-				}
-			}
-		};
-
-		document.addEventListener("click", listener);
-
-		window.addEventListener("unload", () => {
-			document.removeEventListener("click", listener);
-		});
-	}
-});
+	window.addEventListener("pagehide", () => {
+		window.__aria2HelperContentLoaded = false;
+	});
+})();

@@ -1,0 +1,12 @@
+{
+	"name": "aria2helper",
+	"private": true,
+	"version": "2.0.0",
+	"description": "Safari web extension that hands downloads to aria2 / aria2-next",
+	"scripts": {
+		"test": "node --test tests/unit/*.test.mjs",
+		"test:integration": "node --test tests/integration/*.test.mjs",
+		"build:settings": "npm --prefix settings run build",
+		"lint:settings": "npm --prefix settings run lint"
+	}
+}

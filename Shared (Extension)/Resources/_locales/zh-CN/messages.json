@@ -194,7 +194,7 @@
 		"message": "显示通知"
 	},
 	"listen_downloads": {
-		"message": "监听系统下载请求(根据输入的文件扩展名拦截请求)"
+		"message": "拦截网页下载链接（按扩展名匹配）"
 	},
 	"listen_downloads_extensions": {
 		"message": "这里填写需要监听后缀，用\",\"分割，优先级: 白名单>黑名单>默认"
@@ -238,11 +238,9 @@
 	"parameters_example": {
 		"message": "示例: --all-proxy=http://127.0.0.1:1080"
 	},
-
 	"setting_view_theme": {
 		"message": "设置页面主题"
 	},
-
 	"base_theme": {
 		"message": "基础主题"
 	},
@@ -267,7 +265,6 @@
 	"aria2_settings": {
 		"message": "Aira2设置"
 	},
-
 	"dir_--dir": {
 		"message": "下载目录 --dir"
 	},
@@ -291,5 +288,185 @@
 	},
 	"bg_color": {
 		"message": "背景色"
+	},
+	"setup_aria2": {
+		"message": "连接 aria2"
+	},
+	"retry": {
+		"message": "重试"
+	},
+	"engine_connected": {
+		"message": "aria2"
+	},
+	"enter_links_hint": {
+		"message": "每行一个链接"
+	},
+	"links_detected": {
+		"message": "个链接"
+	},
+	"choose_torrent_files": {
+		"message": "选择 .torrent / .metalink 文件"
+	},
+	"drop_files_here": {
+		"message": "也可以拖拽到这里"
+	},
+	"files_selected": {
+		"message": "个文件已选"
+	},
+	"select_all": {
+		"message": "全选"
+	},
+	"select_none": {
+		"message": "全不选"
+	},
+	"no_files_selected": {
+		"message": "没有选中文件"
+	},
+	"skip_list_applied": {
+		"message": "已跳过文件类型"
+	},
+	"added": {
+		"message": "已添加"
+	},
+	"failed": {
+		"message": "失败"
+	},
+	"skipped": {
+		"message": "已跳过"
+	},
+	"cannot_pause_task": {
+		"message": "该任务无法暂停"
+	},
+	"open_setup": {
+		"message": "打开设置"
+	},
+	"engine_label": {
+		"message": "引擎"
+	},
+	"setup_title": {
+		"message": "连接 aria2"
+	},
+	"setup_intro": {
+		"message": "Aria2Helper 通过 JSON-RPC 连接 aria2、aria2-next 或 Rayburst。选择预设后确认端口和密钥。"
+	},
+	"setup_preset": {
+		"message": "预设"
+	},
+	"setup_scan": {
+		"message": "扫描本机引擎"
+	},
+	"setup_scanning": {
+		"message": "正在扫描…"
+	},
+	"setup_scan_none": {
+		"message": "没有发现本机引擎。请先启动 aria2 或 Rayburst，然后重新扫描。"
+	},
+	"setup_secret_required": {
+		"message": "该引擎需要 RPC 密钥。"
+	},
+	"setup_secret_hint": {
+		"message": "Rayburst：设置 › 引擎 › RPC 密钥。aria2：启动参数 --rpc-secret 的值。"
+	},
+	"setup_test": {
+		"message": "测试连接"
+	},
+	"setup_testing": {
+		"message": "正在测试…"
+	},
+	"setup_connected": {
+		"message": "已连接"
+	},
+	"setup_failed": {
+		"message": "连接失败"
+	},
+	"setup_save": {
+		"message": "保存并使用此配置"
+	},
+	"setup_saved": {
+		"message": "已保存"
+	},
+	"setup_step_install": {
+		"message": "1. 安装或启动引擎"
+	},
+	"setup_step_connect": {
+		"message": "2. 连接"
+	},
+	"setup_step_enable": {
+		"message": "3. 启用 Safari 扩展"
+	},
+	"setup_install_aria2": {
+		"message": "使用 Homebrew 安装 aria2"
+	},
+	"setup_install_next": {
+		"message": "或运行 aria2-next / Rayburst"
+	},
+	"setup_enable_hint": {
+		"message": "Safari › 设置 › 扩展：打开 Aria2Helper。工具栏按钮在地址栏旁边。"
+	},
+	"setup_copy": {
+		"message": "复制"
+	},
+	"setup_copied": {
+		"message": "已复制"
+	},
+	"setup_required": {
+		"message": "主机和端口不能为空"
+	},
+	"setup_parse_failed": {
+		"message": "无法解析该 RPC 地址"
+	},
+	"setup_paste_url": {
+		"message": "粘贴 RPC 地址（可选）"
+	},
+	"setup_paste_url_hint": {
+		"message": "http://127.0.0.1:6800/jsonrpc"
+	},
+	"rpc_test": {
+		"message": "测试连接"
+	},
+	"rpc_test_ok": {
+		"message": "已连接到 {engine}"
+	},
+	"rpc_test_fail": {
+		"message": "连接失败"
+	},
+	"skip_extensions": {
+		"message": "这些文件类型不发送给 aria2"
+	},
+	"skip_extensions_hint": {
+		"message": "用逗号分隔，例如：.jpg, .png, .nfo"
+	},
+	"skip_in_torrent": {
+		"message": "在种子内跳过这些类型"
+	},
+	"confirm_torrent_selection": {
+		"message": "添加种子前先选择文件"
+	},
+	"send_cookies": {
+		"message": "向 aria2 发送页面 Cookie"
+	},
+	"send_referer": {
+		"message": "向 aria2 发送页面 Referer"
+	},
+	"appearance": {
+		"message": "外观"
+	},
+	"liquid_glass": {
+		"message": "液态玻璃效果"
+	},
+	"liquid_glass_hint": {
+		"message": "半透明分层质感，关闭后为平面样式。"
+	},
+	"welcome": {
+		"message": "开始使用"
+	},
+	"engine_info": {
+		"message": "引擎"
+	},
+	"engine_offline": {
+		"message": "未连接"
+	},
+	"add_profile": {
+		"message": "添加配置"
 	}
 }
