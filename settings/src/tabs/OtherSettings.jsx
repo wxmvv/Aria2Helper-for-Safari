@@ -12,11 +12,17 @@ import { t } from "../utils/i18n";
 export function OtherSettings({ helper }) {
 	const { baseTheme, setBaseTheme, lightDaisyTheme, darkDaisyTheme, setLightTheme, setDarkTheme, daisyThemes } = useThemeHook();
 	const [liquidGlass, setLiquidGlass] = useState(helper.getSettings().appearance.liquidGlass !== false);
+	const [showBackground, setShowBackground] = useState(helper.getSettings().appearance.showBackground !== false);
 
 	const toggleGlass = (enabled) => {
 		setLiquidGlass(enabled);
 		helper.updateSettings({ appearance: { liquidGlass: enabled } });
 		document.documentElement.classList.toggle("glass", enabled);
+	};
+
+	const toggleBackground = (enabled) => {
+		setShowBackground(enabled);
+		helper.updateSettings({ appearance: { showBackground: enabled } });
 	};
 
 	return (
@@ -32,6 +38,18 @@ export function OtherSettings({ helper }) {
 						type="checkbox"
 						checked={liquidGlass}
 						onChange={(event) => toggleGlass(event.target.checked)}
+						className="toggle checked:bg-primary checked:border-primary checked:text-white"
+					/>
+				</ListItem>
+				<ListItem>
+					<div>
+						<div>{t("show_background")}</div>
+						<div className="label whitespace-break-spaces">{t("show_background_hint")}</div>
+					</div>
+					<input
+						type="checkbox"
+						checked={showBackground}
+						onChange={(event) => toggleBackground(event.target.checked)}
 						className="toggle checked:bg-primary checked:border-primary checked:text-white"
 					/>
 				</ListItem>

@@ -230,6 +230,7 @@
 		confirmTorrentSelection: true,
 		appearance: {
 			liquidGlass: true,
+			showBackground: true,
 		},
 		filterLists: {
 			blacklist: { ...DEFAULT_FILTER_LIST, name: "Blacklist" },

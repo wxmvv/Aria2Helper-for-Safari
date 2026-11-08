@@ -534,8 +534,6 @@ textarea {
 
 .item.active {
 	background-color: var(--theme-color);
-	/* background-color: -apple-system-control-accent; */
-	background-color: rgb(from -apple-system-control-accent r g b / 80%);
 }
 
 /* item icon */
@@ -695,8 +693,6 @@ textarea {
 	width: 0;
 	height: 4px;
 	background-color: var(--theme-color);
-	/* background-color: -apple-system-control-accent; */
-	background-color: rgb(from -apple-system-control-accent r g b / 80%);
 	border-radius: 4px;
 }
 .item-info-progress.infinity {
@@ -830,12 +826,14 @@ body {
 	position: sticky;
 	top: 0;
 	z-index: 20;
-	padding: 8px 12px 4px;
+	padding: 9px 12px 1px;
+	margin-bottom: 0;
 }
 
 .header .title {
 	font-weight: 650;
 	letter-spacing: -0.01em;
+	color: var(--text-color);
 }
 
 .engine-badge {
@@ -880,9 +878,9 @@ body {
 
 .navbar {
 	position: sticky;
-	top: 38px;
+	top: 34px;
 	z-index: 19;
-	padding: 0 10px 8px;
+	padding: 1px 12px 8px;
 }
 
 .btn-setup {
@@ -1164,7 +1162,8 @@ textarea {
 /* ------------------------------------------------------------------ */
 
 .glass body {
-	background:
+	background-color: rgba(246, 246, 249, 0.94);
+	background-image:
 		radial-gradient(130% 90% at 12% -10%, rgba(255, 255, 255, 0.65), transparent 55%),
 		radial-gradient(120% 100% at 100% 0%, rgba(98, 187, 68, 0.18), transparent 52%),
 		linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08));
@@ -1172,10 +1171,25 @@ textarea {
 
 @media (prefers-color-scheme: dark) {
 	.glass body {
-		background:
-			radial-gradient(130% 90% at 12% -10%, rgba(255, 255, 255, 0.14), transparent 55%),
-			radial-gradient(120% 100% at 100% 0%, rgba(98, 187, 68, 0.2), transparent 52%),
-			linear-gradient(180deg, rgba(18, 18, 20, 0.55), rgba(18, 18, 20, 0.22));
+		background-color: rgba(24, 24, 26, 0.94);
+		background-image:
+			radial-gradient(130% 90% at 12% -10%, rgba(255, 255, 255, 0.12), transparent 55%),
+			radial-gradient(120% 100% at 100% 0%, rgba(98, 187, 68, 0.18), transparent 52%),
+			linear-gradient(180deg, rgba(18, 18, 20, 0.4), rgba(18, 18, 20, 0.12));
+	}
+	.glass .header,
+	.glass .navbar {
+		background: linear-gradient(180deg, rgba(50, 50, 54, 0.72), rgba(32, 32, 36, 0.6));
+		border-bottom-color: rgba(255, 255, 255, 0.08);
+	}
+	.header .title {
+		color: #f5f5f7;
+	}
+	.engine-badge {
+		background: rgba(255, 255, 255, 0.08);
+	}
+	#select {
+		color: #f5f5f7;
 	}
 }
 
@@ -1200,7 +1214,6 @@ textarea {
 
 .glass .item.active {
 	background: var(--theme-color);
-	background: rgb(from -apple-system-control-accent r g b / 82%);
 	border-color: rgba(255, 255, 255, 0.5);
 	box-shadow:
 		inset 0 1px 0 rgba(255, 255, 255, 0.45),
@@ -1333,4 +1346,21 @@ textarea {
 	.dialogue-content {
 		background: rgba(30, 30, 32, 0.5);
 	}
+}
+
+/* Appearance › show background off: fall back to the system surface. */
+html.no-background.glass body {
+	background: Canvas;
+}
+
+html.no-background .glass .header,
+html.no-background .glass .navbar {
+	background: transparent;
+	border-bottom-color: transparent;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+html.no-background .glass .header .title {
+	color: CanvasText;
 }

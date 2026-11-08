@@ -468,5 +468,11 @@
 	},
 	"add_profile": {
 		"message": "Add"
+	},
+	"show_background": {
+		"message": "Show glass background"
+	},
+	"show_background_hint": {
+		"message": "Turn off to use the system popup background instead of the tinted glass surface."
 	}
 }

@@ -20,7 +20,7 @@ const problems = [];
 async function open(url, options = {}) {
 	const page = await browser.newPage();
 	await page.setViewport({ width: options.width || 440, height: options.height || 760, deviceScaleFactor: 2 });
-	if (options.dark) await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: "dark" }]);
+	await page.emulateMediaFeatures([{ name: "prefers-color-scheme", value: options.dark ? "dark" : "light" }]);
 	page.on("pageerror", (error) => problems.push(`${url}: ${error.message}`));
 	page.on("console", (message) => {
 		if (message.type() !== "error") return;
@@ -50,6 +50,10 @@ await english.close();
 const dark = await open("/popup.html?lang=zh-CN", { width: 440, height: 420, dark: true });
 await shot(dark, "popup-dark");
 await dark.close();
+
+const noBackground = await open("/popup.html?lang=zh-CN&bg=0", { width: 440, height: 420 });
+await shot(noBackground, "popup-nobg-zh");
+await noBackground.close();
 
 const empty = await open("/popup.html?lang=zh-CN&seed=empty", { width: 440, height: 360 });
 await shot(empty, "popup-empty-zh");

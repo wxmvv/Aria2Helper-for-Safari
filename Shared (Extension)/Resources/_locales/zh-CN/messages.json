@@ -468,5 +468,11 @@
 	},
 	"add_profile": {
 		"message": "添加"
+	},
+	"show_background": {
+		"message": "显示玻璃背景色"
+	},
+	"show_background_hint": {
+		"message": "关闭后使用系统弹窗背景，不再绘制自定义玻璃底色。"
 	}
 }

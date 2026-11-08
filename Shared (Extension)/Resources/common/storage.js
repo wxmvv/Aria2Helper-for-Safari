@@ -107,6 +107,7 @@
 				...DEFAULT_SETTINGS.appearance,
 				...appearance,
 				liquidGlass: appearance.liquidGlass !== false,
+				showBackground: appearance.showBackground !== false,
 			},
 			filterLists: {
 				blacklist: normalizeFilterList(filterLists.blacklist, "Blacklist"),
