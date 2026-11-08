@@ -114,12 +114,18 @@
 
 		event.preventDefault();
 		const parts = files.getFileParts(url);
+		let cookie = "";
+		try {
+			cookie = document.cookie || "";
+		} catch {
+			/* sandboxed frames may hide document.cookie */
+		}
 		const response = await messaging.send(
 			{
 				api: "downloads.addUri",
 				url: anchor.href,
 				referer: location.href,
-				cookie: document.cookie || "",
+				cookie,
 			},
 			{ timeoutMs: 8000 }
 		);
