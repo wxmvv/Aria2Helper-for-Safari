@@ -173,13 +173,13 @@
 		"message": "保存"
 	},
 	"default": {
-		"message": "默认"
+		"message": "默认配置"
 	},
 	"set_default": {
 		"message": "设为默认"
 	},
 	"remove_profile": {
-		"message": "移除当前配置"
+		"message": "删除"
 	},
 	"other_settings": {
 		"message": "其他设置"
@@ -467,6 +467,6 @@
 		"message": "未连接"
 	},
 	"add_profile": {
-		"message": "添加配置"
+		"message": "添加"
 	}
 }

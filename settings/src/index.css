@@ -89,7 +89,8 @@
 	background: rgb(128 128 128 / 0.14);
 	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 	font-size: 0.72rem;
-	word-break: break-all;
+	overflow-wrap: anywhere;
+	word-break: normal;
 }
 
 .wizard-note {

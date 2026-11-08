@@ -183,10 +183,10 @@ function App({ helper }) {
 						</div>
 					</div>
 					<div className="flex flex-row gap-[10px] p-[10px] shrink-0">
-						<button className="btn btn-primary grow" onClick={addRPC}>
+						<button className="btn btn-primary grow min-w-0 whitespace-nowrap px-2" onClick={addRPC}>
 							{t("add_profile")}
 						</button>
-						<button className="btn btn-error grow" disabled={!RPCTab || tab !== "RPC"} onClick={removeRPC}>
+						<button className="btn btn-error grow min-w-0 whitespace-nowrap px-2" disabled={!RPCTab || tab !== "RPC"} onClick={removeRPC}>
 							{t("remove_profile")}
 						</button>
 					</div>

@@ -198,7 +198,7 @@ export function WelcomeTab({ helper, onConfigured }) {
 						{preset.label}
 					</button>
 				))}
-				<button className="btn btn-sm btn-accent" onClick={scan} disabled={scanning}>
+				<button className="btn btn-sm btn-outline btn-primary" onClick={scan} disabled={scanning}>
 					{scanning ? t("setup_scanning") : t("setup_scan")}
 				</button>
 			</div>
@@ -278,7 +278,7 @@ export function WelcomeTab({ helper, onConfigured }) {
 			)}
 
 			<div className="flex flex-row gap-2">
-				<button className="btn btn-accent" onClick={test} disabled={status.state === "testing"}>
+				<button className="btn btn-outline btn-primary" onClick={test} disabled={status.state === "testing"}>
 					{status.state === "testing" ? t("setup_testing") : t("setup_test")}
 				</button>
 				<button className="btn btn-primary" onClick={save} disabled={saved}>

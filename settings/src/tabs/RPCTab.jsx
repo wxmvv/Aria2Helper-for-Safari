@@ -103,7 +103,7 @@ export function RPCTabView({ helper, onRPCUpdate }) {
 					<input type="checkbox" disabled checked={Boolean(rpc.isDefault)} className="toggle checked:bg-primary checked:border-primary checked:text-white" />
 				</ListItem>
 				<div className="flex flex-wrap flex-row gap-2 p-2">
-					<button className="btn btn-accent" onClick={testConnection} disabled={testState.state === "testing"}>
+					<button className="btn btn-outline btn-primary" onClick={testConnection} disabled={testState.state === "testing"}>
 						{testState.state === "testing" ? t("setup_testing") : t("rpc_test")}
 					</button>
 					<button disabled={rpc.isDefault} onClick={setDefault} className="btn">

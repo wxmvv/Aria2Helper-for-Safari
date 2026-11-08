@@ -173,13 +173,13 @@
 		"message": "Save"
 	},
 	"default": {
-		"message": "It's default"
+		"message": "Default profile"
 	},
 	"set_default": {
 		"message": "Set Default"
 	},
 	"remove_profile": {
-		"message": "Remove Profile"
+		"message": "Remove"
 	},
 	"other_settings": {
 		"message": "Other Settings"
@@ -467,6 +467,6 @@
 		"message": "Not connected"
 	},
 	"add_profile": {
-		"message": "Add profile"
+		"message": "Add"
 	}
 }
