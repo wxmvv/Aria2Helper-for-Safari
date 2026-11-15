@@ -61,6 +61,8 @@
 		try {
 			if (anchor.hasAttribute("download")) {
 				const link = anchor.cloneNode(true);
+				// Replaying the click must bypass our document-level interceptor.
+				link.setAttribute("data-aria2helper-ignore", "");
 				link.style.display = "none";
 				document.body.appendChild(link);
 				link.click();
