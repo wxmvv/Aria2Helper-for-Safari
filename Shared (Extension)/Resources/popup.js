@@ -21,6 +21,7 @@
 
 	const downloadItems = new Map();
 	const downloadStatuses = new Map();
+	const taskByElement = new WeakMap();
 
 	let state = null;
 	let settings = null;
@@ -379,12 +380,13 @@
 		const element = document.createElement("div");
 		element.className = "item";
 		element.dataset.gid = item.gid;
+		taskByElement.set(element, item);
 
 		const icon = document.createElement("div");
 		icon.className = "item-icon";
 		icon.addEventListener("click", (event) => {
 			event.stopPropagation();
-			togglePause(item, icon);
+			togglePause(taskByElement.get(element), icon);
 		});
 
 		const info = document.createElement("div");
@@ -415,14 +417,14 @@
 		removeButton.title = tr("remove", "Remove");
 		removeButton.addEventListener("click", (event) => {
 			event.stopPropagation();
-			handleRemove(item, removeButton);
+			handleRemove(taskByElement.get(element), removeButton);
 		});
 		const openButton = document.createElement("button");
 		openButton.className = "btn-open-icon";
 		openButton.title = tr("open_file", "Show in Finder");
 		openButton.addEventListener("click", (event) => {
 			event.stopPropagation();
-			openTaskFile(item);
+			openTaskFile(taskByElement.get(element));
 		});
 		actions.appendChild(removeButton);
 		actions.appendChild(openButton);
@@ -438,7 +440,7 @@
 		});
 		element.addEventListener("dblclick", (event) => {
 			event.preventDefault();
-			openTaskFile(item);
+			openTaskFile(taskByElement.get(element));
 		});
 		return element;
 	}
@@ -512,6 +514,8 @@
 	}
 
 	function updateDownloadItemElement(element, item) {
+		// Keep existing DOM nodes, but let all actions read the latest polled task.
+		taskByElement.set(element, item);
 		const icon = element.children[0];
 		const info = element.children[1];
 		const actions = element.children[2];
