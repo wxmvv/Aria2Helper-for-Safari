@@ -1,6 +1,6 @@
 # App Store 提交准备：2.0.0（31）
 
-目标：macOS、iOS / iPadOS。沿用现有 App 记录和 bundle ID；两平台2.0.0（31）已上传；线上填写与处理结果见 [CONNECT-STATUS.md](CONNECT-STATUS.md)。最后提交审核前由用户检查。
+目标：macOS、iOS / iPadOS。沿用现有 App 记录和 bundle ID；两平台2.0.0（31）已上传；线上填写与处理结果见 [CONNECT-STATUS.md](CONNECT-STATUS.md)。用户检查确认后已提交审核，两个平台均正在等待审核。
 
 ## 本地发布命令
 
