@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <generator>Aria2 Helper App Review guide 2.0.0</generator>
+  <file name="aria2-review-README.rst">
+    <size>22434</size>
+    <hash type="sha-256">dbc1894fbff5eec165b0e2970597b358343bf9bfc0ff302c7ed044f42a6a6486</hash>
+    <url>https://raw.githubusercontent.com/aria2/aria2/9e7273583f83e881e3ec067b523ba88724088d2f/README.rst</url>
+  </file>
+</metalink>

@@ -1,0 +1,42 @@
+{
+  "en-US": {
+    "brand": "Aria2 Helper 2.0",
+    "scenes": {
+      "tasks": {
+        "title": ["Your downloads.", "In Safari."],
+        "description": ["View progress. Pause, resume,", "and manage your own aria2 tasks."],
+        "footer": ["Example tasks shown", "Connect to your own aria2 engine"]
+      },
+      "import": {
+        "title": ["Import together.", "Select each file."],
+        "description": ["Add links, torrents and Metalinks.", "Review torrent files before downloading."],
+        "footer": ["Example files shown", "Download only the files you choose"]
+      },
+      "setup": {
+        "title": ["Connect your", "aria2 engine."],
+        "description": ["Save RPC profiles, test the connection,", "and switch between your own services."],
+        "footer": ["aria2 is not included", "Use an engine reachable from your device"]
+      }
+    }
+  },
+  "zh-Hans": {
+    "brand": "Aria2 助手 2.0",
+    "scenes": {
+      "tasks": {
+        "title": ["在 Safari 中", "管理下载"],
+        "description": ["查看进度，暂停或继续任务，", "管理自己的 aria2 下载。"],
+        "footer": ["画面中的任务为示例", "需要连接自己的 aria2 引擎"]
+      },
+      "import": {
+        "title": ["批量导入", "按需选择文件"],
+        "description": ["添加链接、种子与 Metalink，", "下载前查看并选择种子内的文件。"],
+        "footer": ["画面中的文件为示例", "只下载自己选择的文件"]
+      },
+      "setup": {
+        "title": ["连接自己的", "aria2 引擎"],
+        "description": ["保存 RPC 配置，测试连接，", "在自己的下载服务之间切换。"],
+        "footer": ["App 不包含 aria2 引擎", "请使用当前设备能访问的引擎地址"]
+      }
+    }
+  }
+}

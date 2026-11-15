@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "sourceVersion": "2.0.0",
+  "build": "31",
+  "captures": {
+    "en-US": {
+      "tasks": { "path": "build/store-assets/raw/en-US-tasks.png", "verifiedCurrentUI": false, "sampleData": true },
+      "import": { "path": "build/store-assets/raw/en-US-import.png", "verifiedCurrentUI": false, "sampleData": true },
+      "setup": { "path": "build/store-assets/raw/en-US-setup.png", "verifiedCurrentUI": false, "sampleData": false }
+    },
+    "zh-Hans": {
+      "tasks": { "path": "build/store-assets/raw/zh-Hans-tasks.png", "verifiedCurrentUI": false, "sampleData": true },
+      "import": { "path": "build/store-assets/raw/zh-Hans-import.png", "verifiedCurrentUI": false, "sampleData": true },
+      "setup": { "path": "build/store-assets/raw/zh-Hans-setup.png", "verifiedCurrentUI": false, "sampleData": false }
+    }
+  }
+}

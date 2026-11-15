@@ -8,6 +8,7 @@ import { extensionDev } from "./scripts/extension-dev.mjs";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
+	base: "./",
 	server: {
 		host: "127.0.0.1",
 		port: 5173,

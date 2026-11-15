@@ -3,7 +3,7 @@
 ## 环境与项目结构
 
 - Node.js 22+、npm；首次拉取后在项目根目录运行 `npm run setup`（使用 settings/package-lock.json 安装依赖）。
-- 原生构建需要完整 Xcode 和对应平台 SDK。当前 Swift 代码使用系统 26 的玻璃 API，安装 Xcode 26 或更新版本；旧系统走运行时兼容分支。
+- 原生构建需要完整 Xcode 和对应平台 SDK。App Store 发布使用 Xcode 26 或更新版本，并以 Apple 当前上传要求为准。
 - `settings/src/` 是 React 设置页源码；不要直接修改扩展目录中的 `settings.js`、`settings.css`、`settings.html`，它们是构建产物。
 - `Shared (Extension)/Resources/common/` 是共享核心代码的唯一来源；`settings/public/common/` 是构建时同步的副本。
 - `Shared (Extension)/Resources/popup.*`、`background.js`、`content.js` 是扩展入口；`Shared (App)/` 是原生容器，平台目录保存各平台配置与入口。

@@ -1,0 +1,11 @@
+{
+  "name": "Aria2 Helper",
+  "supportURL": "https://github.com/wxmvv/Aria2Helper-for-Safari/issues",
+  "marketingURL": "https://github.com/wxmvv/Aria2Helper-for-Safari",
+  "privacyPolicyURL": "https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96",
+  "subtitle": "在 Safari 中管理 aria2 下载",
+  "keywords": "下载,aria2,Safari,扩展,种子,磁力链接,下载管理,RPC,metalink",
+  "promotionalText": "将 Safari 链接交给自己的 aria2 引擎下载。在扩展中查看任务、批量导入种子和 Metalink，并选择需要下载的文件。",
+  "description": "在 Safari 中管理自己的 aria2 下载任务。\n\nAria2 Helper 通过 JSON-RPC 连接你配置的 aria2 兼容引擎。使用前需要单独运行下载引擎；本 App 不包含引擎，也不提供下载托管服务。\n\n管理下载任务\n在 Safari 弹窗中查看进度、速度和任务状态，暂停、继续或移除任务。Mac 连接本机引擎时，可在 Finder 中定位文件。\n\n添加链接和文件\n一次粘贴多个链接，包括引擎支持的磁力链接。批量导入 .torrent、.metalink 和 .meta4 文件，并在添加种子前选择其中需要下载的文件。\n\n配置多个连接\n通过引导填写 RPC 地址和密钥，在 Mac 上扫描常见本机 RPC 端口，测试连接并保存多个引擎配置。支持传统 aria2，以及 aria2-next 等兼容引擎。\n\n决定发送哪些信息\n配置文件类型过滤规则，自主决定是否转发页面 Cookie 和 Referer。网页链接自动拦截默认关闭，需要时可自行开启。下载请求会发送到你配置的引擎。\n\n开始使用\n在 Safari 设置中开启扩展，授予所需网站权限，然后填写 RPC 地址和密钥。\n\niPhone 和 iPad 需要连接另一台电脑或服务器上的引擎，并使用设备能够访问的地址；127.0.0.1 指的是 iPhone 或 iPad 本身。下载文件保存在引擎所在的设备上。\n\n液态玻璃效果与弹窗渐变底色为实验性功能，默认关闭，不影响正常使用。\n\n请只下载有权访问的内容。Aria2 Helper 不提供下载资源，也不会绕过网站的访问控制。",
+  "whatsNew": "2.0 带来了配置引导和更灵活的文件导入：\n\n• 通过引导配置 RPC，并测试连接。\n• 批量导入种子和 Metalink，选择种子内需要下载的文件。\n• 新增文件类型过滤与 Cookie、Referer 转发控制。\n• 改进传统 aria2 与 aria2-next 的兼容性。\n• 修复下载失败回退、设置保存和任务操作问题。\n• 修复同名文件导入失败后无法重试的问题。\n• 调整弹窗效果，修复原生启动页面。\n\n两个实验性外观选项默认关闭。"
+}

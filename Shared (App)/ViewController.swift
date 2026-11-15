@@ -10,12 +10,10 @@ import UserNotifications
 #if os(iOS)
 import UIKit
 typealias PlatformViewController = UIViewController
-typealias PlatformView = UIView
 #elseif os(macOS)
 import Cocoa
 import SafariServices
 typealias PlatformViewController = NSViewController
-typealias PlatformView = NSView
 #endif
 
 let extensionBundleIdentifier = "cc.wxmvv.Aira2Helper.Extension"
@@ -24,11 +22,12 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
 
     @IBOutlet var webView: WKWebView!
 #if os(iOS)
-    private var glassContainer: PlatformView?
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        installGlassIfAvailable()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // The storyboard starts with a fixed WebView frame. Refresh WebKit's
+        // viewport once UIKit has resolved the device's safe-area constraints.
+        webView.setNeedsLayout()
+        webView.layoutIfNeeded()
     }
 #elseif os(macOS)
     override func viewDidAppear() {
@@ -52,7 +51,20 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
 #endif
 
 #if os(iOS)
-        self.webView.scrollView.isScrollEnabled = false
+        view.backgroundColor = .systemBackground
+        // Let WebKit paint the document instead of covering it with an opaque backing.
+        webView.isOpaque = false
+        webView.backgroundColor = .systemBackground
+        webView.underPageBackgroundColor = .systemBackground
+        webView.scrollView.backgroundColor = .systemBackground
+        webView.scrollView.isScrollEnabled = false
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
 #elseif os(macOS)
         self.webView.underPageBackgroundColor = .windowBackgroundColor
 #endif
@@ -62,45 +74,14 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
         self.webView.loadFileURL(Bundle.main.url(forResource: "Main", withExtension: "html")!, allowingReadAccessTo: Bundle.main.resourceURL!)
     }
 
-#if os(iOS)
-    /// Wrap the iOS container page in the system material when available.
-    private func installGlassIfAvailable() {
-        guard glassContainer == nil else { return }
-        guard #available(iOS 26.0, *) else { return }
-        let effect = UIGlassEffect(style: .regular)
-        effect.isInteractive = true
-        effect.tintColor = UIColor.tintColor.withAlphaComponent(0.12)
-        let container = UIVisualEffectView(effect: effect)
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.layer.cornerRadius = 24
-        container.layer.cornerCurve = .continuous
-        container.clipsToBounds = true
-        view.addSubview(container)
-        NSLayoutConstraint.activate([
-            container.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            container.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            container.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            container.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -12),
-        ])
-        webView.removeFromSuperview()
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.isOpaque = false
-        webView.backgroundColor = .clear
-        webView.scrollView.backgroundColor = .clear
-        container.contentView.addSubview(webView)
-        NSLayoutConstraint.activate([
-            webView.leadingAnchor.constraint(equalTo: container.contentView.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: container.contentView.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: container.contentView.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: container.contentView.bottomAnchor),
-        ])
-        glassContainer = container
-    }
-#endif
-
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 #if os(iOS)
-        webView.evaluateJavaScript("show('ios')")
+        webView.evaluateJavaScript("show('ios')") { _, _ in
+            // Recompute the first viewport after the document and platform
+            // styles are ready, as well as after native safe-area layout.
+            webView.setNeedsLayout()
+            webView.layoutIfNeeded()
+        }
 #elseif os(macOS)
         webView.evaluateJavaScript("show('mac')")
 

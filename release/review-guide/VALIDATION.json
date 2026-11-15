@@ -1,0 +1,22 @@
+{
+  "prepared": "2026-11-15",
+  "sampleURL": "https://raw.githubusercontent.com/aria2/aria2/9e7273583f83e881e3ec067b523ba88724088d2f/README.rst",
+  "sampleHTTPStatus": 200,
+  "sampleBytes": 22434,
+  "sampleSHA256": "dbc1894fbff5eec165b0e2970597b358343bf9bfc0ff302c7ed044f42a6a6486",
+  "torrentPurpose": "offline multi-file parsing only; cancel before submission",
+  "torrentPayloadBytes": 137,
+  "guide": "index.html",
+  "limitations": [
+    "No developer-hosted review engine.",
+    "Reviewer must configure an external engine.",
+    "App Store exported binary end-to-end real-device validation is not established by this guide."
+  ],
+  "checks": [
+    "HTML local links exist",
+    "Metalink XML parses",
+    "aria2c --dry-run=true accepts Metalink and reports OK (no payload download)",
+    "Product bencode parser returns two selected-file entries totalling 137 bytes",
+    "ZIP CRC passes; five expected entries"
+  ]
+}

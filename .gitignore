@@ -156,3 +156,7 @@ build-*/
 DerivedData/
 settings/public/common/
 tests/ui/output/
+
+# Python release verification helpers
+__pycache__/
+*.pyc

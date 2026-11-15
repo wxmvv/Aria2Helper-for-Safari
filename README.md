@@ -22,14 +22,14 @@ Everything is local: it talks to your own aria2 JSON-RPC endpoint.
 - **Guided setup.** A three-step wizard finds a local engine (`6800`, `29100`, `16800`), explains
   `brew install aria2` and Rayburst's RPC secret location, tests the connection and saves the profile.
 - **Liquid Glass (experimental).** One continuous translucent surface across the popup, plus layered settings surfaces, with fallbacks for
-  Reduce Transparency and Increase Contrast. The macOS launcher uses a standard system window;
-  the iOS container uses `UIGlassEffect` on system versions that provide it (26+).
+  Reduce Transparency and Increase Contrast. Both native launchers use standard system backgrounds;
+  the experimental glass options apply to the Safari popup and settings.
 - **Readable task list.** Progress for ordinary downloads, aria2-next media (`totalLength == 0`),
   ED2K, torrents and errors; pause/resume, restart, purge and "show in Finder".
 
 ## Requirements
 
-- macOS 12 or later (the extension). The iOS native glass chrome needs iOS 26.
+- macOS 12 or later; iOS / iPadOS 15 or later.
 - Safari 16.4 or later.
 - A running aria2-compatible JSON-RPC endpoint. Common setups:
   - aria2: `brew install aria2`, then run with `--enable-rpc --rpc-secret=…`
@@ -96,7 +96,7 @@ Shared (Extension)/Resources/
   popup.*        task list + multi-file import dialog
   settings.*     built React settings app
   _locales/      en + zh-CN strings
-Shared (App)/     macOS/iOS container app (standard macOS window; iOS glass on 26+)
+Shared (App)/     macOS/iOS container app (standard system backgrounds)
 tests/            unit, integration and UI harnesses
 docs/             architecture notes
 ```
@@ -106,3 +106,8 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the data flow and message A
 ## License
 
 [MIT](LICENSE)
+
+## App Store release
+
+See [release/README.md](release/README.md) for the macOS/iOS archive and export commands,
+privacy declarations, metadata drafts, review notes, and the remaining submission steps.

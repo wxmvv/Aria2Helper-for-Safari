@@ -13,8 +13,8 @@
 - "Never send these file types" skip list, plus skip-inside-torrents and a review-before-adding option.
 - Three-step connection wizard with local engine discovery, RPC URL paste, test connection, and
   Homebrew/Rayburst instructions.
-- Liquid Glass-inspired popup and settings surfaces, with Reduce Transparency / Increase Contrast
-  fallbacks, and native glass chrome on macOS 26 / iOS 26+.
+- Experimental Liquid Glass-inspired popup and settings surfaces, with Reduce Transparency /
+  Increase Contrast fallbacks. Both new appearance options are off by default.
 - Privacy toggles for forwarding page cookies and referer.
 - Unit, integration and UI tests; screenshot harness; documentation.
 
@@ -37,3 +37,11 @@
 - Torrent import only accepted one file and silently ignored extra selections.
 - `system.multicall` was sent with an extra outer token; aria2 rejected it on some engines.
 - Popup crashed when `totalLength` was `0` (aria2-next media tasks) or when response shapes differed.
+
+### Release preparation (2026-11-15)
+
+- Added explicit privacy manifests and encryption export metadata for all four native targets.
+- Added App Store archive, export and artifact verification commands and bilingual metadata drafts.
+- Made bundled settings resources relative to the extension page.
+- Replaced forced iOS launcher glass with a standard system background and safe-area layout,
+  matching the macOS launcher fix.

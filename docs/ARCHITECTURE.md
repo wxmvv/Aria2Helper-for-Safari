@@ -135,8 +135,8 @@ chosen. Magnet links have no file list until metadata arrives, so they are added
   surfaces; `@supports not (backdrop-filter: …)` is a flat fallback.
 - **Container app** uses a standard opaque system window on macOS, with explicit light/dark
   document colors in the WebView. It does not wrap the launcher in a glass panel or clear the native
-  title bar. The iOS container uses `UIGlassEffect`/`UIVisualEffectView` on iOS 26+; older systems
-  keep the plain WebView.
+  title bar. The iOS container uses the system background and constrains the WebView to the safe
+  area on all supported systems; it does not force a glass panel around the enablement screen.
 
 ## Testing
 

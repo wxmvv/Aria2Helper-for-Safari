@@ -12,6 +12,11 @@
 		"test": "node --test tests/unit/*.test.mjs",
 		"test:integration": "node --test tests/integration/*.test.mjs",
 		"build:settings": "npm --prefix settings run build",
-		"lint:settings": "npm --prefix settings run lint"
+		"lint:settings": "npm --prefix settings run lint",
+		"release:check": "node scripts/appstore.mjs check",
+		"release:archive": "node scripts/appstore.mjs archive",
+		"release:export": "node scripts/appstore.mjs export",
+		"release:verify": "node scripts/appstore.mjs verify",
+		"release:verify-export": "python3 scripts/verify-store-export.py"
 	}
 }

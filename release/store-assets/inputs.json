@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "sourceVersion": "2.0.0",
+  "build": "31",
+  "captures": {
+    "en-US": {
+      "tasks": {
+        "path": "build/store-assets/raw/en-US-tasks-full.jpg",
+        "verifiedCurrentUI": true,
+        "sampleData": true,
+        "crop": {
+          "x": 0,
+          "y": 106,
+          "width": 740,
+          "height": 680
+        },
+        "provenance": "Current 2.0.0 HTML rendered in Safari with build/store-assets/serve.mjs and mock.js screenshot fixture: Family-video.mp4, Garden-camera.mp4, Project-archive.zip, Photo-backup.zip, Linux-installer.iso. Captured through CUA on 2026-11-15. Sample task speeds; no live RPC."
+      },
+      "import": {
+        "path": "build/store-assets/raw/en-US-import-full.jpg",
+        "verifiedCurrentUI": true,
+        "sampleData": true,
+        "crop": {
+          "x": 12,
+          "y": 235,
+          "width": 726,
+          "height": 405
+        },
+        "provenance": "Current 2.0.0 HTML rendered in Safari with tests/ui/serve.mjs browser mock; captured through CUA on 2026-11-15. Sample tasks/links; no live RPC used."
+      },
+      "setup": {
+        "path": "build/store-assets/raw/en-US-setup-full.jpg",
+        "verifiedCurrentUI": true,
+        "sampleData": false,
+        "crop": {
+          "x": 900,
+          "y": 405,
+          "width": 1225,
+          "height": 1195
+        },
+        "provenance": "Current 2.0.0 HTML rendered in Safari with tests/ui/serve.mjs browser mock; captured through CUA on 2026-11-15. Sample tasks/links; no live RPC used.",
+        "platforms": {
+          "ios": {
+            "path": "build/store-assets/raw/en-US-rpc-full.jpg",
+            "crop": {
+              "x": 1300,
+              "y": 535,
+              "width": 795,
+              "height": 800
+            },
+            "provenance": "Actual RPC form edited through CUA to Home aria2 / 192.168.1.100 / 6800, not saved or tested against a server."
+          },
+          "ipados": {
+            "path": "build/store-assets/raw/en-US-rpc-full.jpg",
+            "crop": {
+              "x": 1300,
+              "y": 535,
+              "width": 795,
+              "height": 800
+            },
+            "provenance": "Actual RPC form edited through CUA to Home aria2 / 192.168.1.100 / 6800, not saved or tested against a server."
+          }
+        }
+      }
+    },
+    "zh-Hans": {
+      "tasks": {
+        "path": "build/store-assets/raw/zh-Hans-tasks-full.jpg",
+        "verifiedCurrentUI": true,
+        "sampleData": true,
+        "crop": {
+          "x": 0,
+          "y": 106,
+          "width": 740,
+          "height": 680
+        },
+        "provenance": "Current 2.0.0 HTML rendered in Safari with build/store-assets/serve.mjs and mock.js screenshot fixture: Family-video.mp4, Garden-camera.mp4, Project-archive.zip, Photo-backup.zip, Linux-installer.iso. Captured through CUA on 2026-11-15. Sample task speeds; no live RPC."
+      },
+      "import": {
+        "path": "build/store-assets/raw/zh-Hans-import-full.jpg",
+        "verifiedCurrentUI": true,
+        "sampleData": true,
+        "crop": {
+          "x": 12,
+          "y": 235,
+          "width": 726,
+          "height": 405
+        },
+        "provenance": "Current 2.0.0 HTML rendered in Safari with tests/ui/serve.mjs browser mock; captured through CUA on 2026-11-15. Sample tasks/links; no live RPC used."
+      },
+      "setup": {
+        "path": "build/store-assets/raw/zh-Hans-setup-full.jpg",
+        "verifiedCurrentUI": true,
+        "sampleData": false,
+        "crop": {
+          "x": 900,
+          "y": 405,
+          "width": 1225,
+          "height": 1195
+        },
+        "provenance": "Current 2.0.0 HTML rendered in Safari with tests/ui/serve.mjs browser mock; captured through CUA on 2026-11-15. Sample tasks/links; no live RPC used.",
+        "platforms": {
+          "ios": {
+            "path": "build/store-assets/raw/zh-Hans-rpc-full.jpg",
+            "crop": {
+              "x": 1300,
+              "y": 535,
+              "width": 795,
+              "height": 800
+            },
+            "provenance": "Actual RPC form edited through CUA to Home aria2 / 192.168.1.100 / 6800, not saved or tested against a server."
+          },
+          "ipados": {
+            "path": "build/store-assets/raw/zh-Hans-rpc-full.jpg",
+            "crop": {
+              "x": 1300,
+              "y": 535,
+              "width": 795,
+              "height": 800
+            },
+            "provenance": "Actual RPC form edited through CUA to Home aria2 / 192.168.1.100 / 6800, not saved or tested against a server."
+          }
+        }
+      }
+    }
+  }
+}
