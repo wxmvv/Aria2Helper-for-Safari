@@ -10,8 +10,8 @@
 [![在 App Store 下载](docs/images/badges/app-store.svg)](https://apps.apple.com/app/aria2-helper/id6742623503)
 
 [问题反馈](https://github.com/wxmvv/Aria2Helper-for-Safari/issues)
-· [开发与调试](docs/DEVELOPMENT.md)
-· [隐私政策](https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96)
+· [开发与调试](docs/DEVELOPMENT_CN.md)
+· [隐私政策](docs/PRIVACY_CN.md)
 
 ## 界面预览
 
@@ -60,7 +60,7 @@ Mac 本机引擎可从 [aria2 官方项目](https://aria2.github.io/) 获取，
 请使用信任的引擎和下载来源，在不受信任的网络上通过 HTTPS 连接。
 
 开发者不为本 App 运营统计、广告或下载后端。详情见
-[隐私政策](https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96)。
+[隐私政策](docs/PRIVACY_CN.md)。
 请只下载有权访问的内容。
 
 ## 开发
@@ -77,7 +77,7 @@ npm run build:settings # 正式设置页构建
 开发预览使用示例数据；真实权限与下载行为需要在 Safari 中验证。
 Xcode 内部产品名为 `Aira2Helper`，App Store 名称为 **Aria2 Helper**。
 
-- [开发与调试](docs/DEVELOPMENT.md)：Xcode 签名、Safari Web Inspector 和 iOS 测试。
+- [开发与调试](docs/DEVELOPMENT_CN.md)：Xcode 签名、Safari Web Inspector 和 iOS 测试。
 - [项目架构](docs/ARCHITECTURE.md)：RPC、存储与扩展消息。
 - [App Store 发布](release/README.md)：归档、导出、产物校验和提交记录。
 

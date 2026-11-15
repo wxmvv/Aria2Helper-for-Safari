@@ -60,7 +60,7 @@ npm run release:export -- macos --allow-provisioning-updates
 
 - `metadata/en-US.json`、`metadata/zh-Hans.json`：名称、副标题、关键词、推广文本、描述和更新说明，已填入 Connect。
 - `REVIEW-NOTES.md`：两个平台的审核步骤、aria2 环境说明与审核员自行配置引擎流程；保留 Connect 已有审核联系人。
-- `PRIVACY-POLICY-DRAFT.md`、`PRIVACY-POLICY-zh-Hans.md`：已发布中英文隐私政策副本。
+- `PRIVACY-POLICY-DRAFT.md`、`PRIVACY-POLICY-zh-Hans.md`：已发布中英文隐私政策副本。 日常阅读见 [English](../docs/PRIVACY.md) / [简体中文](../docs/PRIVACY_CN.md)。
 - `store-assets/`：18张新截图的生成器、标题文案与来源清单；成片在 `build/store-assets/rendered/`。
 - `review-guide/Aria2Helper-2.0-Review-Guide.zip`：已附到两个平台审核资料的新指南与小型测试样例。
 

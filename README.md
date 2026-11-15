@@ -11,7 +11,7 @@ engines bundled with Rayburst or Motrix.
 
 [Report an issue](https://github.com/wxmvv/Aria2Helper-for-Safari/issues)
 · [Development guide](docs/DEVELOPMENT.md)
-· [Privacy policy](https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/Privacy-Policy)
+· [Privacy policy](docs/PRIVACY.md)
 
 ## Preview
 
@@ -68,7 +68,7 @@ and can be disabled separately; your engine may use forwarded values as download
 Use trusted engines and download sources, and HTTPS across untrusted networks.
 
 The app has no developer-operated analytics, advertising or download backend.
-Read the [privacy policy](https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/Privacy-Policy)
+Read the [privacy policy](docs/PRIVACY.md)
 for details. Download only content you are authorized to access.
 
 ## Development
