@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const resources = path.resolve(here, "../../Shared (Extension)/Resources");
 
-export function loadCommon(files = null) {
+export function loadCommon(files = null, globals = {}) {
 	const context = {
 		console,
 		TextEncoder,
@@ -20,6 +20,7 @@ export function loadCommon(files = null) {
 		btoa,
 		fetch: globalThis.fetch,
 		Response,
+		...globals,
 	};
 	context.globalThis = context;
 	vm.createContext(context);

@@ -183,24 +183,34 @@ class Helper {
 	 * Merge only the fields this page changed into the latest stored state, so a
 	 * popup action (default profile, listening) is not overwritten by an old tab.
 	 */
+	snapshot() {
+		return JSON.parse(JSON.stringify({
+			settings: this.settings,
+			profiles: this.profiles,
+			currentProfileId: this.currentProfileId,
+			defaultProfileId: this.defaultProfileId,
+		}));
+	}
+
+	// Rebase unsaved edits onto a stored snapshot. The baseline must remain the
+	// stored state, so the next queued save can still see those pending edits.
+	rebaseState(state, base) {
+		const merged = mergeEditedState(state, base, this.snapshot());
+		this.applyState(merged);
+		this.baseline = JSON.parse(JSON.stringify(state));
+	}
+
 	async persistNow() {
 		if (!this.hasStorage) return;
-		const latest = await storage.loadState();
-		const base = this.baseline || latest;
-		const merged = { ...latest };
-		if (JSON.stringify(this.settings) !== JSON.stringify(base.settings)) {
-			merged.settings = mergeChanged(latest.settings, base.settings, this.settings);
-		}
-		if (JSON.stringify(this.profiles) !== JSON.stringify(base.profiles)) {
-			merged.profiles = mergeProfiles(latest.profiles, base.profiles, this.profiles);
-		}
-		if (this.currentProfileId !== base.currentProfileId) merged.currentProfileId = this.currentProfileId;
-		if (this.defaultProfileId !== base.defaultProfileId) merged.defaultProfileId = this.defaultProfileId;
-		const normalized = storage.normalizeState(merged).state;
 		this.saving = true;
 		try {
+			const latest = await storage.loadState();
+			const submitted = this.snapshot();
+			const normalized = mergeEditedState(latest, this.baseline || latest, submitted);
 			await browser.storage.local.set(normalized);
-			this.applyState(normalized);
+			// Compare against what we submitted, including when a user reverts a
+			// field to its original value while this write is in flight.
+			this.rebaseState(normalized, submitted);
 		} finally {
 			this.saving = false;
 		}
@@ -208,14 +218,29 @@ class Helper {
 
 	persist() {
 		if (!this.hasStorage) return;
+		this.editRevision = (this.editRevision || 0) + 1;
 		this.saveChain = (this.saveChain || Promise.resolve())
 			.then(() => this.persistNow())
 			.catch((error) => console.error("[settings] save failed", error));
 	}
 
 	async refresh() {
-		this.applyState(await storage.loadState());
+		const revision = this.editRevision;
+		const state = await storage.loadState();
+		// A refresh started before a local edit must not apply a stale read.
+		if (revision !== this.editRevision || this.saving) return;
+		this.rebaseState(state, this.baseline || state);
 	}
+}
+
+function mergeEditedState(latest, base, local) {
+	return storage.normalizeState({
+		...latest,
+		settings: mergeChanged(latest.settings, base.settings, local.settings),
+		profiles: mergeProfiles(latest.profiles, base.profiles, local.profiles),
+		currentProfileId: local.currentProfileId !== base.currentProfileId ? local.currentProfileId : latest.currentProfileId,
+		defaultProfileId: local.defaultProfileId !== base.defaultProfileId ? local.defaultProfileId : latest.defaultProfileId,
+	}).state;
 }
 
 function mergeChanged(latest, base, local) {
