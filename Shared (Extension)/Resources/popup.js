@@ -109,8 +109,8 @@
 
 	function applyAppearance() {
 		const appearance = (settings && settings.appearance) || {};
-		document.documentElement.classList.toggle("glass", appearance.liquidGlass !== false);
-		document.documentElement.classList.toggle("no-background", appearance.showBackground === false);
+		document.documentElement.classList.toggle("glass", appearance.liquidGlass === true);
+		document.documentElement.classList.toggle("no-background", appearance.showBackground !== true);
 	}
 
 	// --- state -------------------------------------------------------------

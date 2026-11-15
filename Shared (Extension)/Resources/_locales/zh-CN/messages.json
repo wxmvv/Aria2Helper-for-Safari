@@ -452,10 +452,10 @@
 		"message": "外观"
 	},
 	"liquid_glass": {
-		"message": "液态玻璃效果"
+		"message": "液态玻璃效果（实验性）"
 	},
 	"liquid_glass_hint": {
-		"message": "半透明分层质感，关闭后为平面样式。"
+		"message": "为弹窗和设置页启用半透明、模糊和高光效果。实际表现因系统和浏览器而异。"
 	},
 	"welcome": {
 		"message": "开始使用"
@@ -470,9 +470,12 @@
 		"message": "添加"
 	},
 	"show_background": {
-		"message": "显示玻璃背景色"
+		"message": "弹窗渐变底色（实验性）"
 	},
 	"show_background_hint": {
-		"message": "关闭后使用系统弹窗背景，不再绘制自定义玻璃底色。"
+		"message": "仅在液态玻璃效果开启时，为弹窗添加渐变底色。关闭后使用系统背景，仍保留玻璃效果。不影响设置页。"
+	},
+	"experimental_features": {
+		"message": "实验性功能"
 	}
 }

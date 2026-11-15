@@ -81,6 +81,34 @@ test("settings keep explicit false values", () => {
 	assert.equal(settings.appearance.liquidGlass, false);
 });
 
+test("experimental appearance defaults off for new and legacy storage", async () => {
+	for (const snapshot of [{}, legacy]) {
+		const area = createMemoryArea(snapshot);
+		const state = await loadState(area);
+		assert.deepEqual(plain(state.settings.appearance), { liquidGlass: false, showBackground: false });
+		const stored = await area.get(null);
+		assert.deepEqual(plain(stored.settings.appearance), { liquidGlass: false, showBackground: false });
+	}
+});
+
+test("experimental appearance preserves saved choices and defaults missing flags off", async () => {
+	for (const appearance of [
+		{ liquidGlass: true, showBackground: true },
+		{ liquidGlass: true, showBackground: false },
+		{ liquidGlass: false, showBackground: true },
+		{ liquidGlass: false, showBackground: false },
+	]) {
+		const area = createMemoryArea({ settings: { appearance } });
+		assert.deepEqual(plain((await loadState(area)).settings.appearance), appearance);
+	}
+	assert.deepEqual(plain(normalizeSettings({ appearance: { liquidGlass: true } }).appearance), {
+		liquidGlass: true, showBackground: false,
+	});
+	assert.deepEqual(plain(normalizeSettings({ appearance: { showBackground: true } }).appearance), {
+		liquidGlass: false, showBackground: true,
+	});
+});
+
 test("loadState persists the migrated schema once", async () => {
 	const area = createMemoryArea(legacy);
 	const state = await loadState(area);

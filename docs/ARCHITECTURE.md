@@ -45,7 +45,7 @@ settings: {
   sendCookies, sendReferer,
   skipExtensions[],
   skipFilesInTorrent, confirmTorrentSelection,
-  appearance: { liquidGlass },
+  appearance: { liquidGlass, showBackground },
   filterLists: { blacklist: {name, extensions[]}, whitelist: {name, extensions[]} }
 }
 device, themeColor
@@ -121,14 +121,18 @@ chosen. Magnet links have no file list until metadata arrives, so they are added
 - `aria2.inspectTorrent` exists, but local bencode parsing is used so classic aria2 gets the same UI.
 - Optional ED2K fields (`ed2k.length`, `ed2k.completedLength`) feed the same progress helpers.
 
-## Liquid Glass
+## Liquid Glass (experimental)
 
-- **Web surfaces** use layered translucency, specular borders and `backdrop-filter`, gated by a setting.
+- **Web surfaces** use translucency, specular borders and `backdrop-filter`, gated by an experimental setting.
+  Both experimental appearance flags default to false; existing saved choices are preserved.
+  The popup applies a single glass material to the body; the header and toolbar remain transparent so
+  the material continues through the task list. Transient overlays retain their own surfaces.
   `prefers-reduced-transparency: reduce` and `prefers-contrast: more` replace the glass with opaque
   surfaces; `@supports not (backdrop-filter: …)` is a flat fallback.
-- **Container app** wraps the WebView in `NSGlassEffectView` (macOS 26+) or
-  `UIGlassEffect`/`UIVisualEffectView` (iOS 26+), with `effectIsInteractive` on macOS 27. Older systems
-  keep the plain WebView. The macOS window becomes non-opaque so the material has something to blur.
+- **Container app** uses a standard opaque system window on macOS, with explicit light/dark
+  document colors in the WebView. It does not wrap the launcher in a glass panel or clear the native
+  title bar. The iOS container uses `UIGlassEffect`/`UIVisualEffectView` on iOS 26+; older systems
+  keep the plain WebView.
 
 ## Testing
 

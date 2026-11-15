@@ -452,10 +452,10 @@
 		"message": "Appearance"
 	},
 	"liquid_glass": {
-		"message": "Liquid Glass surfaces"
+		"message": "Liquid Glass surfaces (Experimental)"
 	},
 	"liquid_glass_hint": {
-		"message": "Translucent layered surfaces. Turn off for a flat look."
+		"message": "Adds translucency, blur and highlights to the popup and settings. Appearance varies by system and browser."
 	},
 	"welcome": {
 		"message": "Get started"
@@ -470,9 +470,12 @@
 		"message": "Add"
 	},
 	"show_background": {
-		"message": "Show glass background"
+		"message": "Popup gradient background (Experimental)"
 	},
 	"show_background_hint": {
-		"message": "Turn off to use the system popup background instead of the tinted glass surface."
+		"message": "Adds a tinted gradient to the popup when Liquid Glass is on. Turn off to use the system background while keeping glass effects. Does not affect the settings page."
+	},
+	"experimental_features": {
+		"message": "Experimental features"
 	}
 }

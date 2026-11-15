@@ -20,7 +20,7 @@
 		skipExtensions: [".nfo", ".txt"],
 		skipFilesInTorrent: true,
 		confirmTorrentSelection: true,
-		appearance: { liquidGlass: params.get("glass") !== "0", showBackground: params.get("bg") !== "0" },
+		appearance: { liquidGlass: params.get("glass") === "1", showBackground: params.get("bg") === "1" },
 		filterLists: {
 			blacklist: { name: "Blacklist", extensions: [".jpg"] },
 			whitelist: { name: "Whitelist", extensions: [] },

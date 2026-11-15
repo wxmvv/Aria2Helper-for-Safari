@@ -29,7 +29,7 @@ function App({ helper }) {
 	const alertRef = useRef(null);
 
 	useEffect(() => {
-		const glass = helper.getSettings().appearance.liquidGlass !== false;
+		const glass = helper.getSettings().appearance.liquidGlass === true;
 		document.documentElement.classList.toggle("glass", glass);
 	}, [helper]);
 

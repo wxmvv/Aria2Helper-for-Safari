@@ -51,7 +51,7 @@ const dark = await open("/popup.html?lang=zh-CN", { width: 440, height: 420, dar
 await shot(dark, "popup-dark");
 await dark.close();
 
-const noBackground = await open("/popup.html?lang=zh-CN&bg=0", { width: 440, height: 420 });
+const noBackground = await open("/popup.html?lang=zh-CN&glass=1&bg=0", { width: 440, height: 420 });
 await shot(noBackground, "popup-nobg-zh");
 await noBackground.close();
 

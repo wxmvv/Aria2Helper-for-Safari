@@ -229,8 +229,8 @@
 		skipFilesInTorrent: true,
 		confirmTorrentSelection: true,
 		appearance: {
-			liquidGlass: true,
-			showBackground: true,
+			liquidGlass: false,
+			showBackground: false,
 		},
 		filterLists: {
 			blacklist: { ...DEFAULT_FILTER_LIST, name: "Blacklist" },
