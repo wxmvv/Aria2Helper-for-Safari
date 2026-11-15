@@ -4,10 +4,18 @@ import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 import fs from "fs";
 import tailwindcss from "@tailwindcss/vite";
+import { extensionDev } from "./scripts/extension-dev.mjs";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+	server: {
+		host: "127.0.0.1",
+		port: 5173,
+		strictPort: true,
+	},
 	build: {
+		sourcemap: mode === "development" ? "inline" : false,
+		minify: mode === "development" ? false : "esbuild",
 		rollupOptions: {
 			input: {
 				setting: resolve(__dirname, "index.html"),
@@ -27,6 +35,7 @@ export default defineConfig({
 	},
 
 	plugins: [
+		extensionDev(),
 		react(),
 		tailwindcss(),
 		{
@@ -40,4 +49,4 @@ export default defineConfig({
 			},
 		},
 	],
-});
+}));

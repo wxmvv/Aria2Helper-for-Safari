@@ -8,6 +8,8 @@
     "dev": "vite",
     "prebuild": "node scripts/sync-common.mjs",
     "build": "vite build && node scripts/copy-to-extension.mjs",
+    "prebuild:debug": "node scripts/sync-common.mjs",
+    "build:debug": "vite build --mode development && node scripts/copy-to-extension.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

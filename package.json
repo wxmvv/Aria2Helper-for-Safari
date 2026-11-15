@@ -4,6 +4,11 @@
 	"version": "2.0.0",
 	"description": "Safari web extension that hands downloads to aria2 / aria2-next",
 	"scripts": {
+		"setup": "npm --prefix settings ci",
+		"dev": "npm --prefix settings run dev",
+		"dev:ui": "node tests/ui/serve.mjs",
+		"build:debug": "npm --prefix settings run build:debug",
+		"debug:macos": "node scripts/debug-macos.mjs",
 		"test": "node --test tests/unit/*.test.mjs",
 		"test:integration": "node --test tests/integration/*.test.mjs",
 		"build:settings": "npm --prefix settings run build",

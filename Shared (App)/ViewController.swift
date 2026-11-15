@@ -42,6 +42,12 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
 
         self.webView.navigationDelegate = self
 
+#if DEBUG
+        if #available(macOS 13.3, iOS 16.4, *) {
+            self.webView.isInspectable = true
+        }
+#endif
+
 #if os(iOS)
         self.webView.scrollView.isScrollEnabled = false
 #endif

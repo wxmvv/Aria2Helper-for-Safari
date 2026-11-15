@@ -1,0 +1,13 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Settings: Chrome",
+			"type": "pwa-chrome",
+			"request": "launch",
+			"url": "http://127.0.0.1:5173/?lang=zh-CN&seed=configured",
+			"webRoot": "${workspaceFolder}/settings",
+			"preLaunchTask": "Settings: dev server"
+		}
+	]
+}

@@ -66,6 +66,13 @@ the RPC endpoint. The toolbar button opens the popup.
 
 ## Development
 
+Start with `npm run setup`, then `npm run dev` for the settings page with hot reload
+and a mocked extension API at <http://127.0.0.1:5173/>. For native and Safari
+debugging, run `npm run debug:macos`.
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the development commands,
+breakpoints, mock scenarios, signing, and the macOS/iOS debugging workflow.
+
 ```sh
 npm test                    # unit tests (pure core modules)
 ARIA2_RPC=http://127.0.0.1:29100/jsonrpc ARIA2_SECRET=… \

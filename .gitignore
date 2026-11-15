@@ -49,7 +49,7 @@ DerivedData/
 
 !*.xcodeproj/project.pbxproj
 
-!*.xcodeproj/xcshareddat
+!*.xcodeproj/xcshareddata/
 
 !*/xcuserdata/admin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlista/
 
@@ -139,6 +139,8 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 .idea
 .DS_Store
 *.suo

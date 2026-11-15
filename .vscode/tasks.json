@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Settings: dev server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "vite",
+				"pattern": { "regexp": "^$" },
+				"background": { "activeOnStart": true, "beginsPattern": "vite", "endsPattern": "Local:.*5173" }
+			}
+		},
+		{ "label": "macOS: debug build", "type": "shell", "command": "npm run debug:macos", "problemMatcher": [], "group": "build" },
+		{ "label": "Tests: unit", "type": "shell", "command": "npm test", "problemMatcher": [], "group": "test" }
+	]
+}
