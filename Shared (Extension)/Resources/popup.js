@@ -732,7 +732,7 @@
 			}
 			try {
 				const base64 = await readFileAsBase64(file);
-				const entry = { name: file.name, size: file.size, kind, base64, inspection: null, selected: null };
+				const entry = { id: util.randomId(), name: file.name, size: file.size, kind, base64, inspection: null, selected: null };
 				if (kind === "torrent") {
 					const response = await messaging.send({ api: "torrent.inspect", file: base64 }, { timeoutMs: 15000 });
 					if (response.ok) {
@@ -872,16 +872,18 @@
 					const all = entry.inspection ? entry.inspection.files.length : 0;
 					const needSelection = all > 0 && entry.selected.size < all;
 					items.push({
+						id: entry.id,
 						kind: "torrent",
 						name: entry.name,
 						file: entry.base64,
 						extra: needSelection ? { selectFile: spec } : {},
 					});
 				} else {
-					items.push({ kind: "metalink", name: entry.name, file: entry.base64, extra: {} });
+					items.push({ id: entry.id, kind: "metalink", name: entry.name, file: entry.base64, extra: {} });
 				}
 			}
-			for (const uri of uris) items.push({ kind: "uri", url: uri, extra: {} });
+			const uriItems = uris.map((uri) => ({ id: util.randomId(), kind: "uri", url: uri, extra: {} }));
+			items.push(...uriItems);
 
 			if (!items.length) {
 				showNotification(tr("no_files_selected", "No files selected"), "warning");
@@ -902,9 +904,9 @@
 			if (failed.length) {
 				// Keep only what still needs a retry, otherwise pressing Add again
 				// would queue the already-added downloads a second time.
-				const addedNames = new Set(added.map((item) => item.name));
-				dialogState.files = dialogState.files.filter((entry) => !addedNames.has(entry.name));
-				textarea.value = uris.filter((uri) => !addedNames.has(uri)).join("\n");
+				const completedIds = new Set(added.concat(skipped).map((item) => item.id));
+				dialogState.files = dialogState.files.filter((entry) => !completedIds.has(entry.id));
+				textarea.value = uriItems.filter((item) => !completedIds.has(item.id)).map((item) => item.url).join("\n");
 				renderFileList(fileList);
 				for (const failure of failed) {
 					const row = document.createElement("div");

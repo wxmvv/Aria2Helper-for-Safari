@@ -76,6 +76,9 @@ export async function popupPage(tasks = []) {
 	vm.runInNewContext(fs.readFileSync(path.join(resourcesDir(), "popup.js"), "utf8"), {
 		window: { Aria2Helper: core, addEventListener() {} }, document, navigator: { userAgent: "Macintosh", maxTouchPoints: 0 }, location: { hash: "" },
 		setTimeout: () => 1, clearTimeout() {}, setInterval(callback) { poll = callback; return 1; }, clearInterval() {}, console,
+		FileReader: class {
+			readAsDataURL(file) { this.result = `data:application/octet-stream;base64,${file.base64}`; this.onload(); }
+		},
 	});
 	await settle();
 	return { document, requests, replies, async refresh(tasks) { currentTasks = tasks; poll(); await settle(); } };

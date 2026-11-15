@@ -184,6 +184,10 @@
 			case "torrent.inspect":
 				return ok(torrentFiles);
 			case "downloads.addBatch":
+				return ok({
+					added: (message.items || []).map((item) => ({ id: item.id, kind: item.kind, name: item.name || item.url || "", gid: gid("e1") })),
+					failed: [], skipped: [],
+				});
 			case "downloads.addUri":
 			case "downloads.addTorrent":
 			case "downloads.addMetalink":

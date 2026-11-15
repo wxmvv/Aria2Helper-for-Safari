@@ -166,17 +166,25 @@
 		const skipped = [];
 		for (const item of items) {
 			if (!item || typeof item !== "object") continue;
+			const id = String(item.id || "");
 			if (item.kind === "uri") {
 				const url = String(item.url || "").trim();
-				if (!url || seen.has(url)) continue;
+				if (!url) continue;
+				if (seen.has(url)) {
+					skipped.push({ id, kind: item.kind, name: url, reason: "duplicate" });
+					continue;
+				}
 				seen.add(url);
 				// The skip list governs automatic link interception, not an explicit paste.
-				prepared.push({ kind: "uri", url, extra: item.extra || {} });
+				prepared.push({ id, kind: "uri", url, extra: item.extra || {} });
 			} else if (item.kind === "torrent" || item.kind === "metalink") {
 				if (!item.file) throw new Error(`Missing ${item.kind} payload`);
-				if (seen.has(item.file)) continue;
+				if (seen.has(item.file)) {
+					skipped.push({ id, kind: item.kind, name: item.name || "", reason: "duplicate" });
+					continue;
+				}
 				seen.add(item.file);
-				prepared.push({ kind: item.kind, file: item.file, name: item.name || "", extra: item.extra || {} });
+				prepared.push({ id, kind: item.kind, file: item.file, name: item.name || "", extra: item.extra || {} });
 			}
 		}
 		const results = await batchLimit(prepared, constants.RPC_MAX_CONCURRENT_ADDS, async (task) => {
@@ -188,8 +196,8 @@
 		const failed = [];
 		results.forEach((result, index) => {
 			const task = prepared[index];
-			if (result.ok) added.push({ kind: task.kind, name: task.name || task.url || "", gid: result.value });
-			else failed.push({ kind: task.kind, name: task.name || task.url || "", error: result.error.message || String(result.error) });
+			if (result.ok) added.push({ id: task.id, kind: task.kind, name: task.name || task.url || "", gid: result.value });
+			else failed.push({ id: task.id, kind: task.kind, name: task.name || task.url || "", error: result.error.message || String(result.error) });
 		});
 		refreshBadgeSoon();
 		return { added, failed, skipped, total: items.length };
