@@ -7,8 +7,9 @@ Send links, import torrents and Metalink files, and control tasks without leavin
 Supports classic aria2, [aria2-next](https://github.com/AnInsomniacy/aria2-next), and compatible
 engines bundled with Rayburst or Motrix.
 
-[App Store](https://apps.apple.com/app/aria2-helper/id6742623503)
-· [Report an issue](https://github.com/wxmvv/Aria2Helper-for-Safari/issues)
+[![Download on the App Store](docs/images/badges/app-store.svg)](https://apps.apple.com/app/aria2-helper/id6742623503)
+
+[Report an issue](https://github.com/wxmvv/Aria2Helper-for-Safari/issues)
 · [Development guide](docs/DEVELOPMENT.md)
 · [Privacy policy](https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/Privacy-Policy)
 

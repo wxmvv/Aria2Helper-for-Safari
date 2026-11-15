@@ -7,8 +7,9 @@
 支持传统 aria2、[aria2-next](https://github.com/AnInsomniacy/aria2-next)，
 以及 Rayburst、Motrix 内置的兼容引擎。
 
-[App Store](https://apps.apple.com/app/aria2-helper/id6742623503)
-· [问题反馈](https://github.com/wxmvv/Aria2Helper-for-Safari/issues)
+[![在 App Store 下载](docs/images/badges/app-store.svg)](https://apps.apple.com/app/aria2-helper/id6742623503)
+
+[问题反馈](https://github.com/wxmvv/Aria2Helper-for-Safari/issues)
 · [开发与调试](docs/DEVELOPMENT.md)
 · [隐私政策](https://github.com/wxmvv/Aria2Helper-for-Safari/wiki/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96)
 
