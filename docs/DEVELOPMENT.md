@@ -66,7 +66,7 @@ Use `PORT=8124 npm run dev:ui` to change its port.
 
 ```sh
 npm run debug:macos
-open build/debug/Build/Products/Debug/Aira2Helper.app
+open build/debug/Build/Products/Debug/Aria2Helper.app
 ```
 
 The command uses ad-hoc signing without a personal development certificate; it is not a distribution build.
@@ -76,7 +76,7 @@ The unsigned-extension option may need enabling again after Safari restarts; men
 - **Settings / popup:** open the extension page and select its Web Inspector from Safari's Develop menu. Keep the popup open while inspecting it.
 - **Background:** select Aria2 Helper under Develop → Web Extension Background Content to inspect `background.js`, Console and Network.
 - **Content script:** inspect the webpage, then select the extension's `content.js` and execution context in the Inspector.
-- **Native container:** open `Aira2Helper.xcodeproj`, select the shared `Aira2Helper (macOS)` scheme and run Debug. Run `npm run build:debug` before Command-R. React changes require rebuilding both the settings bundle and app. Set Swift breakpoints in Xcode.
+- **Native container:** open `Aria2Helper.xcodeproj`, select the shared `Aria2Helper (macOS)` scheme and run Debug. Run `npm run build:debug` before Command-R. React changes require rebuilding both the settings bundle and app. Set Swift breakpoints in Xcode.
 - **Native extension handler:** use Xcode's Debug → Attach to Process, then trigger message handling in `SafariWebExtensionHandler.swift`.
 
 Debug builds keep Swift symbols and disable optimization. On supported systems, the container's WKWebView enables `isInspectable` for Safari inspection; Release does not.
@@ -85,7 +85,7 @@ The extension uses the existing bundle ID and may share configuration with an in
 
 ## iOS debugging
 
-Run `npm run build:debug`, open Xcode, select the shared `Aira2Helper (iOS)` scheme and a simulator, then press Command-R.
+Run `npm run build:debug`, open Xcode, select the shared `Aria2Helper (iOS)` scheme and a simulator, then press Command-R.
 A physical device requires a valid development team/signing configuration for both App and Extension targets, plus device Developer Mode.
 Enable the extension and required website permissions in iOS Safari settings.
 For physical-device web inspection, enable Safari Web Inspector, connect and trust the Mac, then select the device and extension page from Mac Safari's Develop menu.

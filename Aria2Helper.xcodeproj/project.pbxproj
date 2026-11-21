@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C473A53B2D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C473A5452D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C473A53B2D8C36140035F78D /* Aria2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C473A53A2D8C36140035F78D /* Aria2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C473A5452D8C36140035F78D /* Aria2Helper Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C473A5442D8C36140035F78D /* Aria2Helper Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4A2C0DF2D8C36140035F78D /* common in Resources */ = {isa = PBXBuildFile; fileRef = C4A2C0DE2D8C36140035F78D /* common */; };
 		C4A2C0E02D8C36140035F78D /* common in Resources */ = {isa = PBXBuildFile; fileRef = C4A2C0DE2D8C36140035F78D /* common */; };
 /* End PBXBuildFile section */
@@ -19,14 +19,14 @@
 			containerPortal = C473A5002D8C36130035F78D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C473A5392D8C36140035F78D;
-			remoteInfo = "Aira2Helper Extension (iOS)";
+			remoteInfo = "Aria2Helper Extension (iOS)";
 		};
 		C473A5462D8C36140035F78D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C473A5002D8C36130035F78D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = C473A5432D8C36140035F78D;
-			remoteInfo = "Aira2Helper Extension (macOS)";
+			remoteInfo = "Aria2Helper Extension (macOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -37,7 +37,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C473A53B2D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */,
+				C473A53B2D8C36140035F78D /* Aria2Helper Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,7 +48,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C473A5452D8C36140035F78D /* Aira2Helper Extension.appex in Embed Foundation Extensions */,
+				C473A5452D8C36140035F78D /* Aria2Helper Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,15 +56,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C473A51C2D8C36140035F78D /* Aira2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aira2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C473A52E2D8C36140035F78D /* Aira2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aira2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aira2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aira2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A51C2D8C36140035F78D /* Aria2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aria2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A52E2D8C36140035F78D /* Aria2Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aria2Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A53A2D8C36140035F78D /* Aria2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aria2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C473A5442D8C36140035F78D /* Aria2Helper Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Aria2Helper Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A2C0DE2D8C36140035F78D /* common */ = {isa = PBXFileReference; lastKnownFileType = folder; name = common; path = "Shared (Extension)/Resources/common"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C473A5692D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (iOS)" target */ = {
+		C473A5692D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aria2Helper (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
@@ -74,23 +74,23 @@
 				Resources/Style.css,
 				ViewController.swift,
 			);
-			target = C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */;
+			target = C473A51B2D8C36140035F78D /* Aria2Helper (iOS) */;
 		};
-		C473A56D2D8C36140035F78D /* Exceptions for "iOS (Extension)" folder in "Aira2Helper Extension (iOS)" target */ = {
+		C473A56D2D8C36140035F78D /* Exceptions for "iOS (Extension)" folder in "Aria2Helper Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */;
+			target = C473A5392D8C36140035F78D /* Aria2Helper Extension (iOS) */;
 		};
-		C473A5722D8C36140035F78D /* Exceptions for "iOS (App)" folder in "Aira2Helper (iOS)" target */ = {
+		C473A5722D8C36140035F78D /* Exceptions for "iOS (App)" folder in "Aria2Helper (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */;
+			target = C473A51B2D8C36140035F78D /* Aria2Helper (iOS) */;
 		};
-		C473A5732D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (macOS)" target */ = {
+		C473A5732D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aria2Helper (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Resources/Main.html",
@@ -100,16 +100,16 @@
 				Resources/Style.css,
 				ViewController.swift,
 			);
-			target = C473A52D2D8C36140035F78D /* Aira2Helper (macOS) */;
+			target = C473A52D2D8C36140035F78D /* Aria2Helper (macOS) */;
 		};
-		C473A5772D8C36140035F78D /* Exceptions for "macOS (Extension)" folder in "Aira2Helper Extension (macOS)" target */ = {
+		C473A5772D8C36140035F78D /* Exceptions for "macOS (Extension)" folder in "Aria2Helper Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */;
+			target = C473A5432D8C36140035F78D /* Aria2Helper Extension (macOS) */;
 		};
-		C473A57C2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (iOS)" target */ = {
+		C473A57C2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aria2Helper Extension (iOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg",
@@ -128,9 +128,9 @@
 				safari_icon.png,
 				SafariWebExtensionHandler.swift,
 			);
-			target = C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */;
+			target = C473A5392D8C36140035F78D /* Aria2Helper Extension (iOS) */;
 		};
-		C473A57D2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (macOS)" target */ = {
+		C473A57D2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aria2Helper Extension (macOS)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Download_on_the_Mac_App_Store_Badge_US-UK_RGB_blk_092917.svg",
@@ -149,7 +149,7 @@
 				safari_icon.png,
 				SafariWebExtensionHandler.swift,
 			);
-			target = C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */;
+			target = C473A5432D8C36140035F78D /* Aria2Helper Extension (macOS) */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -157,8 +157,8 @@
 		C473A5042D8C36130035F78D /* Shared (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C473A5692D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (iOS)" target */,
-				C473A5732D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aira2Helper (macOS)" target */,
+				C473A5692D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aria2Helper (iOS)" target */,
+				C473A5732D8C36140035F78D /* Exceptions for "Shared (App)" folder in "Aria2Helper (macOS)" target */,
 			);
 			path = "Shared (App)";
 			sourceTree = "<group>";
@@ -166,8 +166,8 @@
 		C473A50D2D8C36140035F78D /* Shared (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C473A57C2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (iOS)" target */,
-				C473A57D2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aira2Helper Extension (macOS)" target */,
+				C473A57C2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aria2Helper Extension (iOS)" target */,
+				C473A57D2D8C36140035F78D /* Exceptions for "Shared (Extension)" folder in "Aria2Helper Extension (macOS)" target */,
 			);
 			explicitFolders = (
 				Resources/_locales,
@@ -180,7 +180,7 @@
 		C473A51E2D8C36140035F78D /* iOS (App) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C473A5722D8C36140035F78D /* Exceptions for "iOS (App)" folder in "Aira2Helper (iOS)" target */,
+				C473A5722D8C36140035F78D /* Exceptions for "iOS (App)" folder in "Aria2Helper (iOS)" target */,
 			);
 			path = "iOS (App)";
 			sourceTree = "<group>";
@@ -193,7 +193,7 @@
 		C473A53E2D8C36140035F78D /* iOS (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C473A56D2D8C36140035F78D /* Exceptions for "iOS (Extension)" folder in "Aira2Helper Extension (iOS)" target */,
+				C473A56D2D8C36140035F78D /* Exceptions for "iOS (Extension)" folder in "Aria2Helper Extension (iOS)" target */,
 			);
 			path = "iOS (Extension)";
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 		C473A5482D8C36140035F78D /* macOS (Extension) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C473A5772D8C36140035F78D /* Exceptions for "macOS (Extension)" folder in "Aira2Helper Extension (macOS)" target */,
+				C473A5772D8C36140035F78D /* Exceptions for "macOS (Extension)" folder in "Aria2Helper Extension (macOS)" target */,
 			);
 			path = "macOS (Extension)";
 			sourceTree = "<group>";
@@ -256,10 +256,10 @@
 		C473A51D2D8C36140035F78D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C473A51C2D8C36140035F78D /* Aira2Helper.app */,
-				C473A52E2D8C36140035F78D /* Aira2Helper.app */,
-				C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */,
-				C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */,
+				C473A51C2D8C36140035F78D /* Aria2Helper.app */,
+				C473A52E2D8C36140035F78D /* Aria2Helper.app */,
+				C473A53A2D8C36140035F78D /* Aria2Helper Extension.appex */,
+				C473A5442D8C36140035F78D /* Aria2Helper Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -267,9 +267,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */ = {
+		C473A51B2D8C36140035F78D /* Aria2Helper (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C473A56F2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (iOS)" */;
+			buildConfigurationList = C473A56F2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper (iOS)" */;
 			buildPhases = (
 				C473A5182D8C36140035F78D /* Sources */,
 				C473A5192D8C36140035F78D /* Frameworks */,
@@ -284,16 +284,16 @@
 			fileSystemSynchronizedGroups = (
 				C473A51E2D8C36140035F78D /* iOS (App) */,
 			);
-			name = "Aira2Helper (iOS)";
+			name = "Aria2Helper (iOS)";
 			packageProductDependencies = (
 			);
-			productName = "Aira2Helper (iOS)";
-			productReference = C473A51C2D8C36140035F78D /* Aira2Helper.app */;
+			productName = "Aria2Helper (iOS)";
+			productReference = C473A51C2D8C36140035F78D /* Aria2Helper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C473A52D2D8C36140035F78D /* Aira2Helper (macOS) */ = {
+		C473A52D2D8C36140035F78D /* Aria2Helper (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C473A5792D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (macOS)" */;
+			buildConfigurationList = C473A5792D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper (macOS)" */;
 			buildPhases = (
 				C473A52A2D8C36140035F78D /* Sources */,
 				C473A52B2D8C36140035F78D /* Frameworks */,
@@ -308,16 +308,16 @@
 			fileSystemSynchronizedGroups = (
 				C473A52F2D8C36140035F78D /* macOS (App) */,
 			);
-			name = "Aira2Helper (macOS)";
+			name = "Aria2Helper (macOS)";
 			packageProductDependencies = (
 			);
-			productName = "Aira2Helper (macOS)";
-			productReference = C473A52E2D8C36140035F78D /* Aira2Helper.app */;
+			productName = "Aria2Helper (macOS)";
+			productReference = C473A52E2D8C36140035F78D /* Aria2Helper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */ = {
+		C473A5392D8C36140035F78D /* Aria2Helper Extension (iOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C473A56A2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (iOS)" */;
+			buildConfigurationList = C473A56A2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper Extension (iOS)" */;
 			buildPhases = (
 				C473A5362D8C36140035F78D /* Sources */,
 				C473A5372D8C36140035F78D /* Frameworks */,
@@ -330,16 +330,16 @@
 			fileSystemSynchronizedGroups = (
 				C473A53E2D8C36140035F78D /* iOS (Extension) */,
 			);
-			name = "Aira2Helper Extension (iOS)";
+			name = "Aria2Helper Extension (iOS)";
 			packageProductDependencies = (
 			);
-			productName = "Aira2Helper Extension (iOS)";
-			productReference = C473A53A2D8C36140035F78D /* Aira2Helper Extension.appex */;
+			productName = "Aria2Helper Extension (iOS)";
+			productReference = C473A53A2D8C36140035F78D /* Aria2Helper Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */ = {
+		C473A5432D8C36140035F78D /* Aria2Helper Extension (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C473A5742D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (macOS)" */;
+			buildConfigurationList = C473A5742D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper Extension (macOS)" */;
 			buildPhases = (
 				C473A5402D8C36140035F78D /* Sources */,
 				C473A5412D8C36140035F78D /* Frameworks */,
@@ -352,11 +352,11 @@
 			fileSystemSynchronizedGroups = (
 				C473A5482D8C36140035F78D /* macOS (Extension) */,
 			);
-			name = "Aira2Helper Extension (macOS)";
+			name = "Aria2Helper Extension (macOS)";
 			packageProductDependencies = (
 			);
-			productName = "Aira2Helper Extension (macOS)";
-			productReference = C473A5442D8C36140035F78D /* Aira2Helper Extension.appex */;
+			productName = "Aria2Helper Extension (macOS)";
+			productReference = C473A5442D8C36140035F78D /* Aria2Helper Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -383,7 +383,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C473A5032D8C36130035F78D /* Build configuration list for PBXProject "Aira2Helper" */;
+			buildConfigurationList = C473A5032D8C36130035F78D /* Build configuration list for PBXProject "Aria2Helper" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -397,10 +397,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C473A51B2D8C36140035F78D /* Aira2Helper (iOS) */,
-				C473A52D2D8C36140035F78D /* Aira2Helper (macOS) */,
-				C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */,
-				C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */,
+				C473A51B2D8C36140035F78D /* Aria2Helper (iOS) */,
+				C473A52D2D8C36140035F78D /* Aria2Helper (macOS) */,
+				C473A5392D8C36140035F78D /* Aria2Helper Extension (iOS) */,
+				C473A5432D8C36140035F78D /* Aria2Helper Extension (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -472,12 +472,12 @@
 /* Begin PBXTargetDependency section */
 		C473A53D2D8C36140035F78D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C473A5392D8C36140035F78D /* Aira2Helper Extension (iOS) */;
+			target = C473A5392D8C36140035F78D /* Aria2Helper Extension (iOS) */;
 			targetProxy = C473A53C2D8C36140035F78D /* PBXContainerItemProxy */;
 		};
 		C473A5472D8C36140035F78D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C473A5432D8C36140035F78D /* Aira2Helper Extension (macOS) */;
+			target = C473A5432D8C36140035F78D /* Aria2Helper Extension (macOS) */;
 			targetProxy = C473A5462D8C36140035F78D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -491,7 +491,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aria2Helper Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -505,7 +505,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
-				PRODUCT_NAME = "Aira2Helper Extension";
+				PRODUCT_NAME = "Aria2Helper Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -525,7 +525,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aria2Helper Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -539,7 +539,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
-				PRODUCT_NAME = "Aira2Helper Extension";
+				PRODUCT_NAME = "Aria2Helper Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -562,7 +562,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_CFBundleDisplayName = Aria2Helper;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -582,7 +582,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
-				PRODUCT_NAME = Aira2Helper;
+				PRODUCT_NAME = Aria2Helper;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -603,7 +603,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_CFBundleDisplayName = Aria2Helper;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -623,7 +623,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
-				PRODUCT_NAME = Aira2Helper;
+				PRODUCT_NAME = Aria2Helper;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -638,7 +638,7 @@
 		C473A5752D8C36140035F78D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Aira2Helper.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Aria2Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 31;
 				DEAD_CODE_STRIPPING = YES;
@@ -646,7 +646,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aria2Helper Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -660,7 +660,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
-				PRODUCT_NAME = "Aira2Helper Extension";
+				PRODUCT_NAME = "Aria2Helper Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -671,7 +671,7 @@
 		C473A5762D8C36140035F78D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Aira2Helper.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Aria2Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 31;
 				DEAD_CODE_STRIPPING = YES;
@@ -679,7 +679,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Aira2Helper Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Aria2Helper Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -693,7 +693,7 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper.Extension;
-				PRODUCT_NAME = "Aira2Helper Extension";
+				PRODUCT_NAME = "Aria2Helper Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -706,14 +706,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Aira2Helper.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Aria2Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 31;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_CFBundleDisplayName = Aria2Helper;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -730,7 +730,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
-				PRODUCT_NAME = Aira2Helper;
+				PRODUCT_NAME = Aria2Helper;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -742,14 +742,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Aira2Helper.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Aria2Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 31;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_CFBundleDisplayName = Aira2Helper;
+				INFOPLIST_KEY_CFBundleDisplayName = Aria2Helper;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -766,7 +766,7 @@
 					WebKit,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.wxmvv.Aira2Helper;
-				PRODUCT_NAME = Aira2Helper;
+				PRODUCT_NAME = Aria2Helper;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -898,7 +898,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C473A5032D8C36130035F78D /* Build configuration list for PBXProject "Aira2Helper" */ = {
+		C473A5032D8C36130035F78D /* Build configuration list for PBXProject "Aria2Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C473A57E2D8C36140035F78D /* Debug */,
@@ -907,7 +907,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C473A56A2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (iOS)" */ = {
+		C473A56A2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper Extension (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C473A56B2D8C36140035F78D /* Debug */,
@@ -916,7 +916,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C473A56F2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (iOS)" */ = {
+		C473A56F2D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper (iOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C473A5702D8C36140035F78D /* Debug */,
@@ -925,7 +925,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C473A5742D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper Extension (macOS)" */ = {
+		C473A5742D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper Extension (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C473A5752D8C36140035F78D /* Debug */,
@@ -934,7 +934,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C473A5792D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aira2Helper (macOS)" */ = {
+		C473A5792D8C36140035F78D /* Build configuration list for PBXNativeTarget "Aria2Helper (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C473A57A2D8C36140035F78D /* Debug */,

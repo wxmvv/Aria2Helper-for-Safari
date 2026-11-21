@@ -11,19 +11,19 @@
 		"message": "使用Aria2下载"
 	},
 	"Download_link_with_Aria2": {
-		"message": "使用Aira2下载链接"
+		"message": "使用aria2下载链接"
 	},
 	"Download_selection_with_Aria2": {
-		"message": "使用Aira2下载选中内容"
+		"message": "使用aria2下载选中内容"
 	},
 	"Download_image_with_Aria2": {
 		"message": "使用Aria2下载图片"
 	},
 	"Download_video_with_Aria2": {
-		"message": "使用Aira2下载视频"
+		"message": "使用aria2下载视频"
 	},
 	"Download_audio_with_Aria2": {
-		"message": "使用Aira2下载音频"
+		"message": "使用aria2下载音频"
 	},
 	"active": {
 		"message": "下载中"
@@ -104,7 +104,7 @@
 		"message": "打开文件"
 	},
 	"please_connect_first": {
-		"message": "请先连接到Aira2"
+		"message": "请先连接到aria2"
 	},
 	"please_input_url_or_filepath": {
 		"message": "请输入URL或文件路径"
@@ -263,7 +263,7 @@
 		"message": "关于"
 	},
 	"aria2_settings": {
-		"message": "Aira2设置"
+		"message": "aria2设置"
 	},
 	"dir_--dir": {
 		"message": "下载目录 --dir"

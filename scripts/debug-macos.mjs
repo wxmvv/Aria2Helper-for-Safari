@@ -10,10 +10,10 @@ function run(command, args) {
 
 run("npm", ["run", "build:debug"]);
 run("xcodebuild", [
-	"-project", "Aira2Helper.xcodeproj", "-scheme", "Aira2Helper (macOS)",
+	"-project", "Aria2Helper.xcodeproj", "-scheme", "Aria2Helper (macOS)",
 	"-configuration", "Debug", "-destination", "platform=macOS",
 	"-derivedDataPath", "build/debug", "CODE_SIGN_IDENTITY=-",
 	"CODE_SIGNING_ALLOWED=YES", "CODE_SIGNING_REQUIRED=NO", "CODE_SIGN_STYLE=Manual", "build",
 ]);
-console.log("\nDebug app: build/debug/Build/Products/Debug/Aira2Helper.app");
-console.log("Open with: open build/debug/Build/Products/Debug/Aira2Helper.app");
+console.log("\nDebug app: build/debug/Build/Products/Debug/Aria2Helper.app");
+console.log("Open with: open build/debug/Build/Products/Debug/Aria2Helper.app");

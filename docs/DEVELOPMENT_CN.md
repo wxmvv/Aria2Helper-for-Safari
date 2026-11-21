@@ -66,7 +66,7 @@ npm run dev:ui
 
 ```sh
 npm run debug:macos
-open build/debug/Build/Products/Debug/Aira2Helper.app
+open build/debug/Build/Products/Debug/Aria2Helper.app
 ```
 
 命令行使用 ad-hoc 临时签名，无需个人开发证书；这不是分发签名。
@@ -77,7 +77,7 @@ Safari 若拒绝本地扩展，先在 Safari 设置中开启开发者功能，
 - **设置页 / popup**：打开对应扩展页面，再从 Safari“开发”菜单选择该页面的 Web Inspector。popup 需保持打开。
 - **后台**：从“开发 → Web 扩展后台内容”选择 Aria2Helper，检查 `background.js` 的断点、Console 和 Network。
 - **内容脚本**：检查被拦截网页，在 Inspector 的资源/脚本中选择扩展的 `content.js` 和对应执行上下文。
-- **原生容器**：`open Aira2Helper.xcodeproj`，选择共享的 `Aira2Helper (macOS)` scheme，Run 使用 Debug。先执行 `npm run build:debug`，再 ⌘R；修改 React 后也需要重新打包设置页并重建 App。Swift 断点在 Xcode 中设置。
+- **原生容器**：`open Aria2Helper.xcodeproj`，选择共享的 `Aria2Helper (macOS)` scheme，Run 使用 Debug。先执行 `npm run build:debug`，再 ⌘R；修改 React 后也需要重新打包设置页并重建 App。Swift 断点在 Xcode 中设置。
 - **原生扩展处理器**：在 Xcode 使用“Debug → Attach to Process”附加扩展进程，再触发 `SafariWebExtensionHandler.swift` 中的消息处理。
 
 Debug 构建保留 Swift 符号并禁用优化；容器的 WKWebView 在受支持系统上开启 `isInspectable`，
@@ -87,7 +87,7 @@ Debug 构建保留 Swift 符号并禁用优化；容器的 WKWebView 在受支�
 
 ## iOS 调试
 
-先运行 `npm run build:debug`，打开 Xcode，选择共享的 `Aira2Helper (iOS)` scheme 和模拟器，⌘R。
+先运行 `npm run build:debug`，打开 Xcode，选择共享的 `Aria2Helper (iOS)` scheme 和模拟器，⌘R。
 真机需在 App 和 Extension 两个 target 配置可用的开发团队/签名，启用设备开发者模式。
 在 iOS Safari 设置中启用扩展与所需网站权限。真机 Web 调试还需开启 Safari 的 Web Inspector，
 连接并信任 Mac 后，从 Mac Safari 的开发菜单选择设备及扩展页面。

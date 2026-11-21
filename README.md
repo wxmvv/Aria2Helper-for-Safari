@@ -83,7 +83,7 @@ npm run build:settings # production settings bundle
 ```
 
 Development pages use example data. Test actual permissions and downloads in Safari.
-The internal Xcode product name is `Aira2Helper`; the App Store name is **Aria2 Helper**.
+The internal Xcode product name is `Aria2Helper`; the App Store name is **Aria2 Helper**.
 
 - [Development and debugging](docs/DEVELOPMENT.md): Xcode signing, Safari Web Inspector and iOS testing.
 - [Architecture](docs/ARCHITECTURE.md): RPC, storage and extension messages.

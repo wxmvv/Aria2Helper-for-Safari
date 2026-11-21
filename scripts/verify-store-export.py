@@ -38,10 +38,10 @@ def check_quarantine(folder, remove=False):
 
 def verify(platform):
     version = json.loads((ROOT / 'package.json').read_text())['version']
-    project = (ROOT / 'Aira2Helper.xcodeproj/project.pbxproj').read_text()
+    project = (ROOT / 'Aria2Helper.xcodeproj/project.pbxproj').read_text()
     build = re.search(r'CURRENT_PROJECT_VERSION = (\d+);', project).group(1)
     output = ROOT / 'build/appstore' / f'{version}-{build}'
-    artifact = output / f'export-{platform}' / ('Aira2Helper.pkg' if platform == 'macos' else 'Aira2Helper.ipa')
+    artifact = output / f'export-{platform}' / ('Aria2Helper.pkg' if platform == 'macos' else 'Aria2Helper.ipa')
     assert artifact.is_file(), f'Missing artifact: {artifact}'
     if platform == 'macos':
         signature = run('pkgutil', '--check-signature', str(artifact)).decode()
@@ -51,16 +51,16 @@ def verify(platform):
         extracted = pathlib.Path(folder) / 'contents'
         if platform == 'macos':
             run('pkgutil', '--expand-full', str(artifact), str(extracted))
-            matches = list(extracted.rglob('Aira2Helper.app'))
+            matches = list(extracted.rglob('Aria2Helper.app'))
             assert len(matches) == 1, 'Expected one app inside the installer'
             app = matches[0]
         else:
             run('ditto', '-x', '-k', str(artifact), str(extracted))
-            app = extracted / 'Payload/Aira2Helper.app'
+            app = extracted / 'Payload/Aria2Helper.app'
         check_quarantine(extracted)
         mac = platform == 'macos'
         contents = app / 'Contents' if mac else app
-        ext = contents / 'PlugIns/Aira2Helper Extension.appex'
+        ext = contents / 'PlugIns/Aria2Helper Extension.appex'
         ext_contents = ext / 'Contents' if mac else ext
         for bundle, identifier in [(contents, 'cc.wxmvv.Aira2Helper'), (ext_contents, 'cc.wxmvv.Aira2Helper.Extension')]:
             info = read_plist(bundle / 'Info.plist')

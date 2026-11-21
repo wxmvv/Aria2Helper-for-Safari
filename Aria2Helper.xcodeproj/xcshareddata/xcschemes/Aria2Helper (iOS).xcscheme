@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "2700"
+   LastUpgradeVersion = "2720"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C473A52D2D8C36140035F78D"
-               BuildableName = "Aira2Helper.app"
-               ReferencedContainer = "container:Aira2Helper.xcodeproj">
+               BlueprintIdentifier = "C473A51B2D8C36140035F78D"
+               BuildableName = "Aria2Helper.app"
+               ReferencedContainer = "container:Aria2Helper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C473A52D2D8C36140035F78D"
-            BuildableName = "Aira2Helper.app"
-            ReferencedContainer = "container:Aira2Helper.xcodeproj">
+            BlueprintIdentifier = "C473A51B2D8C36140035F78D"
+            BuildableName = "Aria2Helper.app"
+            ReferencedContainer = "container:Aria2Helper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -60,9 +60,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C473A52D2D8C36140035F78D"
-            BuildableName = "Aira2Helper.app"
-            ReferencedContainer = "container:Aira2Helper.xcodeproj">
+            BlueprintIdentifier = "C473A51B2D8C36140035F78D"
+            BuildableName = "Aria2Helper.app"
+            ReferencedContainer = "container:Aria2Helper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

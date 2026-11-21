@@ -20,7 +20,7 @@ function check() {
 	const version = json("package.json").version;
 	assert.equal(json("settings/package.json").version, version, "settings version differs");
 	assert.equal(json("Shared (Extension)/Resources/manifest.json").version, version, "extension version differs");
-	const project = read("Aira2Helper.xcodeproj/project.pbxproj");
+	const project = read("Aria2Helper.xcodeproj/project.pbxproj");
 	const nativeVersions = [...project.matchAll(/MARKETING_VERSION = ([0-9.]+);/g)].map((m) => m[1]);
 	assert.equal(nativeVersions.length, 8, "expected Debug/Release versions on all four native targets");
 	assert.ok(nativeVersions.every((v) => v === version), "native version differs");
@@ -75,9 +75,9 @@ try {
 	if (action !== "check") {
 		const platformName = platform === "ios" ? "iOS" : "macOS";
 		const output = path.join(root, "build/appstore", `${version}-${build}`);
-		const archive = path.join(output, `Aira2Helper-${platformName}.xcarchive`);
+		const archive = path.join(output, `Aria2Helper-${platformName}.xcarchive`);
 		if (action === "archive") {
-			run("xcodebuild", ["-project", "Aira2Helper.xcodeproj", "-scheme", `Aira2Helper (${platformName})`,
+			run("xcodebuild", ["-project", "Aria2Helper.xcodeproj", "-scheme", `Aria2Helper (${platformName})`,
 				"-configuration", "Release", "-destination", `generic/platform=${platformName}`,
 				"-derivedDataPath", path.join(root, "build/appstore", `derived-${platform}`),
 				"-archivePath", archive, "archive"]);
@@ -87,15 +87,15 @@ try {
 		} else if (action === "export") {
 			assert.ok(fs.existsSync(archive), `Archive missing: ${archive}`);
 			run("python3", ["scripts/verify-store-export.py", "--remove-quarantine", archive]);
-			run("codesign", ["--verify", "--deep", "--strict", path.join(archive, "Products/Applications/Aira2Helper.app")]);
+			run("codesign", ["--verify", "--deep", "--strict", path.join(archive, "Products/Applications/Aria2Helper.app")]);
 			run("xcodebuild", ["-exportArchive", "-archivePath", archive, "-exportOptionsPlist", path.join(root, "release/ExportOptions.plist"), "-exportPath", path.join(output, `export-${platform}`), ...(options.includes("--allow-provisioning-updates") ? ["-allowProvisioningUpdates"] : [])]);
 			run("python3", ["scripts/verify-store-export.py", platform]);
 		} else {
 			run("python3", ["scripts/verify-store-export.py", "--check-quarantine", archive]);
-			const app = path.join(archive, "Products/Applications/Aira2Helper.app");
+			const app = path.join(archive, "Products/Applications/Aria2Helper.app");
 			const mac = platform === "macos";
 			const contents = mac ? path.join(app, "Contents") : app;
-			const extension = path.join(contents, "PlugIns/Aira2Helper Extension.appex");
+			const extension = path.join(contents, "PlugIns/Aria2Helper Extension.appex");
 			const extContents = mac ? path.join(extension, "Contents") : extension;
 			const resources = mac ? path.join(extContents, "Resources") : extContents;
 			for (const bundle of [contents, extContents]) {

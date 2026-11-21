@@ -33,12 +33,12 @@ npm run release:export -- macos --allow-provisioning-updates
 
 ## 产物
 
-归档和导出位于 `build/appstore/2.0.0-31/`，由 Git 忽略：
+当前发布脚本生成的归档和导出位于 `build/appstore/<version>-<build>/`，由 Git 忽略。已提交的 2.0.0（31）产物名称和校验值见 [STATUS.md](STATUS.md)。
 
-- `Aira2Helper-macOS.xcarchive`：macOS Release 归档，arm64 + x86_64。
-- `Aira2Helper-iOS.xcarchive`：iOS 真机 Release 归档，arm64。
-- `export-macos/Aira2Helper.pkg`：App Store 分发导出的 macOS 安装包。
-- `export-ios/Aira2Helper.ipa`：App Store 分发导出的 iOS 包。
+- `Aria2Helper-macOS.xcarchive`：macOS Release 归档，arm64 + x86_64。
+- `Aria2Helper-iOS.xcarchive`：iOS 真机 Release 归档，arm64。
+- `export-macos/Aria2Helper.pkg`：App Store 分发导出的 macOS 安装包。
+- `export-ios/Aria2Helper.ipa`：App Store 分发导出的 iOS 包。
 - `validation-macos.json`、`validation-ios.json`：本地归档核对记录，包含源提交和是否有未提交改动。
 - `smoke-iphone-final.png`：模拟器真实启动页检查记录；正式商店截图仍需展示 Safari 内的主要功能。
 
@@ -46,7 +46,7 @@ npm run release:export -- macos --allow-provisioning-updates
 
 ## 版本与配置
 
-- App Store 名称：沿用 **Aria2 Helper**；内部产品名 **Aira2Helper** 和 bundle ID 不改名。
+- App Store 名称为 **Aria2 Helper**，Xcode 产品名为 **Aria2Helper**。以下 bundle ID 沿用现有应用记录。
 - App bundle ID：`cc.wxmvv.Aira2Helper`。
 - Extension bundle ID：`cc.wxmvv.Aira2Helper.Extension`。
 - Developer Team：`DSHX4V92NH`。

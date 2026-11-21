@@ -75,7 +75,7 @@ npm run build:settings # 正式设置页构建
 ```
 
 开发预览使用示例数据；真实权限与下载行为需要在 Safari 中验证。
-Xcode 内部产品名为 `Aira2Helper`，App Store 名称为 **Aria2 Helper**。
+Xcode 内部产品名为 `Aria2Helper`，App Store 名称为 **Aria2 Helper**。
 
 - [开发与调试](docs/DEVELOPMENT_CN.md)：Xcode 签名、Safari Web Inspector 和 iOS 测试。
 - [项目架构](docs/ARCHITECTURE.md)：RPC、存储与扩展消息。
